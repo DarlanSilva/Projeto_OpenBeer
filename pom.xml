@@ -12,7 +12,7 @@
 	<artifactId>OpenBeer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OpenBeer</name>
-	<description>Demo project for Spring Boot</description>
+	<description>PI-IV projeto eCommerce 4°Semestre Senac </description>
 
 	<properties>
 		<java.version>1.8</java.version>
