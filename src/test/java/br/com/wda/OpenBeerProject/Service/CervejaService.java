@@ -9,6 +9,6 @@ package br.com.wda.OpenBeerProject.Service;
  *
  * @author Darlan Silva
  */
-public class ProducoService {
+public class CervejaService {
     
 }

@@ -9,6 +9,6 @@ package br.com.wda.OpenBeerProject.Repository;
  *
  * @author Darlan Silva
  */
-public interface IProduto {
+public interface ICerveja {
     
 }

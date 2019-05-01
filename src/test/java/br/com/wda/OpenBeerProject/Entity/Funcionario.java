@@ -4,6 +4,6 @@ package br.com.wda.OpenBeerProject.Entity;
  *
  * @author Darlan Silva
  */
-public class Carrinho {
+public class Funcionario {
     
 }
