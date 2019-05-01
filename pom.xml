@@ -12,7 +12,7 @@
     <artifactId>OpenBeerProject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>OpenBeerProject</name>
-    <description>PI-IV projeto eCommerce 4°Semestre Senac </description>
+    <description>PI-IV projeto eCommerce 4°Semestre Senac</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
