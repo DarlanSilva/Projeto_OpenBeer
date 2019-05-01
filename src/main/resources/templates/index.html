@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Open Beer</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     
@@ -57,7 +57,7 @@
      </div><!--login-register-->
       <div class="call">
           <div class="call-title">
-              <img src="img/title-img.png" alt="">
+              <img th:src="@{/img/title-img.png}" alt="">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non sem sapien. Sed volutpat diam enim, vel faucibus quam mattis et. Phasellus elit magna, vulputate at dolor suscipit, venenatis tincidunt ante. Mauris auctor finibus justo ut luctus. Sed a sodales leo. Quisque ullamcorper ligula tellus, in posuere eros semper a.</p>
               <button>Saiba Mais</button>
           </div><!--call-title-->
@@ -71,7 +71,7 @@
        <div class="wrap-background">
            <div class="wrap-sub-universe">
             <h2>O maior prazer e alegria em tomar uma cerveja está em descobrir seus sabores</h2>
-            <img src="img/lupulo-icon.png" alt="">
+            <img th:src="@{/img/lupulo-icon.png}" alt="">
             <p>Nos alimentos e bebidas, o sabor vem sempre em primeiro lugar. Para nós da Blondine, além da qualidade e pureza de tudo que fazemos, a criação de sabores originais é a nossa maior habilidade e paixão. Tudo feito com o cuidado artesanal.</p>
            </div><!--wrap-sub-universe-->  
        </div><!--wrap-background-->  
@@ -79,18 +79,18 @@
     <section class="home-produtos">
         <div class="wrap-home-produtos">
             <div class="image-home-produto">
-                <img src="img/beer-artesanal.png" alt="">
+                <img th:src="@{/img/beer-artesanal.png}" alt="">
             </div><!--image-home-produto-->
             <div class="home-desc-produto">
                 <h2>CERVEJA TUPINIQUIN</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
-                <a href="produto.html"><button>CONHEÇA O PRODUTO</button></a>
+                <a th:href="@{/produto.html}"><button>CONHEÇA O PRODUTO</button></a>
             </div><!--home-desc-produto-->
         </div><!--wrap-home-produtos-->
         
         <div class="wrap-home-produtos">
             <div class="image-home-produto">
-                <img src="img/tupiniquin-beer.png" alt="">
+                <img th:src="@{/img/tupiniquin-beer.png}" alt="">
             </div><!--image-home-produto-->
             <div class="home-desc-produto">
                 <h2>CERVEJA TUPINIQUIN</h2>
@@ -101,7 +101,7 @@
         
         <div class="wrap-home-produtos">
             <div class="image-home-produto">
-                <img src="img/tupiniquin-beer.png" alt="">
+                <img th:src="@{/img/tupiniquin-beer.png}" alt="">
             </div><!--image-home-produto-->
             <div class="home-desc-produto">
                 <h2>CERVEJA TUPINIQUIN</h2>
