@@ -1,5 +1,8 @@
 package br.com.wda.OpenBeerProject.Repository;
 
+import br.com.wda.OpenBeerProject.Entity.Login;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author Darlan Silva
@@ -7,6 +10,6 @@ package br.com.wda.OpenBeerProject.Repository;
  * @author Alison Souza
  *
  */
-public class LoginRepository {
+public interface LoginRepository extends JpaRepository<Login, Long> {
     
 }

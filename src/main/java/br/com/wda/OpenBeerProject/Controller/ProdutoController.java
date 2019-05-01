@@ -5,10 +5,17 @@
  */
 package br.com.wda.OpenBeerProject.Controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author Darlan Silva
  */
+@Controller
+@RequestMapping ("/produto")
 public class ProdutoController {
+    
+    
     
 }
