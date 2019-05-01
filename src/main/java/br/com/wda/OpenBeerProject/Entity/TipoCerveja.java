@@ -29,7 +29,7 @@ public class TipoCerveja {
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
     
     @Size(min = 1, max = 80, message = "TIPO DA CERVEJA INVÁLIDO.")
     @Column(name = "CERVEJA")
@@ -52,16 +52,16 @@ public class TipoCerveja {
     public TipoCerveja() {
     }
 
-    public TipoCerveja(BigInteger id, String tipoCerveja) {
+    public TipoCerveja(Long id, String tipoCerveja) {
         this.id = id;
         this.tipoCerveja = tipoCerveja;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

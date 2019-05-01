@@ -35,14 +35,14 @@ public class Cerveja implements Serializable {
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
 
     @Size(min = 1, max = 350, message = "NOME DE CERVEJA INVÁLIDO.")
     @Column(name = "CERVEJA")
     private String cerveja;
 
     @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
-    @Column(name = "CERVEJA")
+    @Column(name = "DESCRICAO")
     private String descricao;
 
     @Digits(integer = 13, fraction = 2)
@@ -93,7 +93,7 @@ public class Cerveja implements Serializable {
     public Cerveja() {
     }
 
-    public Cerveja(BigInteger id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
@@ -107,7 +107,7 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Cerveja(BigInteger id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
@@ -123,11 +123,11 @@ public class Cerveja implements Serializable {
         this.idTiposCervejas = idTiposCervejas;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
