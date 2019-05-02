@@ -25,6 +25,7 @@ body, html{
 .wrap-filtro{
     background: #333333;
     color: #ffffff;
+    padding: 10px 0;
 }
 
 .wrap-list{
@@ -44,6 +45,7 @@ body, html{
 
 .list{
     border: 5px solid #eeeeee;
+    border-right: 0;
     flex: 1;
 }
 
@@ -53,6 +55,7 @@ body, html{
     display: inline-block;
     margin-left: -4px;
     border: 5px solid #eeeeee;
+    border-right: 0;
 }
 
 
@@ -168,3 +171,33 @@ body, html{
     text-decoration: none;
     
 }
+
+.wrap-filtro form{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.wrap-filtro form h2{
+    font-size: 14px;
+    font-weight: 100;
+}
+.wrap-filtro form select{
+    padding: 5px;
+    border: 0;
+    outline: none;
+    margin: 0 10px;
+    background: none;
+    color: #ffffff;
+    width: 100px;
+    
+}
+
+.wrap-filtro form select option{
+    color: #ffffff;
+    border: 0;
+    background: #333333;
+    outline: none;
+    
+}
+

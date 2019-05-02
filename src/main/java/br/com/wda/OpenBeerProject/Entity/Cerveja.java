@@ -2,8 +2,7 @@ package br.com.wda.OpenBeerProject.Entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
@@ -62,6 +59,10 @@ public class Cerveja implements Serializable {
     @Column(name = "FORNECEDOR")
     private String fornecedor;
 
+    @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
+    @Column(name = "QUANTIDADE")
+    private int quantidade;
+
     @Digits(integer = 13, fraction = 2)
     @Size(min = 1, message = "CAMPO OBRIGATÓRIO")
     @Column(name = "ML")
@@ -70,13 +71,11 @@ public class Cerveja implements Serializable {
     @Column(name = "TG_INATIVO")
     private int inativo;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DH_INCLUSAO")
-    private Date dhInclusao;
+    @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
+    private LocalDateTime dhInclusao;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DH_ALTERACAO")
-    private Date dhAlteracao;
+    @Column(name = "DH_ALTERACAO", nullable = false, insertable = true, updatable = true)
+    private LocalDateTime dhAlteracao;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -84,16 +83,16 @@ public class Cerveja implements Serializable {
             joinColumns = @JoinColumn(name = "ID_CERVEJA"),
             inverseJoinColumns = @JoinColumn(name = "ID_TIPOCERVEJA")
     )
-    
+
     private Set<TipoCerveja> tipoCerveja;
-    
+
     @Transient
     private Set<Integer> idTiposCervejas;
 
     public Cerveja() {
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
@@ -101,13 +100,14 @@ public class Cerveja implements Serializable {
         this.codigoCerveja = codigoCerveja;
         this.marca = marca;
         this.fornecedor = fornecedor;
+        this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
         this.inativo = inativo;
         this.dhInclusao = dhInclusao;
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, BigDecimal mlCerveja, int inativo, Date dhInclusao, Date dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
@@ -115,6 +115,7 @@ public class Cerveja implements Serializable {
         this.codigoCerveja = codigoCerveja;
         this.marca = marca;
         this.fornecedor = fornecedor;
+        this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
         this.inativo = inativo;
         this.dhInclusao = dhInclusao;
@@ -179,6 +180,14 @@ public class Cerveja implements Serializable {
         this.fornecedor = fornecedor;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public BigDecimal getMlCerveja() {
         return mlCerveja;
     }
@@ -195,19 +204,19 @@ public class Cerveja implements Serializable {
         this.inativo = inativo;
     }
 
-    public Date getDhInclusao() {
+    public LocalDateTime getDhInclusao() {
         return dhInclusao;
     }
 
-    public void setDhInclusao(Date dhInclusao) {
+    public void setDhInclusao(LocalDateTime dhInclusao) {
         this.dhInclusao = dhInclusao;
     }
 
-    public Date getDhAlteracao() {
+    public LocalDateTime getDhAlteracao() {
         return dhAlteracao;
     }
 
-    public void setDhAlteracao(Date dhAlteracao) {
+    public void setDhAlteracao(LocalDateTime dhAlteracao) {
         this.dhAlteracao = dhAlteracao;
     }
 
@@ -226,8 +235,6 @@ public class Cerveja implements Serializable {
     public void setIdTiposCervejas(Set<Integer> idTiposCervejas) {
         this.idTiposCervejas = idTiposCervejas;
     }
-    
-    
 
+    
 }
-

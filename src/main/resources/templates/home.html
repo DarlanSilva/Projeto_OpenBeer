@@ -22,10 +22,11 @@
             </div><!--field-login-->
         </div><!--cadastro-login-->
          <ul>
-             <li><a href="index.html">HOME</a></li>
-             <li><a href="sobre.html">SOBRE</a></li>
-             <li><a href="produtos-lista.html">CERVEJAS</a></li>
-             <li><a href="contato.html">CONTATO</a></li>
+             <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
+             <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+             <li><a th:href="@{/OpenBeer/Cervejas}">CERVEJAS</a></li>
+             <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
+             <li><a th:href="@{/OpenBeer/Manutencao}">MANUTENÇÃO PRODUTO</a></li>
          </ul>
      </nav>
      <div class="login-register" style="display: none">
@@ -84,7 +85,7 @@
             <div class="home-desc-produto">
                 <h2>CERVEJA TUPINIQUIN</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
-                <a th:href="@{/produto.html}"><button>CONHEÇA O PRODUTO</button></a>
+                <a th:href="@{/OpenBeer/Produto}"><button>CONHEÇA O PRODUTO</button></a>
             </div><!--home-desc-produto-->
         </div><!--wrap-home-produtos-->
         

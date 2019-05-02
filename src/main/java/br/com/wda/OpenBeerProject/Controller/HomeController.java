@@ -12,14 +12,38 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Alison Souza
  *
  */
-
 @Controller
 @RequestMapping("/OpenBeer")
 public class HomeController {
-    
+
     @GetMapping("/Home")
-    public ModelAndView adicionarNovo() {
-        return new ModelAndView("/index");
+    public ModelAndView home() {
+        return new ModelAndView("/home");
+    }
+
+    @GetMapping("/Cervejas")
+    public ModelAndView lista() {
+        return new ModelAndView("/produtos-lista");
+    }
+
+    @GetMapping("/Contato")
+    public ModelAndView contado() {
+        return new ModelAndView("/home");
+    }
+
+    @GetMapping("/Sobre")
+    public ModelAndView sobre() {
+        return new ModelAndView("/home");
     }
     
+    @GetMapping("/Produto")
+    public ModelAndView detalhe() {
+        return new ModelAndView("/produto");
+    }
+    
+    @GetMapping("/Manutencao")
+    public ModelAndView manutencao() {
+        return new ModelAndView("/consultar-produto");
+    }
+
 }

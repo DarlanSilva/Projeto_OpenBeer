@@ -1,565 +1,569 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html layout:decorate="~{template}">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Open Beer</title>
-    <link rel="stylesheet" href="css/produto-lista.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <!--<head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" th:href="@{/css/produto-lista.css}">
+        <link rel="stylesheet" href="@{/css/footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    
+    </head>-->
 
-</head>
-
-<body>
-    <section class="produtos">
-        <div class="container">
-            <div class="wrap-produtos">
-                <h1>Aqui você confere nossa variedade de cervejas artesanais.</h1>
-                <h2>Aproveite e escolha a sua :)</h2>
-            </div>
-            <!--wrap-list-->
-        </div>
-        <!--container-->
-    </section>
-    <!--produtos-->
-    <section class="filtro">
-        <div class="container">
-            <div class="wrap-filtro">
-                <h2>FILTROS</h2>
-            </div>
-            <!--wrap-filtro-->
-        </div>
-        <!--container-->
-    </section>
-    <section class="lista-produtos">
-        <div class="container">
-            <div class="wrap-list">
-                <aside class="categorias">
-                    <h2>CATEGORIAS</h2>
-                    <ul class="categories-list">
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                        <li><a href="#">teste</a></li>
-                    </ul><!--categories-list-->
-                </aside>
-                <div class="list">
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
+    <body>
+        <div layout:fragment="conteudo">
+            <section class="produtos">
+                <div class="container">
+                    <div class="wrap-produtos">
+                        <h1>Aqui você confere nossa variedade de cervejas artesanais.</h1>
+                        <h2>Aproveite e escolha a sua :)</h2>
                     </div>
-                    <!--single-product-->
-
-
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-                    
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-
-
-                    <div class="single-product">
-                        <div class="wrap-single-product">
-                            <div class="img-single-product">
-                                <img src="img/tupiniquin-beer.png" alt="" width="130">
-                            </div>
-                            <!--img-single-product-->
-                            <div class="desc-single-product">
-                                <div class="wrap-single-name">
-                                    <div class="desc-single-name">
-                                        <h4>Cerveja Artesanal</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-ml">
-                                        <h4>300ml</h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                                <div class="wrap-single-price">
-                                    <div class="desc-single-price">
-                                        <h4>R$ <span>7,00</span> </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-
-                                    <div class="desc-single-desc">
-                                        <h4>Essa é uma descrição da cerveja artesanal </h4>
-                                    </div>
-                                    <!--desc-single-name-->
-                                </div>
-                                <!--wrap-single-name-->
-                            </div>
-                            <!--desc-single-product-->
-                            
-                            <div class="btn-comprar-list">
-                                <a href="#">COMPRAR</a>
-                            </div><!--btn-comprar-list-->
-                        </div>
-                        <!--wrap-single-product-->
-                    </div>
-                    <!--single-product-->
-
+                    <!--wrap-list-->
                 </div>
-                <!--list-->
-            </div>
-            <!--wrap-list-->
+                <!--container-->
+            </section>
+            <!--produtos-->
+            <section class="filtro">
+                <div class="container">
+                    <div class="wrap-filtro">
+                        <h2>FILTROS</h2>
+                    </div>
+                    <!--wrap-filtro-->
+                </div>
+                <!--container-->
+            </section>
+            <section class="lista-produtos">
+                <div class="container">
+                    <div class="wrap-list">
+                        <aside class="categorias">
+                            <h2>CATEGORIAS</h2>
+                            <ul class="categories-list">
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                                <li><a href="#">teste</a></li>
+                            </ul><!--categories-list-->
+                        </aside>
+                        <div class="list">
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+
+                            <div class="single-product">
+                                <div class="wrap-single-product">
+                                    <div class="img-single-product">
+                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                    </div>
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4>Cerveja Artesanal</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-ml">
+                                                <h4>300ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span>7,00</span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4>Essa é uma descrição da cerveja artesanal </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
+                                    </div>
+                                    <!--desc-single-product-->
+
+                                    <div class="btn-comprar-list">
+                                        <a href="#">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </div>
+                                <!--wrap-single-product-->
+                            </div>
+                            <!--single-product-->
+
+                        </div>
+                        <!--list-->
+                    </div>
+                    <!--wrap-list-->
+                </div>
+                <!--container-->
+            </section>
+            <!--lista-produtos-->
         </div>
-        <!--container-->
-    </section>
-    <!--lista-produtos-->
-</body></html>
+    </body>
+
+</html>

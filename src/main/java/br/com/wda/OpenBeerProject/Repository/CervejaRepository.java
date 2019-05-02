@@ -6,11 +6,7 @@
 package br.com.wda.OpenBeerProject.Repository;
 
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,5 +20,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CervejaRepository extends JpaRepository<Cerveja, Long> {
     
+     public Optional<Cerveja> findByCerveja(String cerveja);
 
 }

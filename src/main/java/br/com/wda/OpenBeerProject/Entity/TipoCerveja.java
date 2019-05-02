@@ -29,7 +29,7 @@ public class TipoCerveja {
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     
     @Size(min = 1, max = 80, message = "TIPO DA CERVEJA INVÁLIDO.")
     @Column(name = "CERVEJA")
@@ -52,16 +52,16 @@ public class TipoCerveja {
     public TipoCerveja() {
     }
 
-    public TipoCerveja(Long id, String tipoCerveja) {
+    public TipoCerveja(Integer id, String tipoCerveja) {
         this.id = id;
         this.tipoCerveja = tipoCerveja;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
