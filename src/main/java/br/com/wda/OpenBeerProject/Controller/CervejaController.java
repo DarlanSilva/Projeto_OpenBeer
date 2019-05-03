@@ -35,8 +35,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  */
 @Controller
-@RequestMapping("/produto")
-public class ProdutoController {
+@RequestMapping("/cerveja")
+public class CervejaController {
 
     @Autowired
     private CervejaRepository cervejaRepository;
@@ -118,7 +118,7 @@ public class ProdutoController {
             cerveja.setTipoCerveja(tipoCervejasSelecionadas);
         }
         //VERIFICA SE É UMA ALTERAÇÃO PARA SALVA A DATA HORA DA ALTERAÇÃO
-        if (cerveja.getId() < 0){
+        if (cerveja.getId() != null){
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
         

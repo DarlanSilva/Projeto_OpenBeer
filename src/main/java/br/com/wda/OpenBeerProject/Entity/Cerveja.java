@@ -49,11 +49,15 @@ public class Cerveja implements Serializable {
 
     @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
     @Column(name = "CODIGO")
-    private String codigoCerveja;
+    private int codigoCerveja;
 
     @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
     @Column(name = "MARCA")
     private String marca;
+    
+    @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
+    @Column(name = "TEOR")
+    private int teor;
 
     @Size(min = 1, message = "CAMPO OBRIGATÓRIO.")
     @Column(name = "FORNECEDOR")
@@ -92,13 +96,14 @@ public class Cerveja implements Serializable {
     public Cerveja() {
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, int codigoCerveja, String marca,int teor, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
         this.valorCerveja = valorCerveja;
         this.codigoCerveja = codigoCerveja;
         this.marca = marca;
+        this.teor = teor;
         this.fornecedor = fornecedor;
         this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
@@ -107,13 +112,14 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
+    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, int codigoCerveja, String marca,int teor, String fornecedor, int quantidade, BigDecimal mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
         this.id = id;
         this.cerveja = cerveja;
         this.descricao = descricao;
         this.valorCerveja = valorCerveja;
         this.codigoCerveja = codigoCerveja;
         this.marca = marca;
+        this.teor = teor;
         this.fornecedor = fornecedor;
         this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
@@ -156,11 +162,11 @@ public class Cerveja implements Serializable {
         this.valorCerveja = valorCerveja;
     }
 
-    public String getCodigoCerveja() {
+    public int getCodigoCerveja() {
         return codigoCerveja;
     }
 
-    public void setCodigoCerveja(String codigoCerveja) {
+    public void setCodigoCerveja(int codigoCerveja) {
         this.codigoCerveja = codigoCerveja;
     }
 
@@ -171,6 +177,16 @@ public class Cerveja implements Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
+    public int getTeor() {
+        return teor;
+    }
+
+    public void setTeor(int teor) {
+        this.teor = teor;
+    }
+    
+    
 
     public String getFornecedor() {
         return fornecedor;

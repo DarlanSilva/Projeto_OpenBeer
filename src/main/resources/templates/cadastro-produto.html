@@ -1,96 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html layout:decorate="~{template}">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro Produto | Open Beer</title>
-    <link rel="stylesheet" href="css/cadastrar-produto.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <body>
+        <div layout:fragment="conteudo">
+            <link rel="stylesheet" th:href="@{/css/cadastrar-produto.css}">
+            <link rel="stylesheet" th:href="@{/css/footer.css}">
+            <section class="register">
+                <div class="container">
+                    <h1 th:if="${cerveja.id == null}">CADASTRE UMA NOVA CERVEJA</h1>
+                    <h1 th:if="${cerveja.id != null}">ALTERAR CERVEJA</h1>
+                    <div class="container-register">
+                        <div class="wrap-side-background">
+                            <div class="img">  
+                            </div><!--img-->
+                        </div><!--wrap-side-background-->  
+                        <div class="wrap-register-product">
+                            <div class="register-product">
+                                <form th:action="@{/cerveja/salvar}" method="post" th:object="${cerveja}" novalidate>
+                                    <input type="hidden" th:if="*{id != null}" th:field="*{id}" />
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="cod">Código do produto</label>
+                                            <input type="number" name="cod" id="cod" required placeholder="Código do produto" th:classappend="${#fields.hasErrors('codigoCerveja')}? is-invalid" th:field="*{codigoCerveja}">
+                                        </div><!--campos-register-->
+                                    </div><!--wrap-register-campos-->            
+                                    <div class="wrap-register-campos">
 
-</head>
+                                        <div class="campos-register">
+                                            <label for="name-cerveja">Nome da cerveja</label>
+                                            <input type="name" name="name-cerveja" id="name-cerveja" required placeholder="Nome da cerveja" th:classappend="${#fields.hasErrors('cerveja')}? is-invalid" th:field="*{cerveja}">
+                                        </div><!--campos-register-->
+                                        <div class="campos-register">
+                                            <label for="photo-cerveja">Imagem</label>
+                                            <input type="file" name="photo-cerveja" id="photo-cerveja">
+                                        </div><!--campos-register-->
+                                    </div><!--wrap-register-campos-->
 
-<body>
-    <section class="register">
-        <div class="container">
-          <h1>CADASTRE UMA NOVA CERVEJA</h1>
-           <div class="container-register">
-                <div class="wrap-side-background">
-                    <div class="img">  
-                    </div><!--img-->
-                </div><!--wrap-side-background-->  
-                <div class="wrap-register-product">
-                    <div class="register-product">
-                        <form action="">  
-                           <div class="wrap-register-campos">
-                               <div class="campos-register">
-                                  <label for="cod">Código do produto</label>
-                                  <input type="number" name="cod" id="cod" required placeholder="Código do produto">
-                               </div><!--campos-register-->
-                           </div><!--wrap-register-campos-->            
-                               <div class="wrap-register-campos">
-                                   
-                                   <div class="campos-register">
-                                      <label for="name-cerveja">Nome da cerveja</label>
-                                      <input type="name" name="name-cerveja" id="name-cerveja" required placeholder="Nome da cerveja">
-                                   </div><!--campos-register-->
-                                   <div class="campos-register">
-                                      <label for="photo-cerveja">Imagem</label>
-                                      <input type="file" name="photo-cerveja" id="photo-cerveja">
-                                   </div><!--campos-register-->
-                               </div><!--wrap-register-campos-->
-      
-                           <div class="wrap-register-campos">
-                               <div class="campos-register">
-                                   <label for="preco-cerveja">Preço</label>
-                                   <input type="number" name="preco-cerveja" id="preco-cerveja" required placeholder="Preço da cerveja">
-                               </div><!--campos-register-->
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="preco-cerveja">Preço</label>
+                                            <input type="number" name="preco-cerveja" id="preco-cerveja" required placeholder="Preço da cerveja" th:classappend="${#fields.hasErrors('valorCerveja')}? is-invalid" th:field="*{valorCerveja}">
+                                        </div><!--campos-register-->
 
-                               <div class="campos-register">
-                                   <label for="quantidade-cerveja">Quantidade estoque</label>
-                                   <input type="number" name="quantidade-cerveja" id="quantidade-cerveja" required placeholder="Quantidade de cerveja">
+                                        <div class="campos-register">
+                                            <label for="quantidade-cerveja">Quantidade estoque</label>
+                                            <input type="number" name="quantidade-cerveja" id="quantidade-cerveja" required placeholder="Quantidade de cerveja" th:classappend="${#fields.hasErrors('quantidade')}? is-invalid" th:field="*{quantidade}">
+                                        </div><!--campos-register-->
+                                    </div><!--wrap-register-campos-->
+
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="marca-cerveja">Marca</label>
+                                            <input type="name" name="marca-cerveja" id="marca-cerveja" required placeholder="Marca da cerveja" th:classappend="${#fields.hasErrors('marca')}? is-invalid" th:field="*{marca}">
+                                        </div><!--campos-register-->
+
+                                        <div class="campos-register">
+                                            <label for="tipo-cerveja">Tipo da cerveja</label>
+                                            <select name="tipo">
+                                                <option th:each="tipo : ${tipoCerveja}"
+                                                        th:value="${tipo.id}"
+                                                        th:text="${tipo.tipoCerveja}" />
+                                            </select>
+                                    </div><!--campos-register-->
+                            </div><!--wrap-register-campos-->
+
+                            <div class="wrap-register-campos">
+                                <div class="campos-register">
+                                    <label for="teor-cerveja">Teor %</label>
+                                    <input type="number" name="teor-cerveja" id="teor-cerveja" required placeholder="Teor Alcoólico % " th:classappend="${#fields.hasErrors('teor')}? is-invalid" th:field="*{teor}">
                                 </div><!--campos-register-->
-                           </div><!--wrap-register-campos-->
-                           
-                           <div class="wrap-register-campos">
-                               <div class="campos-register">
-                                   <label for="marca-cerveja">Marca</label>
-                                   <input type="name" name="marca-cerveja" id="marca-cerveja" required placeholder="Marca da cerveja">
-                               </div><!--campos-register-->
 
-                               <div class="campos-register">
-                                   <label for="tipo-cerveja">Tipo da cerveja</label>
-                                   <input type="name" name="tipo-cerveja" id="tipo-cerveja" required placeholder="Tipo da cerveja">
-                               </div><!--campos-register-->
-                           </div><!--wrap-register-campos-->
-                           
-                           <div class="wrap-register-campos">
-                               <div class="campos-register">
-                                   <label for="teor-cerveja">Teor %</label>
-                                   <input type="number" name="teor-cerveja" id="teor-cerveja" required placeholder="Teor Alcoólico % ">
-                               </div><!--campos-register-->
+                                <div class="campos-register">
+                                    <label for="ml-cerveja">Quantidade em Ml's</label>
+                                    <input type="number" name="ml-cerveja" id="ml-cerveja" required placeholder="Ml da cerveja" th:classappend="${#fields.hasErrors('mlCerveja')}? is-invalid" th:field="*{mlCerveja}">
+                                </div><!--campos-register-->
+                            </div><!--wrap-register-campos-->
 
-                               <div class="campos-register">
-                                   <label for="ml-cerveja">Quantidade em Ml's</label>
-                                   <input type="number" name="ml-cerveja" id="ml-cerveja" required placeholder="Ml da cerveja">
-                               </div><!--campos-register-->
-                           </div><!--wrap-register-campos-->
-                           
-                           <div class="wrap-register-campos">
-                               <div class="campos-register">
-                                   <label for="desc-cerveja">Descrição do produto</label>
-                                   <textarea name="desc-cerveja" id="desc-cerveja" cols="30" rows="10">
+                            <div class="wrap-register-campos">
+                                <div class="campos-register">
+                                    <label for="desc-cerveja">Descrição do produto</label>
+                                    <textarea name="desc-cerveja" id="desc-cerveja" cols="30" rows="10" th:classappend="${#fields.hasErrors('descricao')}? is-invalid" th:field="*{descricao}">
 
-                                   </textarea>
-                               </div><!--campos-register-->
-                           </div><!--wrap-register-campos-->
+                                    </textarea>
+                                </div><!--campos-register-->
+                            </div><!--wrap-register-campos-->
                             <input type="submit" name="cadastrar-cerveja" value="CADASTRAR">                     
-                        </form>
-                    </div><!--register-product-->
-                </div><!--wrap-register-product-->
-            </div><!--container-register-->
+                            </form>
+                        </div><!--register-product-->
+                    </div><!--wrap-register-product-->
+                </div><!--container-register-->
         </div><!--container-->
     </section><!--register-->
+</div>
 </body>
 </html>
