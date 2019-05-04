@@ -21,7 +21,7 @@
                                     <div class="wrap-register-campos">
                                         <div class="campos-register">
                                             <label for="cod">Código do produto</label>
-                                            <input type="number" name="cod" id="cod" required placeholder="Código do produto" th:classappend="${#fields.hasErrors('codigoCerveja')}? is-invalid" th:field="*{codigoCerveja}">
+                                            <input type="text" name="cod" id="cod" required placeholder="Código do produto" th:classappend="${#fields.hasErrors('codigoCerveja')}? is-invalid" th:field="*{codigoCerveja}">
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->            
                                     <div class="wrap-register-campos">
@@ -72,7 +72,7 @@
 
                                 <div class="campos-register">
                                     <label for="ml-cerveja">Quantidade em Ml's</label>
-                                    <input type="number" name="ml-cerveja" id="ml-cerveja" required placeholder="Ml da cerveja" th:classappend="${#fields.hasErrors('mlCerveja')}? is-invalid" th:field="*{mlCerveja}">
+                                    <input type="text" name="ml-cerveja" id="ml-cerveja" required placeholder="Ml da cerveja" th:classappend="${#fields.hasErrors('mlCerveja')}? is-invalid" th:field="*{mlCerveja}">
                                 </div><!--campos-register-->
                             </div><!--wrap-register-campos-->
 
