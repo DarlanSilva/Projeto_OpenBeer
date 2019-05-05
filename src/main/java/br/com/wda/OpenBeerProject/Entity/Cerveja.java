@@ -13,10 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,6 +28,7 @@ import javax.validation.constraints.Size;
  * @author Alison Souza
  *
  */
+
 @Entity
 @Table(name = "TB_CERVEJA")
 public class Cerveja implements Serializable {
@@ -35,41 +38,39 @@ public class Cerveja implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 1, max = 350, message = "NOME DE CERVEJA INVÁLIDO.")
-    @NotBlank(message = "CAMPO OBRIGATÓRIO")
+    @Size(min = 1, max = 350)
+    @NotBlank(message = "CAMPO NOME DA CERVEJA OBRIGATÓRIO")
     @Column(name = "CERVEJA")
-    private String cerveja;
+    private String nome;
 
     @NotBlank(message = "CAMPO DESCRIÇÃO OBRIGATÓRIO")
     @Column(name = "DESCRICAO")
     private String descricao;
 
     @Digits(integer = 13, fraction = 2)
-    //@NotBlank(message = "CAMPO VALOR TOTAL OBRIGATÓRIO")    
+    @NotNull(message = "CAMPO VALOR TOTAL OBRIGATÓRIO")    
     @Column(name = "VL_TORAL")
     private BigDecimal valorCerveja;
 
-    @Size(min = 1, max = 17, message = "CAMPO OBRIGATÓRIO.")
-//    @NotBlank(message = "CAMPO CÓDIGO OBRIGATÓRIO")
+    @Size(min = 1, max = 17)
+    @NotBlank(message = "CAMPO CÓDIGO OBRIGATÓRIO")
     @Column(name = "CODIGO")
-    private int codigoCerveja;
+    private String codigoCerveja;
 
-    @Size(min = 1, max = 100, message = "CAMPO OBRIGATÓRIO.")
+    @Size(min = 1, max = 100)
     @NotBlank(message = "CAMPO MARCA OBRIGATÓRIO")
     @Column(name = "MARCA")
     private String marca;
     
-    @Size(min = 1, max = 3)
-    //@NotBlank(message = "CAMPO TEOR OBRIGATÓRIO")
+    @NotNull(message = "CAMPO TEOR OBRIGATÓRIO")
     @Column(name = "TEOR")
     private int teor;
 
-    @Size(max = 11, message = "CAMPO OBRIGATÓRIO.")
-    //@NotBlank(message = "CAMPO QUANTIDADE OBRIGATÓRIO")
+    @NotNull(message = "CAMPO QUANTIDADE OBRIGATÓRIO")
     @Column(name = "QUANTIDADE")
     private int quantidade;
 
-    @Size(min = 1, max = 5, message = "CAMPO OBRIGATÓRIO")
+    @Size(min = 1, max = 15)
     @NotBlank(message = "CAMPO ML/L OBRIGATÓRIO")
     @Column(name = "ML")
     private String mlCerveja;
@@ -80,7 +81,7 @@ public class Cerveja implements Serializable {
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
 
-    @Column(name = "DH_ALTERACAO", nullable = false, insertable = true, updatable = true)
+    @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
     private LocalDateTime dhAlteracao;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -98,9 +99,9 @@ public class Cerveja implements Serializable {
     public Cerveja() {
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, int codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cerveja(Long id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
-        this.cerveja = cerveja;
+        this.nome = nome;
         this.descricao = descricao;
         this.valorCerveja = valorCerveja;
         this.codigoCerveja = codigoCerveja;
@@ -113,9 +114,9 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Cerveja(Long id, String cerveja, String descricao, BigDecimal valorCerveja, int codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
+    public Cerveja(Long id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
         this.id = id;
-        this.cerveja = cerveja;
+        this.nome = nome;
         this.descricao = descricao;
         this.valorCerveja = valorCerveja;
         this.codigoCerveja = codigoCerveja;
@@ -138,12 +139,12 @@ public class Cerveja implements Serializable {
         this.id = id;
     }
 
-    public String getCerveja() {
-        return cerveja;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCerveja(String cerveja) {
-        this.cerveja = cerveja;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -162,11 +163,11 @@ public class Cerveja implements Serializable {
         this.valorCerveja = valorCerveja;
     }
 
-    public int getCodigoCerveja() {
+    public String getCodigoCerveja() {
         return codigoCerveja;
     }
 
-    public void setCodigoCerveja(int codigoCerveja) {
+    public void setCodigoCerveja(String codigoCerveja) {
         this.codigoCerveja = codigoCerveja;
     }
 

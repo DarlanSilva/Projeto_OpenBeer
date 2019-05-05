@@ -34,7 +34,7 @@
                             </tr>
                             <tr align = "center" th:each="cerveja : ${cerveja}">
                                 <td th:text="${cerveja.codigoCerveja}"></td>
-                                <td th:text="${cerveja.cerveja}"></td>
+                                <td th:text="${cerveja.nome}"></td>
                                 <td th:text="${cerveja.quantidade}"></td>
                                 <td th:text="${cerveja.valorCerveja}"></td>
                                 <td><a th:href="@{/{id}(id=${product.id})/edit}" class="btn btn-editar">Editar</a><a th:href="@{/{id}(id=${product.id})/remover}" class="btn btn-deletar">Deletar</a>

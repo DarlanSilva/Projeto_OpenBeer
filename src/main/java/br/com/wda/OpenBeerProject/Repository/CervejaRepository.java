@@ -20,6 +20,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CervejaRepository extends JpaRepository<Cerveja, Long> {
     
-     public Optional<Cerveja> findByCerveja(String cerveja);
+     public Optional<Cerveja> findByNome(String nome);
 
 }

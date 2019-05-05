@@ -1,5 +1,9 @@
 package br.com.wda.OpenBeerProject.Controller;
 
+import br.com.wda.OpenBeerProject.Entity.Cerveja;
+import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/OpenBeer")
 public class HomeController {
+    
+    @Autowired
+    private CervejaRepository cervejaRepository;
 
     @GetMapping("/Home")
     public ModelAndView home() {
@@ -43,7 +50,10 @@ public class HomeController {
     
     @GetMapping("/Manutencao")
     public ModelAndView manutencao() {
-        return new ModelAndView("/consultar-produto");
+        
+        List<Cerveja> cerveja = cervejaRepository.findAll();
+        return new ModelAndView("consultar-produto")
+                .addObject("cerveja", cerveja);
     }
 
 }

@@ -28,7 +28,7 @@
 
                                         <div class="campos-register">
                                             <label for="name-cerveja">Nome da cerveja</label>
-                                            <input type="name" name="name-cerveja" id="name-cerveja" required placeholder="Nome da cerveja" th:classappend="${#fields.hasErrors('cerveja')}? is-invalid" th:field="*{cerveja}">
+                                            <input type="text" name="name-cerveja" id="name-cerveja" required placeholder="Nome da cerveja" maxlength="350" th:classappend="${#fields.hasErrors('nome')}? is-invalid" th:field="*{nome}">
                                         </div><!--campos-register-->
                                         <div class="campos-register">
                                             <label for="photo-cerveja">Imagem</label>
@@ -51,12 +51,12 @@
                                     <div class="wrap-register-campos">
                                         <div class="campos-register">
                                             <label for="marca-cerveja">Marca</label>
-                                            <input type="name" name="marca-cerveja" id="marca-cerveja" required placeholder="Marca da cerveja" th:classappend="${#fields.hasErrors('marca')}? is-invalid" th:field="*{marca}">
+                                            <input type="text" name="marca-cerveja" id="marca-cerveja" maxlength="100" required  placeholder="Marca da cerveja" th:classappend="${#fields.hasErrors('marca')}? is-invalid" th:field="*{marca}">
                                         </div><!--campos-register-->
 
                                         <div class="campos-register">
                                             <label for="tipo-cerveja">Tipo da cerveja</label>
-                                            <select name="tipo">
+                                            <select class="wrap-register-campos" name="tipo" th:classappend="${#fields.hasErrors('idTiposCervejas')}? is-invalid" th:field="*{idTiposCervejas}">
                                                 <option th:each="tipo : ${tipoCerveja}"
                                                         th:value="${tipo.id}"
                                                         th:text="${tipo.tipoCerveja}" />

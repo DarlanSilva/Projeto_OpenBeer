@@ -44,23 +44,13 @@ public class CervejaController {
     @Autowired
     private TipoCervejaRepository tipoCervejaRepository;
 
-//    @GetMapping
-//    public ModelAndView listar(
-//            @RequestParam(name = "offset", defaultValue = "0") int offset,
-//            @RequestParam(name = "qtd", defaultValue = "100") int qtd,
-//            @RequestParam(name = "idsCat", required = false) List<Integer> idsCat) {
-////        List<Produto> resultados;
-////        if (idsCat != null && !idsCat.isEmpty()) {
-////            // Busca pelos IDs das categorias informadas
-////            resultados = produtoRepository.findByCategoria(idsCat);
-////        } else {
-////            // Lista todos os produtos usando paginacao
-////            resultados = produtoRepository.findAll(offset, qtd);
-////        }
-////        return new ModelAndView("produto/lista").addObject("produtos", resultados);
-//        List<Produto> resultados = cervejaRepository.findByPrecoVendaGreaterThanAndPrecoVendaLessThan(new BigDecimal(100),new BigDecimal(400));
-//        return new ModelAndView("produto/lista").addObject("produtos", resultados);
-//    }
+    @GetMapping("listagem-produtos")
+    public ModelAndView listagemProd() {
+        List<Cerveja> cervejas = cervejaRepository.findAll();
+
+        return new ModelAndView("produtos-lista").addObject("cerveja", cervejas);
+    }
+
     @GetMapping("/novo")
     public ModelAndView adicionarNovo() {
         return new ModelAndView("cadastro-produto")
@@ -73,22 +63,7 @@ public class CervejaController {
         Cerveja cerveja = optProd.get();
 
         if (cerveja.getTipoCerveja() != null && !cerveja.getTipoCerveja().isEmpty()) {
-            Set<Integer> idTipoCerveja = new HashSet<>();
-            for (TipoCerveja tipo : cerveja.getTipoCerveja()) {
-                idTipoCerveja.add(tipo.getId());
-            }
-            cerveja.setIdTiposCervejas(idTipoCerveja);
-        }
-        return new ModelAndView("cadastro-produto")
-                .addObject("cerveja", cerveja);
-    }
-
-    @GetMapping("/{nome}")
-    public ModelAndView editar2(@PathVariable("cerveja") String cerv) {
-        Optional<Cerveja> optCerveja = cervejaRepository.findByCerveja(cerv);
-        Cerveja cerveja = optCerveja.get();
-
-        if (cerveja.getTipoCerveja() != null && !cerveja.getTipoCerveja().isEmpty()) {
+            
             Set<Integer> idTipoCerveja = new HashSet<>();
             for (TipoCerveja tipo : cerveja.getTipoCerveja()) {
                 idTipoCerveja.add(tipo.getId());
@@ -101,38 +76,39 @@ public class CervejaController {
 
     @PostMapping("/salvar")
     public ModelAndView salvar(@ModelAttribute("cerveja") Cerveja cerveja, RedirectAttributes redirectAttributes) {
-        
+
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
-        
-        if (cerveja.getIdTiposCervejas()!= null && !cerveja.getIdTiposCervejas().isEmpty()) {
+
+        if (cerveja.getIdTiposCervejas() != null && !cerveja.getIdTiposCervejas().isEmpty()) {
             Set<TipoCerveja> tipoCervejasSelecionadas = new HashSet<>();
-            
+
             for (Integer idTipo : cerveja.getIdTiposCervejas()) {
                 Optional<TipoCerveja> optTipoCerveja = tipoCervejaRepository.findById(idTipo);
                 TipoCerveja tipo = optTipoCerveja.get();
                 tipoCervejasSelecionadas.add(tipo);
                 tipo.setCervejas(new HashSet<>(Arrays.asList(cerveja)));
             }
-            
+
             cerveja.setTipoCerveja(tipoCervejasSelecionadas);
         }
+        
         //VERIFICA SE É UMA ALTERAÇÃO PARA SALVA A DATA HORA DA ALTERAÇÃO
-        if (cerveja.getId() != null){
+        if (cerveja.getId() != null) {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
-        
+
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
-                "Produto " + cerveja.getCerveja()+ " salvo com sucesso");
+                "Produto " + cerveja.getNome()+ " salvo com sucesso");
         // Falta
-        return new ModelAndView("redirect:/consulta-produto");
+        return new ModelAndView("redirect:/OpenBeer/Manutenção");
     }
 
     @PostMapping("/{id}/remover")
     public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         cervejaRepository.deleteById(id);
-        
+
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja ID " + id + " removido com sucesso");
         return new ModelAndView("redirect:/consulta-produto");
@@ -140,9 +116,8 @@ public class CervejaController {
 
     @ModelAttribute("tipoCerveja")
     public List<TipoCerveja> getTipoCerveja() {
-        
+
         return tipoCervejaRepository.findAll();
     }
-
 }
 
