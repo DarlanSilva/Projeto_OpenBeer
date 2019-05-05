@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,8 +60,8 @@ public class CervejaController {
 
     @GetMapping("/{id}/editar")
     public ModelAndView editar(@PathVariable("id") Long id) {
-        Optional<Cerveja> optProd = cervejaRepository.findById(id);
-        Cerveja cerveja = optProd.get();
+        Optional<Cerveja> listProd = cervejaRepository.findById(id);
+        Cerveja cerveja = listProd.get();
 
         if (cerveja.getTipoCerveja() != null && !cerveja.getTipoCerveja().isEmpty()) {
             
@@ -102,16 +103,16 @@ public class CervejaController {
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Produto " + cerveja.getNome()+ " salvo com sucesso");
         // Falta
-        return new ModelAndView("redirect:/OpenBeer/Manutenção");
+        return new ModelAndView("redirect:/OpenBeer/Manutencao");
     }
 
-    @PostMapping("/{id}/remover")
+    @DeleteMapping("/{id}/remover")
     public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         cervejaRepository.deleteById(id);
 
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja ID " + id + " removido com sucesso");
-        return new ModelAndView("redirect:/consulta-produto");
+        return new ModelAndView("redirect:/consultar-produto");
     }
 
     @ModelAttribute("tipoCerveja")

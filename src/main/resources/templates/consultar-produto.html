@@ -36,8 +36,8 @@
                                 <td th:text="${cerveja.codigoCerveja}"></td>
                                 <td th:text="${cerveja.nome}"></td>
                                 <td th:text="${cerveja.quantidade}"></td>
-                                <td th:text="${cerveja.valorCerveja}"></td>
-                                <td><a th:href="@{/{id}(id=${product.id})/edit}" class="btn btn-editar">Editar</a><a th:href="@{/{id}(id=${product.id})/remover}" class="btn btn-deletar">Deletar</a>
+                                <td th:text="${cerveja.valorCerveja}"></td>/produto/{id}/editar(id=${prod.id})
+                                <td><a th:href="@{/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a th:href="@{/cerveja/{id}/remover(id=${cerveja.id})}" class="btn btn-deletar">Deletar</a>
                             </tr>
                         </table><br>
                         <div style="text-align:left">
