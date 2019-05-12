@@ -86,7 +86,7 @@ public class Cerveja implements Serializable {
     @Column(name = "FK_TIPOCERVEJA")
     private Integer tipoCerveja;
 
-    public Cerveja() {
+    public Cerveja() { 
     }
 
     public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja) {
