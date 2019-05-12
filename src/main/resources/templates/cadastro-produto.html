@@ -16,7 +16,7 @@
                         </div><!--wrap-side-background-->  
                         <div class="wrap-register-product">
                             <div class="register-product">
-                                <form th:action="@{/cerveja/salvar}" method="post" th:object="${cerveja}" novalidate>
+                                <form th:action="@{/cerveja/salvar}" method="POST" th:object="${cerveja}" novalidate>
                                     <input type="hidden" th:if="*{id != null}" th:field="*{id}" />
                                     <div class="wrap-register-campos">
                                         <div class="campos-register">
@@ -56,10 +56,11 @@
 
                                         <div class="campos-register">
                                             <label for="tipo-cerveja">Tipo da cerveja</label>
-                                            <select class="wrap-register-campos" name="tipo" th:classappend="${#fields.hasErrors('idTiposCervejas')}? is-invalid" th:field="*{idTiposCervejas}">
+                                            <select class="wrap-register-campos" name="tipo" th:classappend="${#fields.hasErrors('tipoCerveja')}? is-invalid" th:field="*{tipoCerveja}">
                                                 <option th:each="tipo : ${tipoCerveja}"
                                                         th:value="${tipo.id}"
-                                                        th:text="${tipo.tipoCerveja}" />
+                                                        th:text="${tipo.tipoCerveja}"
+                                                        th:selected="${tipo.id == cerveja.tipoCerveja}"/>
                                             </select>
                                     </div><!--campos-register-->
                             </div><!--wrap-register-campos-->

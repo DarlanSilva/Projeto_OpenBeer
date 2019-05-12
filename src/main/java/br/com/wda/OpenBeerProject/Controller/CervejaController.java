@@ -44,12 +44,20 @@ public class CervejaController {
 
     @Autowired
     private TipoCervejaRepository tipoCervejaRepository;
+    
+    @GetMapping("/Manutencao")
+    public ModelAndView manutencao() {
+        
+        List<Cerveja> cerveja = cervejaRepository.findAll();
+        return new ModelAndView("consultar-produto")
+                .addObject("cerveja", cerveja);
+    }
 
-    @GetMapping("listagem-produtos")
+    @GetMapping("/Lista-de-Cervejas")
     public ModelAndView listagemProd() {
-        List<Cerveja> cervejas = cervejaRepository.findAll();
-
-        return new ModelAndView("produtos-lista").addObject("cerveja", cervejas);
+        List<Cerveja> cerveja = cervejaRepository.findAll();
+        
+        return new ModelAndView("produtos-lista").addObject("cerveja", cerveja);
     }
 
     @GetMapping("/novo")
@@ -59,18 +67,11 @@ public class CervejaController {
     }
 
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Long id) {
+    public ModelAndView editar(@PathVariable("id") Integer id) {
         Optional<Cerveja> listProd = cervejaRepository.findById(id);
         Cerveja cerveja = listProd.get();
+        getTipoCerveja();
 
-        if (cerveja.getTipoCerveja() != null && !cerveja.getTipoCerveja().isEmpty()) {
-            
-            Set<Integer> idTipoCerveja = new HashSet<>();
-            for (TipoCerveja tipo : cerveja.getTipoCerveja()) {
-                idTipoCerveja.add(tipo.getId());
-            }
-            cerveja.setIdTiposCervejas(idTipoCerveja);
-        }
         return new ModelAndView("cadastro-produto")
                 .addObject("cerveja", cerveja);
     }
@@ -81,19 +82,6 @@ public class CervejaController {
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
 
-        if (cerveja.getIdTiposCervejas() != null && !cerveja.getIdTiposCervejas().isEmpty()) {
-            Set<TipoCerveja> tipoCervejasSelecionadas = new HashSet<>();
-
-            for (Integer idTipo : cerveja.getIdTiposCervejas()) {
-                Optional<TipoCerveja> optTipoCerveja = tipoCervejaRepository.findById(idTipo);
-                TipoCerveja tipo = optTipoCerveja.get();
-                tipoCervejasSelecionadas.add(tipo);
-                tipo.setCervejas(new HashSet<>(Arrays.asList(cerveja)));
-            }
-
-            cerveja.setTipoCerveja(tipoCervejasSelecionadas);
-        }
-        
         //VERIFICA SE É UMA ALTERAÇÃO PARA SALVA A DATA HORA DA ALTERAÇÃO
         if (cerveja.getId() != null) {
             cerveja.setDhAlteracao(LocalDateTime.now());
@@ -101,18 +89,19 @@ public class CervejaController {
 
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
-                "Produto " + cerveja.getNome()+ " salvo com sucesso");
-        // Falta
-        return new ModelAndView("redirect:/OpenBeer/Manutencao");
+                "Cerveja " + cerveja.getNome() + " salvo com sucesso");
+
+        return new ModelAndView("redirect:/cerveja/Manutencao");
     }
 
-    @DeleteMapping("/{id}/remover")
-    public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    @PostMapping("/{id}/remover")
+    public ModelAndView remover(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         cervejaRepository.deleteById(id);
 
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja ID " + id + " removido com sucesso");
-        return new ModelAndView("redirect:/consultar-produto");
+
+       return new ModelAndView("redirect:/cerveja/Manutencao");
     }
 
     @ModelAttribute("tipoCerveja")
@@ -121,4 +110,3 @@ public class CervejaController {
         return tipoCervejaRepository.findAll();
     }
 }
-

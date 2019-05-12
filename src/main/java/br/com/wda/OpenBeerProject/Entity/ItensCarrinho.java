@@ -17,40 +17,44 @@ import javax.validation.constraints.Digits;
  */
 
 @Entity
-@Table(name = "VD_CARRINHO")
-public class Carrinho implements Serializable{
+@Table(name = "VD_ITENSCARRINHO")
+public class ItensCarrinho implements Serializable{
     
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(name = "FK_CLIENTE")
+    private Integer cliente;
+    
+    @Column(name = "FK_CERVEJA")
+    private Integer cerveja;
+    
     @Column(name = "QUANTIDADE")
     private int quantidade;
     
     @Digits(integer = 13, fraction = 2)
     @Column(name = "VL_TOTAL")
-    private Integer vlTotal;
-    
-    @Column(name = "TG_INATIVO")
-    private int inativo;
+    private BigDecimal vlTotal;
 
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
+    
+    @Column(name = "DH_COMPRAR", nullable = true, insertable = true, updatable = false)
+    private LocalDateTime dhCompra;
 
-    @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
-    private LocalDateTime dhAlteracao;
-
-    public Carrinho() {
+    public ItensCarrinho() {
     }
 
-    public Carrinho(Integer id, int quantidade, Integer vlTotal, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public ItensCarrinho(Integer id, Integer cliente, Integer cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao, LocalDateTime dhCompra) {
         this.id = id;
+        this.cliente = cliente;
+        this.cerveja = cerveja;
         this.quantidade = quantidade;
         this.vlTotal = vlTotal;
-        this.inativo = inativo;
         this.dhInclusao = dhInclusao;
-        this.dhAlteracao = dhAlteracao;
+        this.dhCompra = dhCompra;
     }
     
     
@@ -63,6 +67,22 @@ public class Carrinho implements Serializable{
         this.id = id;
     }
 
+    public Integer getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Integer carrinho) {
+        this.cliente = carrinho;
+    }
+
+    public Integer getCerveja() {
+        return cerveja;
+    }
+
+    public void setCerveja(Integer cerveja) {
+        this.cerveja = cerveja;
+    }
+
     public int getQuantidade() {
         return quantidade;
     }
@@ -71,20 +91,12 @@ public class Carrinho implements Serializable{
         this.quantidade = quantidade;
     }
 
-    public Integer getVlTotal() {
+    public BigDecimal getVlTotal() {
         return vlTotal;
     }
 
-    public void setVlTotal(Integer vlTotal) {
+    public void setVlTotal(BigDecimal vlTotal) {
         this.vlTotal = vlTotal;
-    }
-
-    public int getInativo() {
-        return inativo;
-    }
-
-    public void setInativo(int inativo) {
-        this.inativo = inativo;
     }
 
     public LocalDateTime getDhInclusao() {
@@ -95,13 +107,14 @@ public class Carrinho implements Serializable{
         this.dhInclusao = dhInclusao;
     }
 
-    public LocalDateTime getDhAlteracao() {
-        return dhAlteracao;
+    public LocalDateTime getDhCompra() {
+        return dhCompra;
     }
 
-    public void setDhAlteracao(LocalDateTime dhAlteracao) {
-        this.dhAlteracao = dhAlteracao;
+    public void setDhCompra(LocalDateTime dhCompra) {
+        this.dhCompra = dhCompra;
     }
     
     
+
 }

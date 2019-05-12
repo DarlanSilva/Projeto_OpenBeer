@@ -28,7 +28,6 @@ import javax.validation.constraints.Size;
  * @author Alison Souza
  *
  */
-
 @Entity
 @Table(name = "TB_CERVEJA")
 public class Cerveja implements Serializable {
@@ -36,7 +35,7 @@ public class Cerveja implements Serializable {
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Size(min = 1, max = 350)
     @NotBlank(message = "CAMPO NOME DA CERVEJA OBRIGATÓRIO")
@@ -48,8 +47,8 @@ public class Cerveja implements Serializable {
     private String descricao;
 
     @Digits(integer = 13, fraction = 2)
-    @NotNull(message = "CAMPO VALOR TOTAL OBRIGATÓRIO")    
-    @Column(name = "VL_TORAL")
+    @NotNull(message = "CAMPO VALOR TOTAL OBRIGATÓRIO")
+    @Column(name = "VL_TOTAL")
     private BigDecimal valorCerveja;
 
     @Size(min = 1, max = 17)
@@ -61,7 +60,7 @@ public class Cerveja implements Serializable {
     @NotBlank(message = "CAMPO MARCA OBRIGATÓRIO")
     @Column(name = "MARCA")
     private String marca;
-    
+
     @NotNull(message = "CAMPO TEOR OBRIGATÓRIO")
     @Column(name = "TEOR")
     private int teor;
@@ -84,58 +83,33 @@ public class Cerveja implements Serializable {
     @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
     private LocalDateTime dhAlteracao;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "TIPO_CERVEJA",
-            joinColumns = @JoinColumn(name = "ID_CERVEJA"),
-            inverseJoinColumns = @JoinColumn(name = "ID_TIPOCERVEJA")
-    )
-
-    private Set<TipoCerveja> tipoCerveja;
-
-    @Transient
-    private Set<Integer> idTiposCervejas;
+    @Column(name = "FK_TIPOCERVEJA")
+    private Integer tipoCerveja;
 
     public Cerveja() {
     }
 
-    public Cerveja(Long id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.valorCerveja = valorCerveja;
         this.codigoCerveja = codigoCerveja;
         this.marca = marca;
-        this.teor = teor;        
-        this.quantidade = quantidade;
-        this.mlCerveja = mlCerveja;
-        this.inativo = inativo;
-        this.dhInclusao = dhInclusao;
-        this.dhAlteracao = dhAlteracao;
-    }
-
-    public Cerveja(Long id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca,int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Set<TipoCerveja> tipoCerveja, Set<Integer> idTiposCervejas) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.valorCerveja = valorCerveja;
-        this.codigoCerveja = codigoCerveja;
-        this.marca = marca;
-        this.teor = teor;        
+        this.teor = teor;
         this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
         this.inativo = inativo;
         this.dhInclusao = dhInclusao;
         this.dhAlteracao = dhAlteracao;
         this.tipoCerveja = tipoCerveja;
-        this.idTiposCervejas = idTiposCervejas;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -185,7 +159,7 @@ public class Cerveja implements Serializable {
 
     public void setTeor(int teor) {
         this.teor = teor;
-    }       
+    }
 
     public int getQuantidade() {
         return quantidade;
@@ -227,21 +201,12 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Set<TipoCerveja> getTipoCerveja() {
+    public Integer getTipoCerveja() {
         return tipoCerveja;
     }
 
-    public void setTipoCerveja(Set<TipoCerveja> tipoCerveja) {
+    public void setTipoCerveja(Integer tipoCerveja) {
         this.tipoCerveja = tipoCerveja;
     }
 
-    public Set<Integer> getIdTiposCervejas() {
-        return idTiposCervejas;
-    }
-
-    public void setIdTiposCervejas(Set<Integer> idTiposCervejas) {
-        this.idTiposCervejas = idTiposCervejas;
-    }
-
-    
 }

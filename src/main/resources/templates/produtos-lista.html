@@ -28,79 +28,84 @@
             <section class="filtro">
                 <div class="container">
                     <div class="wrap-filtro">
-                        <h2>FILTROS</h2>
+                        <h2>  FILTROS</h2>
                     </div>
                     <!--wrap-filtro-->
                 </div>
                 <!--container-->
             </section>
-            <section class="lista-produtos">
-                <div class="container">
-                    <div class="wrap-list">
-                        <aside class="categorias">
-                            <h2>CATEGORIAS</h2>
-                            <ul class="categories-list">
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                                <li><a href="#">teste</a></li>
-                            </ul><!--categories-list-->
-                        </aside>
-                        <div class="list">
-                            <div class="single-product" data-th-each="cerv : @{cerveja}">
-                                <div class="wrap-single-product">
-                                    
-                                    <div class="img-single-product">
-                                        <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
-                                    </div>
-                                    <!--img-single-product-->
-                                    <div class="desc-single-product">
-                                        <div class="wrap-single-name">
-                                            <div class="desc-single-name">
-                                                <h4>th:text="${cerv.cerveja}"</h4>
-                                            </div>
-                                            <!--desc-single-name-->
+            <div data-th-if ="${not #lists.isEmpty(cerveja)}">
+                <div data-th-each="cerveja : ${cerveja}">
+                    <section class="lista-produtos">
+                        <div class="container">
+                            <div class="wrap-list">
+                                <aside class="categorias">
+                                    <h2>CATEGORIAS</h2>
+                                    <ul class="categories-list">
+                                        <li><a href="#">Artesanais</a></li>
+                                        <li><a href="#">Nacionais</a></li>
+                                        <li><a href="#">Importadas</a></li>
+                                        <li><a href="#">Adocicadas</a></li>
+                                        <li><a href="#">Amargas</a></li>
+                                        <li><a href="#">Em Promoção</a></li>
+                                        <li><a href="#">Zero Alcool</a></li>
+                                    </ul><!--categories-list-->
+                                </aside>
+                                <div class="list">
+                                    <div class="single-product">
+                                        <div class="wrap-single-product">
 
-                                            <div class="desc-single-ml">
-                                                <h4>th:text="${cerv.ml}"</h4>
+                                            <div class="img-single-product">
+                                                <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
                                             </div>
-                                            <!--desc-single-name-->
+                                            <!--img-single-product-->
+
+                                            <div class="desc-single-product">
+                                                <div class="wrap-single-name">
+                                                    <div class="desc-single-name">
+                                                        <h4><span data-th-text="${cerveja.nome}"></span> </h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+
+                                                    <div class="desc-single-ml">
+                                                        <h4><span data-th-text="${cerveja.mlCerveja}"></span>ml</h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+                                                </div>
+                                                <!--wrap-single-name-->
+                                                <div class="wrap-single-price">
+                                                    <div class="desc-single-price">
+                                                        <h4>R$ <span th:text="${cerveja.valorCerveja}"></span> </h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+
+                                                    <div class="desc-single-desc">
+                                                        <h4><span th:text="${cerveja.descricao}"></span></h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+                                                </div>
+                                                <!--wrap-single-name-->
+                                            </div>
+                                            <!--desc-single-product-->
+
+                                            <div class="btn-comprar-list">
+                                                <a href="#">COMPRAR</a>
+                                            </div><!--btn-comprar-list-->
                                         </div>
-                                        <!--wrap-single-name-->
-                                        <div class="wrap-single-price">
-                                            <div class="desc-single-price">
-                                                <h4>R$ <span>th:text="${cerv.valorCerveja}"</span> </h4>
-                                            </div>
-                                            <!--desc-single-name-->
-
-                                            <div class="desc-single-desc">
-                                                <h4>th:text="${cerv.descricao}"</h4>
-                                            </div>
-                                            <!--desc-single-name-->
-                                        </div>
-                                        <!--wrap-single-name-->
+                                        <!--wrap-single-product-->
                                     </div>
-                                    <!--desc-single-product-->
+                                    <!--single-product-->
 
-                                    <div class="btn-comprar-list">
-                                        <a href="#">COMPRAR</a>
-                                    </div><!--btn-comprar-list-->
                                 </div>
-                                <!--wrap-single-product-->
+                                <!--list-->
                             </div>
-                            <!--single-product-->
-
+                            <!--wrap-list-->
                         </div>
-                        <!--list-->
-                    </div>
-                    <!--wrap-list-->
-                </div>
-                <!--container-->
-            </section>
-            <!--lista-produtos-->
+                        <!--container-->
+                    </section>
+                    <!--lista-produtos-->
+                </div> 
+            </div>
         </div>
     </body>
 

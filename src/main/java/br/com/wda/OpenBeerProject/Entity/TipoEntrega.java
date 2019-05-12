@@ -1,16 +1,11 @@
 package br.com.wda.OpenBeerProject.Entity;
 
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,22 +14,20 @@ import javax.validation.constraints.Size;
 /**
  *
  * @author Darlan Silva
- * @author Wesley Moura
- * @author Alison Souza
- *
  */
-@Entity
-@Table(name = "TB_TIPOCERVEJA")
-public class TipoCerveja {
 
+@Entity
+@Table(name = "TB_TIPOENTREGA")
+public class TipoEntrega {
+    
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Size(min = 1, max = 80, message = "TIPO DA CERVEJA INVÁLIDO.")
-    @Column(name = "TIPOCERVEJA")
-    private String tipoCerveja;
+    @Column(name = "TIPOENTREGA")
+    private String tipoEntrega;
     
     @Column(name = "TG_INATIVO")
     private int inativo;
@@ -47,12 +40,15 @@ public class TipoCerveja {
     @Column(name = "DH_ALTERACAO")
     private Date dhAlteracao;
 
-    public TipoCerveja() {
+    public TipoEntrega() {
     }
 
-    public TipoCerveja(Integer id, String tipoCerveja) {
+    public TipoEntrega(Integer id, String tipoEntrega, int inativo, Date dhInclusao, Date dhAlteracao) {
         this.id = id;
-        this.tipoCerveja = tipoCerveja;
+        this.tipoEntrega = tipoEntrega;
+        this.inativo = inativo;
+        this.dhInclusao = dhInclusao;
+        this.dhAlteracao = dhAlteracao;
     }
 
     public Integer getId() {
@@ -63,12 +59,12 @@ public class TipoCerveja {
         this.id = id;
     }
 
-    public String getTipoCerveja() {
-        return tipoCerveja;
+    public String getTipoEntrega() {
+        return tipoEntrega;
     }
 
-    public void setTipoCerveja(String tipoCerveja) {
-        this.tipoCerveja = tipoCerveja;
+    public void setTipoEntrega(String tipoEntrega) {
+        this.tipoEntrega = tipoEntrega;
     }
 
     public int getInativo() {
@@ -95,12 +91,5 @@ public class TipoCerveja {
         this.dhAlteracao = dhAlteracao;
     }
     
-    @Override
-    public String toString() {
-        return "Categoria{" + "id=" + id + ", tipoCerveja=" + tipoCerveja + '}';
-    }
-
     
-    
-
 }

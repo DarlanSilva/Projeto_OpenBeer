@@ -28,10 +28,10 @@ public class HomeController {
         return new ModelAndView("/home");
     }
 
-    @GetMapping("/Cervejas")
-    public ModelAndView lista() {
-        return new ModelAndView("/produtos-lista");
-    }
+//    @GetMapping("/Cervejas")
+//    public ModelAndView lista() {
+//        return new ModelAndView("/produtos-lista");
+//    }
 
     @GetMapping("/Contato")
     public ModelAndView contado() {
@@ -46,14 +46,6 @@ public class HomeController {
     @GetMapping("/Produto")
     public ModelAndView detalhe() {
         return new ModelAndView("/produto");
-    }
-    
-    @GetMapping("/Manutencao")
-    public ModelAndView manutencao() {
-        
-        List<Cerveja> cerveja = cervejaRepository.findAll();
-        return new ModelAndView("consultar-produto")
-                .addObject("cerveja", cerveja);
     }
 
 }

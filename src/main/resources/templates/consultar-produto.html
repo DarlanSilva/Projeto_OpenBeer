@@ -4,16 +4,18 @@
     <body>
         <div layout:fragment="conteudo">
             <link rel="stylesheet" th:href="@{/css/consultar-produto.css}">
+            <link rel="stylesheet" th:href="@{/css/mensagens.css}">
             <section class="modal-delete">
                 <div class="modal">
                     <div class="wrap-modal">
                         <div class="wrap-mensagem">
                             <h2>Deseja realmente deletar ?</h2>
                             <span>Essa ação será irreversível</span>
+                            <input id="modal-deletar-product-id" type="hidden" name="id"/> 
                         </div><!--wrap-mensagem-->
                         <div class="modal-btn">
                             <button class="btn-modal-cancelar btn">Cancelar</button>
-                            <button class="btn-modal-deletar btn">Deletar</button>
+                            <button class="btn-modal-deletar btn" id="deleteProduct">Deletar</button>
                         </div><!--modal-content-->
 
                     </div><!--wrap-modal-->
@@ -24,6 +26,7 @@
                 <div class="container">
                     <div class="wrap-consult">
                         <h2>Gerenciamento de Produtos</h2><br>
+                         <div th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}" class="alert alert-success" role="alert"></div>
                         <table cellspacing = "0" cellpadding = "0" align = "center">
                             <tr>
                                 <th>Codigo</th>
@@ -36,16 +39,17 @@
                                 <td th:text="${cerveja.codigoCerveja}"></td>
                                 <td th:text="${cerveja.nome}"></td>
                                 <td th:text="${cerveja.quantidade}"></td>
-                                <td th:text="${cerveja.valorCerveja}"></td>/produto/{id}/editar(id=${prod.id})
-                                <td><a th:href="@{/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a th:href="@{/cerveja/{id}/remover(id=${cerveja.id})}" class="btn btn-deletar">Deletar</a>
+                                <td th:text="${cerveja.valorCerveja}"></td>
+                                <td><a th:href="@{/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a th:attr="onclick = ${ 'modalRemover(' + cerveja.id + ')' }" href="#"  class="btn btn-deletar">Deletar</a>
+                                <input id="cerveja-id" type="hidden" name="cerveja-id"/> 
                             </tr>
                         </table><br>
                         <div style="text-align:left">
-                        <a th:href="@{/cerveja/novo}" class="btn btn-editar">Adicionar</a>
+                            <a th:href="@{/cerveja/novo}" class="btn btn-editar">Adicionar</a>
                         </div>
                     </div><!--wrap-consult-->
                 </div><!--container-->
-            </section>
+            </section>           
             <script type="text/javascript" th:src="@{/js/consultar.js}"></script>
         </div>
     </body>
