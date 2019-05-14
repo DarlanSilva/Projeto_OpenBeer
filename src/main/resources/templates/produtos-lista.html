@@ -34,23 +34,23 @@
                 </div>
                 <!--container-->
             </section>
-            <div data-th-if ="${not #lists.isEmpty(cerveja)}">
-                <div data-th-each="cerveja : ${cerveja}">
-                    <section class="lista-produtos">
-                        <div class="container">
-                            <div class="wrap-list">
-                                <aside class="categorias">
-                                    <h2>CATEGORIAS</h2>
-                                    <ul class="categories-list">
-                                        <li><a href="#">Artesanais</a></li>
-                                        <li><a href="#">Nacionais</a></li>
-                                        <li><a href="#">Importadas</a></li>
-                                        <li><a href="#">Adocicadas</a></li>
-                                        <li><a href="#">Amargas</a></li>
-                                        <li><a href="#">Em Promoção</a></li>
-                                        <li><a href="#">Zero Alcool</a></li>
-                                    </ul><!--categories-list-->
-                                </aside>
+            <section class="lista-produtos">
+                <div class="container">
+                    <div class="wrap-list">
+                        <aside class="categorias">
+                            <h2>CATEGORIAS</h2>
+                            <ul class="categories-list">
+                                <li><a href="#">Artesanais</a></li>
+                                <li><a href="#">Nacionais</a></li>
+                                <li><a href="#">Importadas</a></li>
+                                <li><a href="#">Adocicadas</a></li>
+                                <li><a href="#">Amargas</a></li>
+                                <li><a href="#">Em Promoção</a></li>
+                                <li><a href="#">Zero Alcool</a></li>
+                            </ul><!--categories-list-->
+                        </aside>
+                        <div data-th-if ="${not #lists.isEmpty(cerveja)}">
+                            <div data-th-each="cerveja : ${cerveja}">
                                 <div class="list">
                                     <div class="single-product">
                                         <div class="wrap-single-product">
@@ -99,14 +99,14 @@
                                 </div>
                                 <!--list-->
                             </div>
-                            <!--wrap-list-->
                         </div>
-                        <!--container-->
-                    </section>
-                    <!--lista-produtos-->
-                </div> 
-            </div>
-        </div>
+                    </div>
+                    <!--wrap-list-->
+                </div>
+                <!--container-->
+            </section>
+            <!--lista-produtos-->
+        </div> 
     </body>
 
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template}">
+
+    <body>
+        <div layout:fragment="conteudo">
+            <link rel="stylesheet" th:href="@{/css/cadastrar-produto.css}">
+            <link rel="stylesheet" th:href="@{/css/footer.css}">
+            <section class="register">
+                <div class="container">
+                    <h1 th:if="${cerveja.id == null}">CADASTRE UMA NOVO ENDEREÇO</h1>
+                    <h1 th:if="${cerveja.id != null}">ALTERAR ENDEREÇO</h1>
+                    <div class="container-register">
+                        <div class="wrap-side-background">
+                            <div class="img">
+                            </div>
+                            <!--img-->
+                        </div>
+                        <!--wrap-side-background-->
+                        <div class="wrap-register-product">
+                            <div class="register-product">
+                                <form th:action="@{/cerveja/salvar}" method="POST" th:object="${cerveja}" novalidate>
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="destinatario">Destinatário*</label>
+                                            <input type="text" name="destinatario" id="destinatario" required placeholder="Digite o nome do destinatário">
+                                        </div>
+                                        <!--campos-register-->
+                                    </div>
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="cep">CEP*</label>
+                                            <input type="text" name="cep" id="cep" required placeholder="Digite o Cep">
+                                        </div>
+                                        <!--campos-register-->
+                                        <div class="campos-register">
+                                            <label for="endereco">Endereço*</label>
+                                            <input type="text" name="endereco" id="endereco" required disabled>
+                                        </div>
+                                        <!--campos-register-->
+                                    </div>
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="numero">Número*</label>
+                                            <input type="number" name="numero" id="numero" required
+                                                   placeholder="Digite o número">
+                                        </div>
+                                        <!--campos-register-->
+
+                                        <div class="campos-register">
+                                            <label for="bairro">Bairro*</label>
+                                            <input type="text" name="bairro" id="bairro" required disabled>
+                                        </div>
+                                        <!--campos-register-->
+                                    </div>
+                                    <!--wrap-register-campos-->
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="complemento">Complemento (opcional)</label>
+                                            <input type="text" name="complemento" id="complemento"
+                                                   placeholder="Digite o complemento (opcional)">
+                                        </div>
+                                        <!--campos-register-->
+                                        <div class="campos-register">
+                                            <label for="cidade">Cidade*</label>
+                                            <input type="text" name="cidade" id="cidade" required disabled>
+                                        </div>
+                                        <!--campos-register-->
+                                    </div>
+                                    <div class="wrap-register-campos">
+                                        <div class="campos-register">
+                                            <label for="pontoRef">Ponto de Referência*</label>
+                                            <input type="text" name="pontoRef" id="pontoRef" required
+                                                   placeholder="Digite um ponto de referência">
+                                        </div>
+                                        <!--campos-register-->
+                                        <div class="campos-register">
+                                            <label for="uf">Estado*</label>
+                                            <input type="text" name="uf" id="uf" required disabled>
+                                        </div>
+                                        <!--campos-register-->
+                                    </div>
+                                    <input type="submit" name="cadastrar-cerveja" value="CADASTRAR">                     
+                                </form>
+                            </div><!--register-product-->
+                        </div><!--wrap-register-product-->
+                    </div><!--container-register-->
+                </div><!--container-->
+            </section><!--register-->
+        </div>
+    </body>
+</html>
