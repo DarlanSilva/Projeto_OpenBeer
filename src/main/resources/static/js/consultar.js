@@ -17,6 +17,9 @@ $(document.this).ready(function () {
             url: "../cerveja/" + Id + "/remover"
         });
         
+        $("#tableCerveja").closest("tr").hide();
+         modal.style.visibility = "hidden";
+
         
         //result.redirectTo(CervejaController.class).manutencao();
 

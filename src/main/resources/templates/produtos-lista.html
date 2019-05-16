@@ -34,9 +34,9 @@
                 </div>
                 <!--container-->
             </section>
-            <section class="lista-produtos">
+            <section class="lista-produtos" >
                 <div class="container">
-                    <div class="wrap-list">
+                    <div class="wrap-list" >
                         <aside class="categorias">
                             <h2>CATEGORIAS</h2>
                             <ul class="categories-list">
@@ -49,10 +49,8 @@
                                 <li><a href="#">Zero Alcool</a></li>
                             </ul><!--categories-list-->
                         </aside>
-                        <div data-th-if ="${not #lists.isEmpty(cerveja)}">
-                            <div data-th-each="cerveja : ${cerveja}">
-                                <div class="list">
-                                    <div class="single-product">
+                                <div class="list" >
+                                    <div class="single-product" data-th-each="cerveja : ${cerveja}">
                                         <div class="wrap-single-product">
 
                                             <div class="img-single-product">
@@ -68,7 +66,7 @@
                                                     <!--desc-single-name-->
 
                                                     <div class="desc-single-ml">
-                                                        <h4><span data-th-text="${cerveja.mlCerveja}"></span>ml</h4>
+                                                        <h4><span data-th-text="${cerveja.mlCerveja}"></span> ml</h4>
                                                     </div>
                                                     <!--desc-single-name-->
                                                 </div>
@@ -98,8 +96,6 @@
 
                                 </div>
                                 <!--list-->
-                            </div>
-                        </div>
                     </div>
                     <!--wrap-list-->
                 </div>

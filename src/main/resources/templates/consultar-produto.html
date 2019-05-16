@@ -35,7 +35,7 @@
                                 <th>Preço</th>
                                 <th>Ações</th>
                             </tr>
-                            <tr align = "center" th:each="cerveja : ${cerveja}">
+                            <tr align = "center" th:each="cerveja : ${cerveja}" id="tableCerveja">
                                 <td th:text="${cerveja.codigoCerveja}"></td>
                                 <td th:text="${cerveja.nome}"></td>
                                 <td th:text="${cerveja.quantidade}"></td>
