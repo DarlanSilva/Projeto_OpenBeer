@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" th:href="@{/css/menu-internas.css}">
+        <link rel="stylesheet" th:href="@{/css/footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <header class="menu-internas">
+            <div class="container">
+                <!-- <div class="cadastro-login">
+                     <div class="field-cadastro">
+                         <a href="#">CADASTRE-SE</a>
+                     </div>
+                <!--field-cadastro-->
+                <!-- <div class="field-login">
+                     <a href="#">LOGIN</a>
+                 </div>
+                <!--field-login-->
+                <!-- </div>
+                <!--cadastro-login-->
+                <nav class="nav-interna">
+                    <div class="name-logo">
+                        <h1>OPENBEER.</h1>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
+                        <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                        <li><a th:href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                        <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                        <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                    </ul>
+                </nav>
+                <!--nav-interna-->
+                <div class="login-register" style="display: none">
+                    <div class="wrap-background-login-register">
+                        <div class="wrap-login-register">
+                            <div class="register">
+                                <h2>REGISTRE - SE</h2>
+                                <form action="">
+                                    <input type="name" name="name" required placeholder="Digite seu nome: ">
+                                    <input type="tel" name="phone" required placeholder="Digite seu telefone: ">
+                                    <input type="email" name="email" required placeholder="Digite seu email: ">
+                                    <input type="email" name="confirm-email" required placeholder="Confirme seu email: ">
+                                    <input type="name" name="username" required placeholder="Crie um usuário: ">
+                                    <input type="password" name="pass" required placeholder="Digite uma senha: ">
+                                    <input type="password" name="confirm-pass" required placeholder="Confirme sua senha: ">
+                                    <input type="submit" name="btn-cadastrar" value="CADASTRAR">
+                                </form>
+                            </div>
+                            <!--register-->
+                            <div class="login">
+                                <h2>FAÇA O LOGIN</h2>
+                                <form action="">
+                                    <input type="name" name="user-login" required placeholder="Insira seu user: ">
+                                    <input type="password" name="pass-login" required placeholder="Digite sua senha: ">
+                                    <input type="submit" name="btn-login" value="LOGIN">
+                                </form>
+                            </div>
+                            <!--login-->
+                        </div>
+                        <!--wrap-login-register-->
+                    </div>
+                    <!--wrap-background-login-register-->
+                </div>
+                <!--login-register-->
+            </div>
+        </header>
+        <section class="product-description">
+            <div class="container">
+                <div class="wrap-section-desc">
+                    <div class="section-desc">
+                        <h1>HOP HUNTER</h1>
+                        <h2>is simply dummy text of the printing and typesetting industry.</h2>
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
+                    </div>
+                    <!--section-desc-->
+                    <div class="section-fig">
+                        <img th:src="@{/img/beer-artesanal.png}" alt="Cerveja artesanal" width="300px">
+                    </div>
+                    <!--section-fig-->
+                    <div class="section-info">
+                        <div class="container-info">
+                            <div class="wrap-year">
+                                <h2>ANO</h2>
+                                <h3>1993</h3>
+                            </div>
+                            <!--wrap-year-->
+                            <div class="wrap-middle">
+                                <div class="wrap-left">
+                                    <div class="wrap-type">
+                                        <h2>IPA</h2>
+                                    </div>
+                                    <!--wrap-type-->
+                                    <div class="wrap-teor">
+                                        <h1>Álcool</h1>
+                                        <h2>5,5%</h2>
+                                    </div>
+                                    <!--wrap-teor-->
+                                </div>
+                                <!--wrap-left-->
+                                <div class="wrap-right">
+                                    <img th:src="@{/img/beerrr.png}" alt="Cup Beer" width="60px;">
+                                </div>
+                                <!--wrap-right-->
+
+                            </div>
+                            <!--wrap-middle-->
+                            <div class="wrap-vol">
+                                <h2>300ML</h2>
+                            </div>
+                            <!--wrap-vol-->
+                        </div>
+                        <a th:href="@{/OpenBeer/Carrinho}"><button>ADICIONAR AO CARRINHO</button></a>
+                        <!--container-info-->
+                    </div>
+                    <!--section-info-->
+                </div>
+                <!--wrap-section-desc-->
+            </div>
+            <!--container-->
+        </section>
+        <!--product-description-->
+        <footer>
+            <p>Desenvolvido por Opeen Beer</p>
+            <p>Todos os direitos reservados - 2019</p>
+        </footer>
+    </body>
+</html>

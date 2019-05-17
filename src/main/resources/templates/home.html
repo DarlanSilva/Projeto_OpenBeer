@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Beer</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+    <div class="container"></div>
+     <nav>
+        <div class="cadastro-login">
+            <div class="field-cadastro">
+                <a href="#">CADASTRE-SE</a>
+            </div><!--field-cadastro-->
+            <div class="field-login">
+                <a href="#">LOGIN</a>
+            </div><!--field-login-->
+        </div><!--cadastro-login-->
+         <ul>
+             <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
+             <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+             <li><a th:href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+             <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
+             <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+         </ul>
+     </nav>
+     <div class="login-register" style="display: none">
+        <div class="wrap-background-login-register">
+             <div class="wrap-login-register">
+             <div class="register">
+                <h2>REGISTRE - SE</h2>
+                 <form action="">
+                     <input type="name" name="name" required placeholder="Digite seu nome: ">
+                     <input type="tel" name="phone" required placeholder="Digite seu telefone: ">
+                     <input type="email" name="email" required placeholder="Digite seu email: ">
+                     <input type="email" name="confirm-email" required placeholder="Confirme seu email: ">
+                     <input type="name" name="username" required placeholder="Crie um usuário: ">
+                     <input type="password" name="pass" required placeholder="Digite uma senha: ">
+                     <input type="password" name="confirm-pass" required placeholder="Confirme sua senha: ">
+                     <input type="submit" name="btn-cadastrar" value="CADASTRAR">
+                 </form>
+             </div><!--register-->
+             <div class="login">
+                 <h2>FAÇA O LOGIN</h2>
+                  <form action="">
+                     <input type="name" name="user-login" required placeholder="Insira seu user: ">
+                     <input type="password" name="pass-login" required placeholder="Digite sua senha: ">
+                     <input type="submit" name="btn-login" value="LOGIN">
+                 </form>
+             </div><!--login-->
+         </div><!--wrap-login-register-->
+        </div><!--wrap-background-login-register-->
+     </div><!--login-register-->
+      <div class="call">
+          <div class="call-title">
+              <img th:src="@{/img/title-img.png}" alt="">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non sem sapien. Sed volutpat diam enim, vel faucibus quam mattis et. Phasellus elit magna, vulputate at dolor suscipit, venenatis tincidunt ante. Mauris auctor finibus justo ut luctus. Sed a sodales leo. Quisque ullamcorper ligula tellus, in posuere eros semper a.</p>
+              <button>Saiba Mais</button>
+          </div><!--call-title-->
+          
+      </div><!--call-->
+    </header>
+    <div class="pos-call">
+          <h3>MERGULHE NO UNIVERSO DA CERVEJA ARTESANAL</h3>
+      </div><!--pos-call-->
+    <section class="universo-beer">
+       <div class="wrap-background">
+           <div class="wrap-sub-universe">
+            <h2>O maior prazer e alegria em tomar uma cerveja está em descobrir seus sabores</h2>
+            <img th:src="@{/img/lupulo-icon.png}" alt="">
+            <p>Nos alimentos e bebidas, o sabor vem sempre em primeiro lugar. Para nós da Blondine, além da qualidade e pureza de tudo que fazemos, a criação de sabores originais é a nossa maior habilidade e paixão. Tudo feito com o cuidado artesanal.</p>
+           </div><!--wrap-sub-universe-->  
+       </div><!--wrap-background-->  
+    </section><!--universo-beer-->
+    <section class="home-produtos">
+        <div class="wrap-home-produtos">
+            <div class="image-home-produto">
+                <img th:src="@{/img/beer-artesanal.png}" alt="">
+            </div><!--image-home-produto-->
+            <div class="home-desc-produto">
+                <h2>CERVEJA TUPINIQUIN</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
+                <a th:href="@{/OpenBeer/Produto}"><button>CONHEÇA O PRODUTO</button></a>
+            </div><!--home-desc-produto-->
+        </div><!--wrap-home-produtos-->
+        
+        <div class="wrap-home-produtos">
+            <div class="image-home-produto">
+                <img th:src="@{/img/tupiniquin-beer.png}" alt="">
+            </div><!--image-home-produto-->
+            <div class="home-desc-produto">
+                <h2>CERVEJA TUPINIQUIN</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
+                <button>CONHEÇA O PRODUTO</button>
+            </div><!--home-desc-produto-->
+        </div><!--wrap-home-produtos-->
+        
+        <div class="wrap-home-produtos">
+            <div class="image-home-produto">
+                <img th:src="@{/img/tupiniquin-beer.png}" alt="">
+            </div><!--image-home-produto-->
+            <div class="home-desc-produto">
+                <h2>CERVEJA TUPINIQUIN</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
+                <button>CONHEÇA O PRODUTO</button>
+            </div><!--home-desc-produto-->
+        </div><!--wrap-home-produtos-->
+    </section><!--home-produtos-->
+       <footer>
+        <p>Desenvolvido por Opeen Beer</p>
+        <p>Todos os direitos reservados - 2019</p>
+    </footer>
+</body>
+</html>

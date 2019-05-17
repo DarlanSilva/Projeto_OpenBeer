@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template}">
+    <body>
+        <div layout:fragment="conteudo">
+            <link rel="stylesheet" th:href="@{/css/produto-lista.css}">
+            <section class="produtos">
+                <div class="container">
+                    <div class="wrap-produtos">
+                        <h1>Aqui você confere nossa variedade de cervejas artesanais.</h1>
+                        <h2>Aproveite e escolha a sua :)</h2>
+                    </div>
+                    <!--wrap-list-->
+                </div>
+                <!--container-->
+            </section>
+            <!--produtos-->
+            <section class="filtro">
+                <div class="container">
+                    <div class="wrap-filtro">
+                        <h2>  FILTROS</h2>
+                    </div>
+                    <!--wrap-filtro-->
+                </div>
+                <!--container-->
+            </section>
+            <section class="lista-produtos" >
+                <div class="container">
+                    <div class="wrap-list" >
+                        <aside class="categorias">
+                            <h2>CATEGORIAS</h2>
+                            <ul class="categories-list">
+                                <li><a href="#">Artesanais</a></li>
+                                <li><a href="#">Nacionais</a></li>
+                                <li><a href="#">Importadas</a></li>
+                                <li><a href="#">Adocicadas</a></li>
+                                <li><a href="#">Amargas</a></li>
+                                <li><a href="#">Em Promoção</a></li>
+                                <li><a href="#">Zero Alcool</a></li>
+                            </ul><!--categories-list-->
+                        </aside>
+                                <div class="list" >
+                                    <div class="single-product" data-th-each="cerveja : ${cerveja}">
+                                        <div class="wrap-single-product">
+
+                                            <div class="img-single-product">
+                                                <img th:src="@{/img/tupiniquin-beer.png}" alt="" width="130">
+                                            </div>
+                                            <!--img-single-product-->
+
+                                            <div class="desc-single-product">
+                                                <div class="wrap-single-name">
+                                                    <div class="desc-single-name">
+                                                        <h4><span data-th-text="${cerveja.nome}"></span> </h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+
+                                                    <div class="desc-single-ml">
+                                                        <h4><span data-th-text="${cerveja.mlCerveja}"></span> ml</h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+                                                </div>
+                                                <!--wrap-single-name-->
+                                                <div class="wrap-single-price">
+                                                    <div class="desc-single-price">
+                                                        <h4>R$ <span th:text="${cerveja.valorCerveja}"></span> </h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+
+                                                    <div class="desc-single-desc">
+                                                        <h4><span th:text="${cerveja.descricao}"></span></h4>
+                                                    </div>
+                                                    <!--desc-single-name-->
+                                                </div>
+                                                <!--wrap-single-name-->
+                                            </div>
+                                            <!--desc-single-product-->
+
+                                            <div class="btn-comprar-list">
+                                                <a th:href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}">COMPRAR</a>
+                                            </div><!--btn-comprar-list-->
+                                        </div>
+                                        <!--wrap-single-product-->
+                                    </div>
+                                    <!--single-product-->
+
+                                </div>
+                                <!--list-->
+                    </div>
+                    <!--wrap-list-->
+                </div>
+                <!--container-->
+            </section>
+            <!--lista-produtos-->
+        </div> 
+    </body>
+
+</html>

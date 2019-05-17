@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+
+body, html{
+    height: 100%;
+    background: #eeeeee;
+}
+
+.container{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    
+}
+
+.register .container > h1{
+    text-align: center;
+    padding: 40px 0;
+    font-size: 40px;
+    color: #333333;
+}
+
+.container-register{
+    display: flex;
+    padding: 10px 0;
+    
+}
+
+.campos-register{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px 20px;
+}
+
+.campos-register input{
+    height: 40px;
+    border: 0;
+    outline: none;
+    width: 250px;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+    
+.wrap-side-background{
+    background: url("../img/background-register.jpg");
+    background-position:center;
+    background-size: cover;
+    position: relative;
+    flex: .5;
+}
+
+.wrap-side-background .img{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: rgba(0,0,0,.7);
+}
+
+.register-product form{
+    padding: 40px 60px;
+}
+.wrap-register-product{
+    background: #bababa;
+    flex: 1;
+   
+}
+
+.wrap-register-campos{
+    display: flex;
+    
+}
+
+textarea{
+ outline: none;
+ border: 0;
+ margin: 10px 0;
+ resize: none;
+ padding: 10px;
+ border-radius: 5px;
+}
+
+
+input[name="cadastrar-cerveja"]{
+    padding: 10px 20px;
+    border: 0;
+    outline: none;
+    background: #333333;
+    color: #ffffff;
+    border-radius: 50px;
+    cursor: pointer;
+}

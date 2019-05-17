@@ -1,0 +1,335 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+
+
+body, html{
+    height: 100%;
+}
+
+input{
+    border: 0;
+    outline: none;
+    padding: 10px;
+}
+
+/*LOGIN - REGISTER*/
+
+
+.wrap-login-register .register form,.wrap-login-register .login form{
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.wrap-login-register .register, .wrap-login-register .login{
+    flex: 1;
+    background: #eeeeee;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.wrap-login-register .login{
+    flex: .8;
+    background: orange;
+    color: #ffffff;
+}
+
+.register form input[type="submit"], .login form input[type="submit"]{
+    display: block;
+    width: 150px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin: 20px auto;
+    
+}
+
+.register form input[type="submit"]{
+    background: #cccccc;
+    font-weight: bold;
+}
+
+.login form input[type="submit"]{
+    background: #333333;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.wrap-login-register .register form input:not([type="submit"]),.wrap-login-register .login form input:not([type="submit"]){
+    height: 40px;
+    width: 90%;
+    margin: 0 auto;
+    background: transparent;
+    margin: 10px auto;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    font-size: 16px;
+    letter-spacing: 1px;
+
+}
+
+
+.wrap-login-register .login form input:not([type="submit"]){
+    color: #ffffff;
+
+    
+}
+
+
+.wrap-login-register .login form input:not([type="submit"])::-webkit-input-placeholder{
+    color: rgba(255,255,255,.5);
+    font-size: 14px;
+     letter-spacing: 0px;
+}
+
+.wrap-login-register .register form input:not([type="submit"])::-webkit-input-placeholder{
+    font-size: 14px;
+     letter-spacing: 0px;
+}
+
+
+.wrap-login-register{
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999999;
+    
+}
+
+.wrap-background-login-register{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.9);
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+}
+
+
+
+/*HEADER*/
+
+header{
+    background: url("../img/header-beer.png");
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 75%;
+    margin-bottom: 150px;
+}
+
+.cadastro-login{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    position: relative;
+    right: 10%;
+}
+
+.cadastro-login a{
+    font-size: 12px;
+    text-decoration: none;
+    color: #ffff;
+    
+}
+
+
+.field-cadastro{
+    background: lightblue;
+    padding: 2px 10px;
+    border-radius: 50px;
+}
+
+.field-login{
+    margin: 0 20px;
+    background: lightblue;
+    padding: 2px 10px;
+    border-radius: 50px;
+}
+
+nav{
+    overflow: hidden;
+}
+
+ul{
+    display: flex;
+    justify-content:space-around;
+    padding-top: 10px;
+    max-width: 600px;
+    width: 100%;
+    float: right;
+    
+}
+
+ul li{
+    list-style: none;
+}
+
+ul li a{
+    text-decoration: none;
+    color: #333;
+    
+}
+
+.call-title{
+    float: right;
+    text-align: right;
+    position: relative;
+    right: 200px;
+    top: 100px;
+    width: 500px;
+    text-align: justify;
+    
+}
+
+.call-title > p{
+    padding:30px 0;
+    
+}
+
+.call-title button{
+    width: 200px;
+    padding: 15px;
+    border-radius: 50px;
+    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    margin: 0 auto;
+    display: block;
+    font-size: 20px;
+    display: block;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+    cursor: pointer;
+    transition: 1s;
+}
+
+.call-title button:hover{
+    transform: scale(.95);
+    transition: 1s;
+}
+
+.call-title img{
+    width: 500px;
+}
+
+.pos-call{
+    background-image: linear-gradient(to right, #00f8ff 0%, #04a8ac 100%);
+    text-align: center;
+    padding: 20px 0;
+    color: #000000;
+
+}
+
+.universo-beer{
+    background: url("../img/background-universe.jpg");
+    background-position:bottom;
+    background-size: cover;
+}
+
+.wrap-sub-universe{
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+    padding: 50px 0;
+}
+
+.wrap-sub-universe p{
+    font-size: 20px;
+}
+.wrap-sub-universe img{
+    width: 300px;
+}
+
+.universo-beer h2{
+    font-family: 'Lobster', cursive;
+    padding-top: 50px;
+    font-size: 40px;
+    line-height: 50px;
+    
+}
+
+.wrap-background{
+    background: rgba(0,0,0,.9);
+    height: 100%;
+    width: 100%;
+}
+
+
+/*HOME PRODUTOS*/
+
+.wrap-home-produtos{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    background: #eeeeee;
+}
+
+
+.wrap-home-produtos:nth-child(2n+1){
+    flex-direction: row;
+    background: #ffffff;
+}
+
+.home-produtos{
+    padding: 80px 0;
+}
+
+.home-desc-produto{
+    width: 500px;
+}
+
+.home-desc-produto h2{
+    padding: 20px 0;
+}
+
+.image-home-produto img {
+    width: 300px;
+}
+
+
+.home-desc-produto button {
+    background: tomato;
+    padding: 10px 15px;
+    text-align: center;
+    border: 0;
+    border-radius: 50px;
+    color: #ffffff;
+    margin: 20px 0;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.2);
+    cursor: pointer;
+}
+
+.wrap-home-produtos {
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px){
+    .call-title {
+    float: right;
+    text-align: right;
+    position: relative;
+    right: 20px;
+    top: 100px;
+    width: 500px;
+    text-align: justify;
+}
+}
+
+@media screen and (max-width: 1000px){
+    header{
+        background: none
+    }
+}
