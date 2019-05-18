@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template}">
+    <div layout:fragment="conteudo">
+
+        <body>
+            <link rel="stylesheet" th:href="@{/css/carrinho.css}">
+            <section class="carrinho-section">
+                <div class="container">
+                    <div class="wrap-carrinho">
+                        <div class="wrap-carrinho-product">
+                            <div class="wrap-title-carrinho">
+                                <div class="carrinho-title">
+                                    <h1>CARRINHO</h1>
+                                </div><!--carrinho-title-->
+                                <div class="carrinho-qtd-itens">
+                                    <h2><span>3 </span>ITENS</h2>
+                                </div><!--carrinho-qtd-itens-->
+                            </div><!--wrap-title-carrinho--> 
+
+                            <div class="container-title-product">
+                                <div class="product-title">
+                                    <h3>Produtos</h3>
+                                    <div class="wrap-product-img-desc">
+                                        <div class="product-img">
+                                            <img th:src="@{/img/beer-artesanal.png}" alt="" width="100px">
+                                        </div><!--product-img-->
+                                        <div class="product-desc-inside">
+                                            <h4>NOME DO PRODUTO</h4>
+                                            <span>Descricao de todo o produto</span>
+                                        </div><!--product-desc-inside-->
+                                    </div><!--wrap-product-img-desc-->
+                                </div><!--product-title-->
+                                <div class="product-qtd">
+                                    <h3>Qtd</h3>
+                                    <h4>3</h4>
+                                </div><!--product-qtd-->
+                                <div class="product-price">
+                                    <h3>Preço</h3>
+                                    <h4>R$ <span>1,00</span></h4>
+                                </div><!--product-price-->
+                                <div class="product-total">
+                                    <h3>Total</h3>
+                                    <h4>R$ <span>3,00</span></h4>
+                                </div><!--product-total-->
+                            </div><!--container-title-product--> 
+                        </div><!--wrap-carrinho-product-->
+                        <div class="wrap-carrinho-pay">
+                            <div class="title-pay">
+                                <h2>Resumo do Pedido</h2>
+                                <div class="wrap-quantidade-subtotal">
+                                    <div class="qtd-itens-subtotal">
+                                        <h4>Itens <span>5</span></h4>
+                                    </div><!--qtd-itens-subtotal-->
+                                    <div class="subtotal-products">
+                                        <h4>R$ <span>3,00</span></h4>
+                                    </div><!--subtotal-products-->
+                                </div><!--wrap-quantidade-subtotal-->
+
+                                <div class="price-entrega">
+                                    <h3>Entrega</h3>
+                                    <select name="entrega" id="entrega">
+                                        <option value="">
+                                            Rápida - R$ 16,93
+                                        </option>
+                                    </select>
+                                </div><!--price-entrega-->
+                                <div class="promo-code">
+                                    <h3>Código Promocional</h3>
+                                    <form action="#">
+                                        <input type="text" name="promo-code" id="promo-code" placeholder="Seu código aqui">
+                                        <input type="submit" name="apply" id="apply" value="APLICAR">
+                                    </form>
+                                </div><!--promo-code-->
+                            </div><!--title-pay-->
+
+                            <div class="wrap-total">
+                                <div class="wrap-total-pagar">
+                                    <h4>Total a pagar</h4>
+                                </div><!--wrap-total-pagar-->
+                                <div class="valor-total-pagar">
+                                    <h4>R$ <span>19,93</span></h4>
+                                </div><!--valor-total-pagar--> 
+                            </div>
+                            <div class="prosseguir">
+                                <a href="#">PROSSEGUIR</a>
+                            </div><!--prosseguir-->
+                        </div><!--wrap-carrinho-pay-->
+                    </div><!--wrap-carrinho-->
+                </div><!--container-->
+
+            </section><!--carrinho-section-->
+
+        </body>
+    </div>
+</html>

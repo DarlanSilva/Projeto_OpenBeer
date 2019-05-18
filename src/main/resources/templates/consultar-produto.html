@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template}">
+
+    <body>
+        <div layout:fragment="conteudo">
+            <link rel="stylesheet" th:href="@{/css/consultar-produto.css}">
+            <link rel="stylesheet" th:href="@{/css/mensagens.css}">
+            <section class="modal-delete">
+                <div class="modal">
+                    <div class="wrap-modal">
+                        <div class="wrap-mensagem">
+                            <h2>Deseja realmente deletar ?</h2>
+                            <span>Essa ação será irreversível</span>
+                            <input id="modal-deletar-product-id" type="hidden" name="id"/> 
+                        </div><!--wrap-mensagem-->
+                        <div class="modal-btn">
+                            <button class="btn-modal-cancelar btn">Cancelar</button>
+                            <button class="btn-modal-deletar btn" id="deleteProduct">Deletar</button>
+                        </div><!--modal-content-->
+
+                    </div><!--wrap-modal-->
+                </div><!--modal-->
+            </section><!--modal-delete-->
+
+            <section class="consult">
+                <div class="container">
+                    <div class="wrap-consult">
+                        <h2>Gerenciamento de Produtos</h2><br>
+                         <div th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}" class="alert alert-success" role="alert"></div>
+                        <table cellspacing = "0" cellpadding = "0" align = "center">
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                                <th>Ações</th>
+                            </tr>
+                            <tr align = "center" th:each="cerveja : ${cerveja}" id="tableCerveja">
+                                <td th:text="${cerveja.codigoCerveja}"></td>
+                                <td th:text="${cerveja.nome}"></td>
+                                <td th:text="${cerveja.quantidade}"></td>
+                                <td th:text="${cerveja.valorCerveja}"></td>
+                                <td><a th:href="@{/OpenBeer/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a th:attr="onclick = ${ 'modalRemover(' + cerveja.id + ')' }" href="#"  class="btn btn-deletar">Deletar</a>
+                                <input id="cerveja-id" type="hidden" name="cerveja-id"/> 
+                            </tr>
+                        </table><br>
+                        <div style="text-align:left">
+                            <a th:href="@{/OpenBeer/cerveja/novo}" class="btn btn-editar">Adicionar</a>
+                        </div>
+                    </div><!--wrap-consult-->
+                </div><!--container-->
+            </section>           
+            <script type="text/javascript" th:src="@{/js/consultar.js}"></script>
+        </div>
+    </body>
+</html>
