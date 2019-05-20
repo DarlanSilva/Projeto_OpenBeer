@@ -16,5 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface CervejaRepository extends JpaRepository<Cerveja, Integer> {
     
      public Optional<Cerveja> findByNome(String nome);
+     
+     public Optional<Cerveja> findAllByDestaque(boolean destaque);
 
 }

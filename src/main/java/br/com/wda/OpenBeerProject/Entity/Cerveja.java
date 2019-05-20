@@ -3,6 +3,7 @@ package br.com.wda.OpenBeerProject.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -76,6 +77,9 @@ public class Cerveja implements Serializable {
 
     @Column(name = "TG_INATIVO")
     private int inativo;
+    
+    @Column(name = "TG_DESTAQUE")
+    private boolean destaque;
 
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
@@ -86,11 +90,15 @@ public class Cerveja implements Serializable {
     @JoinTable(name="TB_TIPOCERVEJA")
     @Column(name = "FK_TIPOCERVEJA")
     private Integer tipoCerveja;
+    
+    @NotBlank(message = "IMAGEM OBRIGATÓRIA")
+    @Column(name = "IMAGEMCERVEJA")
+    private String imagem;
 
     public Cerveja() { 
     }
 
-    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja) {
+    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -101,9 +109,11 @@ public class Cerveja implements Serializable {
         this.quantidade = quantidade;
         this.mlCerveja = mlCerveja;
         this.inativo = inativo;
+        this.destaque = destaque;
         this.dhInclusao = dhInclusao;
         this.dhAlteracao = dhAlteracao;
         this.tipoCerveja = tipoCerveja;
+        this.imagem = imagem;
     }
 
     public Integer getId() {
@@ -186,6 +196,14 @@ public class Cerveja implements Serializable {
         this.inativo = inativo;
     }
 
+    public boolean getDestaque() {
+        return destaque;
+    }
+
+    public void setDestaque(boolean destaque) {
+        this.destaque = destaque;
+    }
+
     public LocalDateTime getDhInclusao() {
         return dhInclusao;
     }
@@ -209,5 +227,41 @@ public class Cerveja implements Serializable {
     public void setTipoCerveja(Integer tipoCerveja) {
         this.tipoCerveja = tipoCerveja;
     }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cerveja other = (Cerveja) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
 
 }

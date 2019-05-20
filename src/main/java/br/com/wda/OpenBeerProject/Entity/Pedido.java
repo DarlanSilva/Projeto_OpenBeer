@@ -15,54 +15,61 @@ import javax.validation.constraints.Digits;
  *
  * @author Darlan Silva
  */
-
 @Entity
 @Table(name = "VD_PEDIDO")
-public class Pedido implements Serializable{
-    
+public class Pedido implements Serializable {
+
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "FK_CLIENTE")
     private Integer cliente;
-    
-    @Column(name = "FK_CERVEJA")
-    private Integer produto;
-    
+
+    @Column(name = "FK_TIPOENTREGA")
+    private Integer tipoEntrega;
+
     @Column(name = "FK_STATUSPEDIDO")
     private Integer status;
-    
+
     @Digits(integer = 13, fraction = 2)
     @Column(name = "VL_PEDIDO")
     private BigDecimal valorPedido;
-    
-    @Column(name = "DT_ENTREGA", nullable = false, insertable = true, updatable = true)
-    private LocalDateTime dhPedido;
-    
+
+    @Column(name = "DH_PEDIDOFECHADO", nullable = false, insertable = true, updatable = true)
+    private LocalDateTime dhPedidoFechado;
+
+    @Column(name = "DH_PEDIDOCANCELADO", nullable = false, insertable = true, updatable = true)
+    private LocalDateTime dhPedidoCancelado;
+
+    @Column(name = "DH_PREVICAOENTREGA", nullable = false, insertable = true, updatable = true)
+    private LocalDateTime dhPrevisaoEntrega;
+
+    @Column(name = "DH_ENTREGUE", nullable = false, insertable = true, updatable = true)
+    private LocalDateTime dhEntregue;
+
     @Column(name = "TG_INATIVO")
     private int inativo;
 
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
 
-    @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
-    private LocalDateTime dhAlteracao;
-
     public Pedido() {
     }
 
-    public Pedido(Integer id, Integer cliente, Integer produto, Integer status, BigDecimal valorPedido, LocalDateTime dhPedido, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Pedido(Integer id, Integer cliente, Integer tipoEntrega, Integer status, BigDecimal valorPedido, LocalDateTime dhPedidoFechado, LocalDateTime dhPedidoCancelado, LocalDateTime dhPrevisaoEntrega, LocalDateTime dhEntregue, int inativo, LocalDateTime dhInclusao) {
         this.id = id;
         this.cliente = cliente;
-        this.produto = produto;
+        this.tipoEntrega = tipoEntrega;
         this.status = status;
         this.valorPedido = valorPedido;
-        this.dhPedido = dhPedido;
+        this.dhPedidoFechado = dhPedidoFechado;
+        this.dhPedidoCancelado = dhPedidoCancelado;
+        this.dhPrevisaoEntrega = dhPrevisaoEntrega;
+        this.dhEntregue = dhEntregue;
         this.inativo = inativo;
         this.dhInclusao = dhInclusao;
-        this.dhAlteracao = dhAlteracao;
     }
 
     public Integer getId() {
@@ -81,12 +88,12 @@ public class Pedido implements Serializable{
         this.cliente = cliente;
     }
 
-    public Integer getProduto() {
-        return produto;
+    public Integer getTipoEntrega() {
+        return tipoEntrega;
     }
 
-    public void setProduto(Integer produto) {
-        this.produto = produto;
+    public void setTipoEntrega(Integer tipoEntrega) {
+        this.tipoEntrega = tipoEntrega;
     }
 
     public Integer getStatus() {
@@ -105,12 +112,36 @@ public class Pedido implements Serializable{
         this.valorPedido = valorPedido;
     }
 
-    public LocalDateTime getDhPedido() {
-        return dhPedido;
+    public LocalDateTime getDhPedidoFechado() {
+        return dhPedidoFechado;
     }
 
-    public void setDhPedido(LocalDateTime dhPedido) {
-        this.dhPedido = dhPedido;
+    public void setDhPedidoFechado(LocalDateTime dhPedidoFechado) {
+        this.dhPedidoFechado = dhPedidoFechado;
+    }
+
+    public LocalDateTime getDhPedidoCancelado() {
+        return dhPedidoCancelado;
+    }
+
+    public void setDhPedidoCancelado(LocalDateTime dhPedidoCancelado) {
+        this.dhPedidoCancelado = dhPedidoCancelado;
+    }
+
+    public LocalDateTime getDhPrevisaoEntrega() {
+        return dhPrevisaoEntrega;
+    }
+
+    public void setDhPrevisaoEntrega(LocalDateTime dhPrevisaoEntrega) {
+        this.dhPrevisaoEntrega = dhPrevisaoEntrega;
+    }
+
+    public LocalDateTime getDhEntregue() {
+        return dhEntregue;
+    }
+
+    public void setDhEntregue(LocalDateTime dhEntregue) {
+        this.dhEntregue = dhEntregue;
     }
 
     public int getInativo() {
@@ -127,14 +158,6 @@ public class Pedido implements Serializable{
 
     public void setDhInclusao(LocalDateTime dhInclusao) {
         this.dhInclusao = dhInclusao;
-    }
-
-    public LocalDateTime getDhAlteracao() {
-        return dhAlteracao;
-    }
-
-    public void setDhAlteracao(LocalDateTime dhAlteracao) {
-        this.dhAlteracao = dhAlteracao;
     }
     
     

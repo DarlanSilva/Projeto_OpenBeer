@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Open Beer</title>
         <link rel="stylesheet" th:href="@{/css/menu-internas.css}">
+        <link rel="stylesheet" th:href="@{/css/carrinho.css}">
         <link rel="stylesheet" th:href="@{/css/footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
@@ -13,17 +14,6 @@
     <body>
         <header class="menu-internas">
             <div class="container">
-                <!-- <div class="cadastro-login">
-                     <div class="field-cadastro">
-                         <a href="#">CADASTRE-SE</a>
-                     </div>
-                <!--field-cadastro-->
-                <!-- <div class="field-login">
-                     <a href="#">LOGIN</a>
-                 </div>
-                <!--field-login-->
-                <!-- </div>
-                <!--cadastro-login-->
                 <nav class="nav-interna">
                     <div class="name-logo">
                         <h1>OPENBEER.</h1>
@@ -35,6 +25,14 @@
                         <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
                         <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                     </ul>
+                    <div class="carrinho-icon">
+                        <div class="wrap-carrinho-icon">
+                            <img th:src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
+                            <div class="circle-car">
+                                <span th:text ="${quantidadeCarrinho}"></span>
+                            </div><!--circle-car-->
+                        </div><!--wrap-carrinho-icon-->
+                    </div><!--carrinho-icon-->
                 </nav>
                 <!--nav-interna-->
                 <div class="login-register" style="display: none">
@@ -71,63 +69,65 @@
                 <!--login-register-->
             </div>
         </header>
-        <section class="product-description">
-            <div class="container">
-                <div class="wrap-section-desc">
-                    <div class="section-desc">
-                        <h1>HOP HUNTER</h1>
-                        <h2>is simply dummy text of the printing and typesetting industry.</h2>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-                    </div>
-                    <!--section-desc-->
-                    <div class="section-fig">
-                        <img th:src="@{/img/beer-artesanal.png}" alt="Cerveja artesanal" width="300px">
-                    </div>
-                    <!--section-fig-->
-                    <div class="section-info">
-                        <div class="container-info">
-                            <div class="wrap-year">
-                                <h2>ANO</h2>
-                                <h3>1993</h3>
-                            </div>
-                            <!--wrap-year-->
-                            <div class="wrap-middle">
-                                <div class="wrap-left">
-                                    <div class="wrap-type">
-                                        <h2>IPA</h2>
-                                    </div>
-                                    <!--wrap-type-->
-                                    <div class="wrap-teor">
-                                        <h1>Álcool</h1>
-                                        <h2>5,5%</h2>
-                                    </div>
-                                    <!--wrap-teor-->
-                                </div>
-                                <!--wrap-left-->
-                                <div class="wrap-right">
-                                    <img th:src="@{/img/beerrr.png}" alt="Cup Beer" width="60px;">
-                                </div>
-                                <!--wrap-right-->
-
-                            </div>
-                            <!--wrap-middle-->
-                            <div class="wrap-vol">
-                                <h2>300ML</h2>
-                            </div>
-                            <!--wrap-vol-->
+        <form th:object="${cerveja}">
+            <section class="product-description">
+                <div class="container">
+                    <div class="wrap-section-desc">
+                        <div class="section-desc">
+                            <h1><span data-th-text="${cerveja.nome}"></span></h1>
+                            <h2>O melhor da cerveja esta aqui - Open Beer</h2>
+                            <p><span data-th-text="${cerveja.descricao}"></span></p>
                         </div>
-                        <a th:href="@{/OpenBeer/Carrinho}"><button>ADICIONAR AO CARRINHO</button></a>
-                        <!--container-info-->
+                        <!--section-desc-->
+                        <div class="section-fig">
+                            <img th:src="@{/img/beer-artesanal.png}" alt="Cerveja artesanal" width="300px">
+                        </div>
+                        <!--section-fig-->
+                        <div class="section-info">
+                            <div class="container-info">
+                                <div class="wrap-year">
+                                    <h2>PREÇO</h2>
+                                    <h3><span data-th-text="${cerveja.valorCerveja}"></span></h3>
+                                </div>
+                                <!--wrap-year-->
+                                <div class="wrap-middle">
+                                    <div class="wrap-left">
+                                        <div class="wrap-type">
+                                            <h2><span data-th-text="${cerveja.marca}"></span></h2>
+                                        </div>
+                                        <!--wrap-type-->
+                                        <div class="wrap-teor">
+                                            <h1>Álcool</h1>
+                                            <h2><span data-th-text="${cerveja.teor}"></span>%</h2>
+                                        </div>
+                                        <!--wrap-teor-->
+                                    </div>
+                                    <!--wrap-left-->
+                                    <div class="wrap-right">
+                                        <img th:src="@{/img/beerrr.png}" alt="Cup Beer" width="60px;">
+                                    </div>
+                                    <!--wrap-right-->
+
+                                </div>
+                                <!--wrap-middle-->
+                                <div class="wrap-vol">
+                                    <h2><span data-th-text="${cerveja.mlCerveja}"></span>ML</h2>
+                                </div>
+                                <!--wrap-vol-->
+                            </div>
+                            <a th:href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}"><button>ADICIONAR AO CARRINHO</button></a>
+                            <!--container-info-->
+                        </div>
+                        <!--section-info-->
                     </div>
-                    <!--section-info-->
+                    <!--wrap-section-desc-->
                 </div>
-                <!--wrap-section-desc-->
-            </div>
-            <!--container-->
-        </section>
-        <!--product-description-->
+                <!--container-->
+            </section>
+            <!--product-description-->
+        </form>
         <footer>
-            <p>Desenvolvido por Opeen Beer</p>
+            <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
     </body>

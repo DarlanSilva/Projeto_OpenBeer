@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
@@ -18,15 +20,18 @@ import javax.validation.constraints.Digits;
 
 @Entity
 @Table(name = "VD_ITENSCARRINHO")
+@Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ItensCarrinho implements Serializable{
     
+    private static final long serialVersionUID = 1L;
+ 
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "FK_CLIENTE")
-    private Integer cliente;
+    @Column(name = "FK_PEDIDO")
+    private Integer pedido;
     
     @Column(name = "FK_CERVEJA")
     private Integer cerveja;
@@ -40,21 +45,17 @@ public class ItensCarrinho implements Serializable{
 
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
-    
-    @Column(name = "DH_COMPRAR", nullable = true, insertable = true, updatable = false)
-    private LocalDateTime dhCompra;
 
     public ItensCarrinho() {
     }
 
-    public ItensCarrinho(Integer id, Integer cliente, Integer cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao, LocalDateTime dhCompra) {
+    public ItensCarrinho(Integer id, Integer pedido, Integer cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao) {
         this.id = id;
-        this.cliente = cliente;
+        this.pedido = pedido;
         this.cerveja = cerveja;
         this.quantidade = quantidade;
         this.vlTotal = vlTotal;
         this.dhInclusao = dhInclusao;
-        this.dhCompra = dhCompra;
     }
     
     
@@ -67,12 +68,12 @@ public class ItensCarrinho implements Serializable{
         this.id = id;
     }
 
-    public Integer getCliente() {
-        return cliente;
+    public Integer getPedido() {
+        return pedido;
     }
 
-    public void setCliente(Integer carrinho) {
-        this.cliente = carrinho;
+    public void setPedido(Integer pedido) {
+        this.pedido = pedido;
     }
 
     public Integer getCerveja() {
@@ -106,15 +107,6 @@ public class ItensCarrinho implements Serializable{
     public void setDhInclusao(LocalDateTime dhInclusao) {
         this.dhInclusao = dhInclusao;
     }
-
-    public LocalDateTime getDhCompra() {
-        return dhCompra;
-    }
-
-    public void setDhCompra(LocalDateTime dhCompra) {
-        this.dhCompra = dhCompra;
-    }
-    
     
 
 }

@@ -1,95 +1,114 @@
 <!DOCTYPE html>
-<html layout:decorate="~{template}">
-    <div layout:fragment="conteudo">
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" th:href="@{/css/carrinho.css}">
+        <link rel="stylesheet" th:href="@{/css/footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
-        <body>
-            <link rel="stylesheet" th:href="@{/css/carrinho.css}">
-            <section class="carrinho-section">
-                <div class="container">
-                    <div class="wrap-carrinho">
-                        <div class="wrap-carrinho-product">
-                            <div class="wrap-title-carrinho">
-                                <div class="carrinho-title">
-                                    <h1>CARRINHO</h1>
-                                </div><!--carrinho-title-->
-                                <div class="carrinho-qtd-itens">
-                                    <h2><span>3 </span>ITENS</h2>
-                                </div><!--carrinho-qtd-itens-->
-                            </div><!--wrap-title-carrinho--> 
+    </head>
+    <body>
+        <header class="menu-internas">
+            <div class="container">
+                <nav class="nav-interna">
+                    <div class="name-logo">
+                        <h1>OPENBEER.</h1>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
+                        <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                        <li><a th:href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                        <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                        <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                    </ul>
+                    <div class="carrinho-icon">
+                        <div class="wrap-carrinho-icon">
+                            <img th:src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
+                            <div class="circle-car">
+                                <span th:text ="${quantidadeCarrinho}"></span>
+                            </div><!--circle-car-->
+                        </div><!--wrap-carrinho-icon-->
+                    </div><!--carrinho-icon-->
+                </nav>
+                <!--nav-interna-->
+            </div>
+        </header>
 
-                            <div class="container-title-product">
-                                <div class="product-title">
-                                    <h3>Produtos</h3>
-                                    <div class="wrap-product-img-desc">
-                                        <div class="product-img">
-                                            <img th:src="@{/img/beer-artesanal.png}" alt="" width="100px">
-                                        </div><!--product-img-->
-                                        <div class="product-desc-inside">
-                                            <h4>NOME DO PRODUTO</h4>
-                                            <span>Descricao de todo o produto</span>
-                                        </div><!--product-desc-inside-->
-                                    </div><!--wrap-product-img-desc-->
-                                </div><!--product-title-->
-                                <div class="product-qtd">
-                                    <h3>Qtd</h3>
-                                    <h4>3</h4>
-                                </div><!--product-qtd-->
-                                <div class="product-price">
-                                    <h3>Preço</h3>
-                                    <h4>R$ <span>1,00</span></h4>
-                                </div><!--product-price-->
-                                <div class="product-total">
-                                    <h3>Total</h3>
-                                    <h4>R$ <span>3,00</span></h4>
-                                </div><!--product-total-->
-                            </div><!--container-title-product--> 
-                        </div><!--wrap-carrinho-product-->
-                        <div class="wrap-carrinho-pay">
-                            <div class="title-pay">
-                                <h2>Resumo do Pedido</h2>
-                                <div class="wrap-quantidade-subtotal">
-                                    <div class="qtd-itens-subtotal">
-                                        <h4>Itens <span>5</span></h4>
-                                    </div><!--qtd-itens-subtotal-->
-                                    <div class="subtotal-products">
-                                        <h4>R$ <span>3,00</span></h4>
-                                    </div><!--subtotal-products-->
-                                </div><!--wrap-quantidade-subtotal-->
+        <section class="carrinho-section">
+            <div class="container">
+                <div class="content-carrinho">
+                    <div class="wrap-carrinho-product">
+                        <div class="wrap-title-carrinho">
+                            <div class="carrinho-title">
+                                <h1>CARRINHO</h1>
+                            </div><!--carrinho-title-->
+                        </div><!--wrap-title-carrinho--> 
+                    </div><!--wrap-carrinho-product-->
+                    <form class="form-carrinho" action="">
+                        <table width="1200" class="tabela-carrinho">
+                            <thead class="head-carrinho">
+                                <tr>
+                                    <th></th>
+                                    <th class="form-carrinho-item-head">Produto</th>
+                                    <th class="form-carrinho-item-head">Preço</th>
+                                    <th class="form-carrinho-item-head">Quantidade</th>
+                                    <th class="form-carrinho-item-head">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody align="center" class="corpo-carrinho">
+                                <tr  data-th-each="item : ${carrinhoCompras.itens}">
+                                    <td><img data-th-src="@{/img/beer-artesanal.png}" alt="imagem do Produto" width="50"></td>
+                                    <td class="form-carrinho-item" data-th-text="${item.cerveja.nome}"></td>
+                                    <td class="form-carrinho-item">R$ <span data-th-text="${item.cerveja.valorCerveja}"></span></td>
+                                    <td class="formularioDoCarrinho-item">
+                                        <input type="number" min="1" id="quantidade" name="quantidade" data-th-field="*{carrinhoCompras.quantidade(item)}" />
+                                    </td>
+                                    <td class="form-carrinho-item">R$ <span  data-th-text="${carrinhoCompras.getTotal(item)}" ></span></td>                       
+                                    <td class="form-carrinho-item"><a data-th-href="@{/OpenBeer/Carrinho/{id}/remover(id=${item.cerveja.id})}">
+                                            <img class="formularioDoCarrinho-item-remover-imagem" data-th-src="@{/img/remover.png}" alt="Remover Icon"></a></td>                      
+                                </tr>
+                                <!--  <tr>
+                                      <td align="left" colspan = "3" class="desconto">CUPOM DE DESCONTO <input type="text" name="cupom-desconto"><a href="">ADICIONAR</a></td>
+                                  </tr>-->
+                            </tbody>
+                        </table>
+                        <div class="cupom-desconto">
+                            <span>CUPOM DE DESCONTO</span>
+                            <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código">
+                            <a href="">ADICIONAR</a>
+                        </div><!--cupom-desconto-->
+                        <div class="content-subtotal">
+                            <div class="item-subtotal">
+                                <p>SUBTOTAL</p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p>ENTREGA</p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <a href="#">Calcular</a>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p>TOTAL</p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                            </div><!--item-subtotal-->
+                            <input type="submit" name="send-payment" id="send-payment" value="PROSSEGUIR">
+                        </div><!--content-subtotal-->
 
-                                <div class="price-entrega">
-                                    <h3>Entrega</h3>
-                                    <select name="entrega" id="entrega">
-                                        <option value="">
-                                            Rápida - R$ 16,93
-                                        </option>
-                                    </select>
-                                </div><!--price-entrega-->
-                                <div class="promo-code">
-                                    <h3>Código Promocional</h3>
-                                    <form action="#">
-                                        <input type="text" name="promo-code" id="promo-code" placeholder="Seu código aqui">
-                                        <input type="submit" name="apply" id="apply" value="APLICAR">
-                                    </form>
-                                </div><!--promo-code-->
-                            </div><!--title-pay-->
-
-                            <div class="wrap-total">
-                                <div class="wrap-total-pagar">
-                                    <h4>Total a pagar</h4>
-                                </div><!--wrap-total-pagar-->
-                                <div class="valor-total-pagar">
-                                    <h4>R$ <span>19,93</span></h4>
-                                </div><!--valor-total-pagar--> 
-                            </div>
-                            <div class="prosseguir">
-                                <a href="#">PROSSEGUIR</a>
-                            </div><!--prosseguir-->
-                        </div><!--wrap-carrinho-pay-->
-                    </div><!--wrap-carrinho-->
-                </div><!--container-->
-
-            </section><!--carrinho-section-->
-
-        </body>
-    </div>
+                    </form>
+                </div><!--wrap-carrinho-->
+            </div><!--container-->
+        </section><!--carrinho-section-->
+        <footer>
+            <p>Desenvolvido por WDA</p>
+            <p>Todos os direitos reservados - 2019</p>
+        </footer>
+        <script data-th-src="@{/js/carrinho.js}"></script>
+    </body>
 </html>

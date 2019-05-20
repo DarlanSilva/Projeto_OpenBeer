@@ -3,6 +3,7 @@ package br.com.wda.OpenBeerProject.Controller;
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,12 @@ public class HomeController {
 
     @GetMapping("/Home")
     public ModelAndView home() {
-        return new ModelAndView("/home");
+        ModelAndView mv = new ModelAndView("home");
+        Optional<Cerveja> cerveja = cervejaRepository.findAllByDestaque(true);
+        
+        mv.addObject("cerveja", cerveja.get());
+                
+        return mv;
     }
 
     @GetMapping("/Contato")
