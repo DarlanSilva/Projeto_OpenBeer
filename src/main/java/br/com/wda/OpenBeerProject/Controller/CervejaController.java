@@ -9,9 +9,11 @@ import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -81,8 +83,16 @@ public class CervejaController {
     }
 
     @PostMapping("/salvar")
-    public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja") Cerveja cerveja, RedirectAttributes redirectAttributes) {
-
+    public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja") 
+                        @Valid Cerveja cerveja, RedirectAttributes redirectAttributes, BindingResult result ) {
+        
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("cadastro-produto");
+            mv.addObject("cerveja", cerveja);
+            
+            return mv;
+        }
+        
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
 
@@ -91,7 +101,7 @@ public class CervejaController {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
             
-        String path = fileSaver.write("src/main/resources/produtos_imagens", imagemCerveja);
+        String path = fileSaver.write("produtos-imagens", imagemCerveja);
         cerveja.setImagem(path);
 
         cervejaRepository.save(cerveja);

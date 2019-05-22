@@ -63,12 +63,5 @@ public class AppWebConfiguration {
 //        multipartResolver.setMaxUploadSize(5242880);
 //        return multipartResolver;
     }
-    
-    @Bean
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/produtos_imagens");
-    }
 
 }
