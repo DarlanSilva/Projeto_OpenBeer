@@ -57,7 +57,7 @@
             <version>5.1.46</version>
         </dependency>
         
-        <!--S3 Amazon-->
+        <!--S3 Amazon
         <dependency>
             <groupId>com.scireum</groupId>
             <artifactId>s3ninja</artifactId>
@@ -68,7 +68,7 @@
 		<groupId>com.amazonaws</groupId>
 		<artifactId>aws-java-sdk</artifactId>
 		<version>1.9.11</version>
-	</dependency>
+	</dependency>-->
         
        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>

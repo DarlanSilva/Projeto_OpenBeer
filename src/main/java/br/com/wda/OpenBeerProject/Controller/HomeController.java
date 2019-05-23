@@ -29,8 +29,9 @@ public class HomeController {
         ModelAndView mv = new ModelAndView("home");
         Optional<Cerveja> cerveja = cervejaRepository.findAllByDestaque(true);
         
-        mv.addObject("cerveja", cerveja.get());
-                
+//        if (cerveja.get().getId() != null || cerveja.get().getId() > 0 ){
+//           mv.addObject("cerveja", cerveja.get()); 
+//        }       
         return mv;
     }
 
