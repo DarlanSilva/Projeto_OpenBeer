@@ -5,11 +5,13 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.menu-internas{
+.menu-internas {
     background: #eeeeee;
     padding: 20px 0;
+    z-index: 9;
+    box-shadow: 3px 3px 10px rgba(0,0,0,.3);
+    transition: .6s;
 }
-
 .container {
     max-width: 1200px;
     width: 90%;
@@ -24,6 +26,87 @@ html, body{
     color: #333333;
     font-weight: bold;
 }
+
+.carrinho-icon {
+    display: flex;
+    align-items: center;
+}
+
+.fas.fa-bars{
+        display: none;
+    }
+
+.carrinho-icon .fa-bars{
+    font-size: 40px;
+    margin: 0 40px;
+    color: #333333;
+    cursor: pointer;
+}
+
+.nav-interna .menu-mobile{
+    flex-direction: column;
+    position: fixed;
+    top: 94px;
+    left: 0;
+    background: rgba(0,0,0,.9);
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    opacity: 0;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    
+}
+
+
+@keyframes mobOpen{
+    
+    0%{
+        height: 0;
+        opacity: 0;
+    }
+    
+    100%{
+        height: 40%;
+        opacity: 1;
+    }
+    
+    
+}
+
+@keyframes mobClose{
+    
+    0%{
+        height: 40%;
+        opacity: 1;
+    }
+    
+    100%{
+        height: 0;
+        opacity: 0;
+    }
+    
+    
+}
+
+ul.menu-mobile li a:hover {
+    background: #eaeaea;
+    color: #333333!important;
+}
+
+.menu-mobile li a{
+    display: block;
+    padding: 10px 0;
+    color: #ffffff!important;
+}
+
+.stickyMenu{
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+
+
 
 nav.nav-interna {
     display: flex;
@@ -41,6 +124,7 @@ nav.nav-interna {
 .nav-interna ul li a{
     text-decoration: none;
     color: #333333;
+    padding: 30px 0;
 }
 
 form.form-carrinho {
@@ -571,6 +655,7 @@ a[name="btn-checkout"]{
 
 .wrap-carrinho-icon {
     position: relative;
+    cursor: pointer;
 }
 
 .img-pagseguro{
@@ -596,6 +681,30 @@ a[name="btn-checkout"]{
     right: 0;
     font-size: 12px;
     box-shadow: 2px 2px 10px rgba(0,0,0,.3);
+}
+
+@media screen and (max-width: 780px){
+    .nav-interna .menu-desk{
+        display: none;
+    }
+    
+        .openMenu{
+        height: auto!important;
+        opacity: 1!important;
+        animation: mobOpen 1s; 
+
+    }
+    
+        .closeMenu{
+        height: 0!important;
+        opacity: 0!important;
+        animation: mobClose 1s;
+    }
+
+    .fas.fa-bars{
+        display: block;
+    }
+      
 }
 
 .formularioDoCarrinho-item {

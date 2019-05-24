@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
@@ -22,7 +23,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
  */
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {HomeController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class})
-public class AppWebConfiguration {
+public class AppWebConfiguration implements WebMvcConfigurer{
 
     @Bean
     public ClassLoaderTemplateResolver templateResolver() {
@@ -63,5 +64,11 @@ public class AppWebConfiguration {
 //        multipartResolver.setMaxUploadSize(5242880);
 //        return multipartResolver;
     }
+    
+//     @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/teste-uploads/**")
+//                .addResourceLocations("file:///C:/uploads/");
+//    }
 
 }

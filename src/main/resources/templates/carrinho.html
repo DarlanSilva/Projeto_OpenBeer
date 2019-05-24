@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Open Beer</title>
-        <link rel="stylesheet" th:href="@{/css/carrinho.css}">
-        <link rel="stylesheet" th:href="@{/css/footer.css}">
+        <link rel="stylesheet" data-th-href="@{/css/carrinho.css}">
+        <link rel="stylesheet" data-th-href="@{/css/footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
@@ -46,7 +46,7 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form class="form-carrinho" action="">
+                    <form th:action="@{/OpenBeer/Pagamento/ConferirCompra}" class="form-carrinho"  method="GET">
                         <table width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
@@ -63,7 +63,8 @@
                                     <td class="form-carrinho-item" data-th-text="${item.cerveja.nome}"></td>
                                     <td class="form-carrinho-item">R$ <span data-th-text="${item.cerveja.valorCerveja}"></span></td>
                                     <td class="formularioDoCarrinho-item">
-                                        <input type="number" min="1" id="quantidade" name="quantidade" data-th-field="*{carrinhoCompras.getQuantidade(carrinhoCompras.itens)}" />
+                                        <!--<input type="number" min="1" id="quantidade" name="quantidade" data-th-field="*{carrinhoCompras.getQuantidade(item)}" />-->
+                                        <span data-th-text="${carrinhoCompras.getQuantidade(item)}" ></span>
                                     </td>
                                     <td class="form-carrinho-item">R$ <span  data-th-text="${carrinhoCompras.getTotal(item)}" ></span></td>                       
                                     <td class="form-carrinho-item"><a data-th-href="@{/OpenBeer/Carrinho/{id}/remover(id=${item.cerveja.id})}">

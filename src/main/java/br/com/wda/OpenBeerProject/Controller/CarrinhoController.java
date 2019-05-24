@@ -82,8 +82,6 @@ public class CarrinhoController {
         return new ModelAndView("redirect:/OpenBeer/Carrinho");
     }
     
-    
-
     @ModelAttribute("tipoEntrega")
     public List<TipoEntrega> getTipoEntrega() {
 

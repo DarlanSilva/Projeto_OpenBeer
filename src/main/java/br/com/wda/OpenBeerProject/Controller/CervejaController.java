@@ -101,7 +101,7 @@ public class CervejaController {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
             
-        String path = fileSaver.write("produtos-imagens", imagemCerveja);
+        String path = fileSaver.write("c://uploads//", imagemCerveja);
         cerveja.setImagem(path);
 
         cervejaRepository.save(cerveja);
