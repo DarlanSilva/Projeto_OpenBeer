@@ -91,14 +91,17 @@ public class Cerveja implements Serializable {
     @Column(name = "FK_TIPOCERVEJA")
     private Integer tipoCerveja;
     
-    //@NotBlank(message = "IMAGEM OBRIGATÓRIA")
     @Column(name = "IMAGEMCERVEJA")
     private String imagem;
+    
+    @NotBlank(message = "CAMPO OBRIGATÓRIO")
+    @Column(name = "BREVEDESCRICAO")
+    private String breveDescricao;
 
     public Cerveja() { 
     }
 
-    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, String imagem) {
+    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, String imagem, String breveDescricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -114,6 +117,7 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
         this.tipoCerveja = tipoCerveja;
         this.imagem = imagem;
+        this.breveDescricao = breveDescricao;
     }
 
     public Integer getId() {
@@ -196,7 +200,7 @@ public class Cerveja implements Serializable {
         this.inativo = inativo;
     }
 
-    public boolean getDestaque() {
+    public boolean isDestaque() {
         return destaque;
     }
 
@@ -234,6 +238,14 @@ public class Cerveja implements Serializable {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getBreveDescricao() {
+        return breveDescricao;
+    }
+
+    public void setBreveDescricao(String breveDescricao) {
+        this.breveDescricao = breveDescricao;
     }
 
     

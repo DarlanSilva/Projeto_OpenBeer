@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author Darlan Silva
  */
+
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CarrinhoCompras implements Serializable {
@@ -42,7 +43,7 @@ public class CarrinhoCompras implements Serializable {
     public int getQuantidade() {
         return itens.values().stream().reduce(0, (proximo, acumulador) -> (proximo + acumulador));
     }
-    
+
     public BigDecimal getTotal(CarrinhoItem item) {
         return item.getTotal(getQuantidade(item));
     }
@@ -54,11 +55,11 @@ public class CarrinhoCompras implements Serializable {
         }
         return total;
     }
-    
-    public void remover(Integer cervejaId){
+
+    public void remover(Integer cervejaId) {
         Cerveja cerveja = new Cerveja();
         cerveja.setId(cervejaId);
-        
+
         itens.remove(new CarrinhoItem(cerveja));
     }
 

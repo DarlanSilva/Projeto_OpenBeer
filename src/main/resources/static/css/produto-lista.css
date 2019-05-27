@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: helvetica;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body, html{
@@ -17,14 +17,32 @@ body, html{
     
 }
 
+.wrap-produtos h1 {
+    font-size: 50px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 40px;
+    text-shadow: 5px 5px 10px rgba(0,0,0,.2);
+}
+
+.wrap-produtos h2 {
+    font-size: 30px;
+    background: #333333;
+    max-width: 600px;
+    border-radius: 50px 0;
+    padding: 10px;
+    margin: 30px auto;
+    color: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+}
+
 .wrap-produtos{
     text-align: center;
-    padding: 20px 0;
+    padding: 100px 0;
 }
 
 .wrap-filtro{
-    background: #333333;
-    color: #ffffff;
+    color: #333333;
     padding: 10px 0;
 }
 
@@ -40,7 +58,7 @@ body, html{
     width: 200px;
     height: 500px;
     position: sticky;
-    top: 10px;
+    top: 100px;
 }
 
 .list{
@@ -50,7 +68,6 @@ body, html{
 }
 
 .single-product{
-    background: #ffffff;
     width: calc(100% / 3);
     display: inline-block;
     margin-left: -4px;
@@ -140,6 +157,26 @@ body, html{
     display: block;
     font-weight: bold;
     box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+    transition: 1s;
+    transform: skewY(0deg);
+}
+
+.btn-comprar-list a:hover{
+    animation: btnComprarProduto 1s;
+}
+
+@keyframes btnComprarProduto{
+    0%{
+        transform: skewY(0deg);
+    }
+    
+    50%{
+        transform: skewY(5deg);
+    }
+    
+    100%{
+        transform: skewY(0deg);
+    }
 }
 
 .categorias h2{
@@ -172,10 +209,11 @@ body, html{
     
 }
 
-.wrap-filtro form{
+.wrap-filtro form {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    color: #333333;
 }
 
 .wrap-filtro form h2{
@@ -188,16 +226,27 @@ body, html{
     outline: none;
     margin: 0 10px;
     background: none;
-    color: #ffffff;
+    color: #333333;
     width: 100px;
     
 }
 
 .wrap-filtro form select option{
-    color: #ffffff;
+    color: #333333;
     border: 0;
     background: #333333;
     outline: none;
+    
+}
+
+#field-buscar{
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 50px;
+    margin: 0 20px;
+    outline: none;
+    background: #ffffff;
+    color: #333333;
     
 }
 

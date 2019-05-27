@@ -25,7 +25,7 @@
                     </ul>
                     <div class="carrinho-icon">
                         <div class="wrap-carrinho-icon">
-                            <img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
+                            <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
                             <div class="circle-car">
                                 <span data-th-text ="${quantidadeCarrinho}"></span>
                             </div><!--circle-car-->
@@ -162,7 +162,7 @@
                             <h4>Total: </h4>
                             <h2>R$ <span data-th-text="${carrinhoCompras.total}"></span></h2>
                         </div><!--total-->
-                        <a id="button-confirm-payment">FINALIZAR COMPRA</a>
+                        <a id="button-confirm-payment" data-th-href ="@{/OpenBeer/Pagamento/FinalizarCompra}">FINALIZAR COMPRA</a>
                     </div><!--wrap-information-value-->
                 </div><!--container-information-value-->
             </div><!--container-->

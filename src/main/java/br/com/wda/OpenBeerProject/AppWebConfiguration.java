@@ -56,19 +56,19 @@ public class AppWebConfiguration implements WebMvcConfigurer{
         return conversionService;
     }
 
-    @Bean
-    public MultipartResolver multipartResolver() {
-        return new StandardServletMultipartResolver();
-//        CommonsMultipartResolver multipartResolver
-//                = new CommonsMultipartResolver();
-//        multipartResolver.setMaxUploadSize(5242880);
-//        return multipartResolver;
-    }
-    
-//     @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/teste-uploads/**")
-//                .addResourceLocations("file:///C:/uploads/");
+//    @Bean
+//    public MultipartResolver multipartResolver() {
+//        return new StandardServletMultipartResolver();
+////        CommonsMultipartResolver multipartResolver
+////                = new CommonsMultipartResolver();
+////        multipartResolver.setMaxUploadSize(5242880);
+////        return multipartResolver;
 //    }
+    
+     @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/product-picture/**")
+                .addResourceLocations("file:///resources//OpenBeer//product-picture//");
+    }
 
 }

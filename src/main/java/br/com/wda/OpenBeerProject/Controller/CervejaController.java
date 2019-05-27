@@ -31,10 +31,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Alison Souza
  *
  */
+
 @Controller
 @RequestMapping("/OpenBeer/cerveja")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
-//@MultipartConfig(maxFileSize = Long.MAX_VALUE)
 public class CervejaController {
 
     @Autowired
@@ -101,7 +101,7 @@ public class CervejaController {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
             
-        String path = fileSaver.write("c://uploads//", imagemCerveja);
+        String path = fileSaver.write("product-picture", imagemCerveja);
         cerveja.setImagem(path);
 
         cervejaRepository.save(cerveja);

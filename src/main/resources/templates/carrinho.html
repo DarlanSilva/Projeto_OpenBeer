@@ -5,37 +5,70 @@
         <title>Open Beer</title>
         <link rel="stylesheet" data-th-href="@{/css/carrinho.css}">
         <link rel="stylesheet" data-th-href="@{/css/footer.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+        <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     </head>
-    <body>
-        <header class="menu-internas">
-            <div class="container">
-                <nav class="nav-interna">
-                    <div class="name-logo">
-                        <h1>OPENBEER.</h1>
-                    </div>
-                    <ul>
-                        <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
-                        <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
-                        <li><a th:href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                        <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
-                        <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
-                    </ul>
-                    <div class="carrinho-icon">
-                        <div class="wrap-carrinho-icon">
-                            <img th:src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
-                            <div class="circle-car">
-                                <span th:text ="${quantidadeCarrinho}"></span>
-                            </div><!--circle-car-->
-                        </div><!--wrap-carrinho-icon-->
-                    </div><!--carrinho-icon-->
-                </nav>
-                <!--nav-interna-->
-            </div>
-        </header>
 
+    <body>
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <a class="cad-login" href="#">Login / Cadastro</a>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <div class="content-area-cliente">
+                        <div class="wrap-content-area">
+                            <ul>
+                                <li><a href="#">Meus pedidos</a></li>
+                                <li><a href="#">Editar cadastro</a></li>
+                                <li><a href="#">Sair</a></li>
+
+                            </ul>
+                        </div><!--wrap-content-area-->
+                    </div><!--content-area-cliente-->
+                </div><!--container-->
+            </div><!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-mobile-->
+                        <div class="carrinho-icon">
+                            <i class="fas fa-bars"></i>
+                            <div class="wrap-carrinho-icon">
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
+                                <div class="circle-car">
+                                    <span data-th-text ="${quantidadeCarrinho}"></span>
+                                </div><!--circle-car-->
+                            </div><!--wrap-carrinho-icon-->
+                        </div><!--carrinho-icon-->
+                    </nav>
+                    <!--nav-interna-->
+                </div><!--container-->
+            </div><!--menu-internas-->
+        </header>
         <section class="carrinho-section">
             <div class="container">
                 <div class="content-carrinho">
@@ -46,8 +79,8 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form th:action="@{/OpenBeer/Pagamento/ConferirCompra}" class="form-carrinho"  method="GET">
-                        <table width="1200" class="tabela-carrinho">
+                    <form data-th-action="@{/OpenBeer/Pagamento/ConferirCompra}" class="form-carrinho"  method="GET">
+                        <table cellpadding = 0 cellspacing = 0 width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
                                     <th></th>
@@ -55,20 +88,33 @@
                                     <th class="form-carrinho-item-head">Preço</th>
                                     <th class="form-carrinho-item-head">Quantidade</th>
                                     <th class="form-carrinho-item-head">Total</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody align="center" class="corpo-carrinho">
-                                <tr  data-th-each="item : ${carrinhoCompras.itens}">
+                                <tr data-th-each="item : ${carrinhoCompras.itens}">
                                     <td><img data-th-src="@{/img/beer-artesanal.png}" alt="imagem do Produto" width="50"></td>
                                     <td class="form-carrinho-item" data-th-text="${item.cerveja.nome}"></td>
                                     <td class="form-carrinho-item">R$ <span data-th-text="${item.cerveja.valorCerveja}"></span></td>
-                                    <td class="formularioDoCarrinho-item">
-                                        <!--<input type="number" min="1" id="quantidade" name="quantidade" data-th-field="*{carrinhoCompras.getQuantidade(item)}" />-->
+                                    <td class="form-carrinho-item">
                                         <span data-th-text="${carrinhoCompras.getQuantidade(item)}" ></span>
+                                        <!--<select name="qtd-item" id="qtd-item"  data-th-field="*{carrinhoCompras.getQuantidadeCarrinho(item)}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select><br>-->
                                     </td>
                                     <td class="form-carrinho-item">R$ <span  data-th-text="${carrinhoCompras.getTotal(item)}" ></span></td>                       
                                     <td class="form-carrinho-item"><a data-th-href="@{/OpenBeer/Carrinho/{id}/remover(id=${item.cerveja.id})}">
                                             <img class="formularioDoCarrinho-item-remover-imagem" data-th-src="@{/img/remover.png}" alt="Remover Icon"></a></td>                      
+                                </tr>                     
                                 </tr>
                                 <!--  <tr>
                                       <td align="left" colspan = "3" class="desconto">CUPOM DE DESCONTO <input type="text" name="cupom-desconto"><a href="">ADICIONAR</a></td>
@@ -85,7 +131,7 @@
                                 <p>SUBTOTAL</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                                 <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
                                 <p>ENTREGA</p>
@@ -97,9 +143,9 @@
                                 <p>TOTAL</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                                 <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
                             </div><!--item-subtotal-->
-                            <input type="submit" name="send-payment" id="send-payment" value="PROSSEGUIR">
+                            <input type="submit" name="send-payment" id="send-payment" value="FECHAR PEDIDO">
                         </div><!--content-subtotal-->
 
                     </form>
@@ -110,6 +156,6 @@
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
-        <script data-th-src="@{/js/carrinho.js}"></script>
+        <script data-th-src="@{/js/header.js}"></script>
     </body>
 </html>

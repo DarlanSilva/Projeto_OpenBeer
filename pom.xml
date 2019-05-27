@@ -57,6 +57,29 @@
             <version>5.1.46</version>
         </dependency>
         
+        <!--Pag Seguro-->
+        <!--<dependency>
+            <groupId>br.com.uol.pagseguro</groupId>
+            <artifactId>pagseguro-api</artifactId>
+            <version>2.2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/repo/pagseguro-api-2.2.0.jar</systemPath>
+        </dependency>-->
+        
+       <dependency>
+            <groupId>br.com.uol.pagseguro</groupId>
+            <artifactId>pagseguro-api</artifactId>
+            <version>4.3.1</version>
+       </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-7.0</artifactId>
+            <version>1.0.3.Final</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        
         <!--S3 Amazon
         <dependency>
             <groupId>com.scireum</groupId>
@@ -79,8 +102,16 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>-->
-        
+                           
     </dependencies>
+     
+
+    <!--<repositories>
+        <repository>
+            <id>pagseguro-lib</id>
+            <url>${home.user}/.m2/repository/</url>
+        </repository>
+    </repositories>-->
 
 
     <build>
