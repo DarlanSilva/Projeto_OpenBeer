@@ -1,11 +1,13 @@
 package br.com.wda.OpenBeerProject.Entity;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +43,9 @@ public class TipoCerveja {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DH_ALTERACAO")
     private Date dhAlteracao;
+    
+//    @OneToMany(mappedBy = "tipoCerv")
+//    private List<Cerveja> cervejas;
 
     public TipoCerveja() {
     }
@@ -49,6 +54,16 @@ public class TipoCerveja {
         this.id = id;
         this.tipoCerveja = tipoCerveja;
     }
+
+//    public TipoCerveja(Integer id, String tipoCerveja, int inativo, Date dhInclusao, Date dhAlteracao, List<Cerveja> cervejas) {
+//        this.id = id;
+//        this.tipoCerveja = tipoCerveja;
+//        this.inativo = inativo;
+//        this.dhInclusao = dhInclusao;
+//        this.dhAlteracao = dhAlteracao;
+//        this.cervejas = cervejas;
+//    }
+//    
 
     public Integer getId() {
         return id;
@@ -89,6 +104,16 @@ public class TipoCerveja {
     public void setDhAlteracao(Date dhAlteracao) {
         this.dhAlteracao = dhAlteracao;
     }
+
+//    public List<Cerveja> getCervejas() {
+//        return cervejas;
+//    }
+//
+//    public void setCervejas(List<Cerveja> cervejas) {
+//        this.cervejas = cervejas;
+//    }
+//    
+    
     
     @Override
     public String toString() {

@@ -12,6 +12,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Alison Souza
  *
  */
-
 @Controller
 @RequestMapping("/OpenBeer/cerveja")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
@@ -56,10 +56,68 @@ public class CervejaController {
         return new ModelAndView("consultar-produto")
                 .addObject("cerveja", cerveja);
     }
-
-    @GetMapping("/Lista-de-Cervejas")
+    
+     @GetMapping("/Lista-de-Cervejas")
     public ModelAndView listagemProd() {
-        List<Cerveja> cerveja = cervejaRepository.findAll();
+        
+        List<Cerveja> cerveja= cervejaRepository.findAll();        
+        ModelAndView mv = new ModelAndView("produtos-lista");
+        mv.addObject("cerveja", cerveja);
+
+        return mv;
+    }
+
+    @GetMapping("/{busca}/Lista-de-Cervejas")
+    public ModelAndView buscaListagemProd(@PathVariable("busca") String busca) {
+        List<Cerveja> cerveja;
+        
+        if (busca == null || busca.trim().isEmpty()) {
+            cerveja = cervejaRepository.findAll();
+        } else {
+             cerveja = cervejaRepository.findByNome(busca);
+        }
+        
+        ModelAndView mv = new ModelAndView("produtos-lista");
+        mv.addObject("cerveja", cerveja);
+
+        return mv;
+    }
+
+    @GetMapping("/{tipoCerveja}/Lista-de-Cervejas-por-Tipo")
+    public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") Integer tipoCerveja) {
+        List<Cerveja> cerveja = cervejaRepository.findByTipoCerveja(tipoCerveja);
+        ModelAndView mv = new ModelAndView("produtos-lista");
+        mv.addObject("cerveja", cerveja);
+
+        return mv;
+    }
+
+    @GetMapping("/{ordemNome}/Lista-de-Cervejas-ordem-Nome")
+    public ModelAndView listagemProdOrderByNome(@PathVariable("ordemNome") Integer ordemNome) {
+        List<Cerveja> cerveja;
+
+        if (ordemNome == 1) {
+            cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
+        } else {
+            cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "nome"));
+        }
+
+        ModelAndView mv = new ModelAndView("produtos-lista");
+        mv.addObject("cerveja", cerveja);
+
+        return mv;
+    }
+
+    @GetMapping("/{ordemPreco}/Lista-de-Cervejas-ordem-Preco")
+    public ModelAndView listagemProdOrderByPreco(@PathVariable("ordemPreco") Integer ordemPreco) {
+        List<Cerveja> cerveja;
+
+        if (ordemPreco == 1) {
+            cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.ASC, "valorCerveja"));
+        } else {
+            cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "valorCerveja"));
+        }
+
         ModelAndView mv = new ModelAndView("produtos-lista");
         mv.addObject("cerveja", cerveja);
 
@@ -83,16 +141,16 @@ public class CervejaController {
     }
 
     @PostMapping("/salvar")
-    public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja") 
-                        @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes ) {
-        
-        if(result.hasErrors()){
+    public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
+            @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cadastro-produto");
             mv.addObject("cerveja", cerveja);
-            
+
             return mv;
         }
-        
+
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
 
@@ -100,10 +158,9 @@ public class CervejaController {
         if (cerveja.getId() != null) {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
-            
+
 //        String path = fileSaver.write("product-picture", imagemCerveja);
 //        cerveja.setImagem(path);
-
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja " + cerveja.getNome() + " salvo com sucesso");

@@ -87,10 +87,14 @@ public class Cerveja implements Serializable {
     @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
     private LocalDateTime dhAlteracao;
     
-    @JoinTable(name="TB_TIPOCERVEJA")
     @Column(name = "FK_TIPOCERVEJA")
     private Integer tipoCerveja;
     
+//    @Transient
+//    @ManyToOne
+//    @JoinColumn(name="tipocerveja_id")
+//    private TipoCerveja tipoCerv;
+//    
     @Column(name = "IMAGEMCERVEJA")
     private String imagem;
     
@@ -119,6 +123,26 @@ public class Cerveja implements Serializable {
         this.imagem = imagem;
         this.breveDescricao = breveDescricao;
     }
+
+//    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, TipoCerveja tipoCerv, String imagem, String breveDescricao) {
+//        this.id = id;
+//        this.nome = nome;
+//        this.descricao = descricao;
+//        this.valorCerveja = valorCerveja;
+//        this.codigoCerveja = codigoCerveja;
+//        this.marca = marca;
+//        this.teor = teor;
+//        this.quantidade = quantidade;
+//        this.mlCerveja = mlCerveja;
+//        this.inativo = inativo;
+//        this.destaque = destaque;
+//        this.dhInclusao = dhInclusao;
+//        this.dhAlteracao = dhAlteracao;
+//        this.tipoCerveja = tipoCerveja;
+//        this.tipoCerv = tipoCerv;
+//        this.imagem = imagem;
+//        this.breveDescricao = breveDescricao;
+//    }
 
     public Integer getId() {
         return id;
@@ -247,6 +271,14 @@ public class Cerveja implements Serializable {
     public void setBreveDescricao(String breveDescricao) {
         this.breveDescricao = breveDescricao;
     }
+//
+//    public TipoCerveja getTipoCerv() {
+//        return tipoCerv;
+//    }
+//
+//    public void setTipoCerv(TipoCerveja tipoCerv) {
+//        this.tipoCerv = tipoCerv;
+//    }
 
     
     @Override

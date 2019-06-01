@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html layout:decorate="~{template2}">
-
     <body>
         <div layout:fragment="conteudo">
-            <link rel="stylesheet" th:href="@{/css/consultar-produto.css}">
-            <link rel="stylesheet" th:href="@{/css/mensagens.css}">
-            <section class="modal-delete">
-                <div class="modal">
+            <link rel="stylesheet" data-th-href="@{/css/consultar-produto.css}">
+            <link rel="stylesheet" data-th-href="@{/css/mensagens.css}">
+            <section class="modal-delete" >
+                <div class="modal" id="modal-delete">
                     <div class="wrap-modal">
                         <div class="wrap-mensagem">
                             <h2>Deseja realmente deletar ?</h2>
@@ -15,7 +14,7 @@
                         </div><!--wrap-mensagem-->
                         <div class="modal-btn">
                             <button class="btn-modal-cancelar btn">Cancelar</button>
-                            <button class="btn-modal-deletar btn" id="deleteProduct">Deletar</button>
+                            <button type="submit" class="btn-modal-deletar btn">Deletar</button>
                         </div><!--modal-content-->
 
                     </div><!--wrap-modal-->
@@ -26,7 +25,7 @@
                 <div class="container">
                     <div class="wrap-consult">
                         <h2>Gerenciamento de Produtos</h2><br>
-                         <div th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}" class="alert alert-success" role="alert"></div>
+                        <div data-th-if="${mensagemSucesso != null}" data-th-text="${mensagemSucesso}" class="alert alert-success" role="alert"></div>
                         <table cellspacing = "0" cellpadding = "0" align = "center">
                             <tr>
                                 <th>Codigo</th>
@@ -35,22 +34,33 @@
                                 <th>Preço</th>
                                 <th>Ações</th>
                             </tr>
-                            <tr align = "center" th:each="cerveja : ${cerveja}" id="tableCerveja">
-                                <td th:text="${cerveja.codigoCerveja}"></td>
-                                <td th:text="${cerveja.nome}"></td>
-                                <td th:text="${cerveja.quantidade}"></td>
-                                <td th:text="${cerveja.valorCerveja}"></td>
-                                <td><a th:href="@{/OpenBeer/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a th:attr="onclick = ${ 'modalRemover(' + cerveja.id + ')' }" href="#"  class="btn btn-deletar">Deletar</a>
-                                <input id="cerveja-id" type="hidden" name="cerveja-id"/> 
+                            <tr align = "center" data-th-each="cerveja : ${cerveja}" id="tableCerveja">
+                                <td data-th-text="${cerveja.codigoCerveja}"></td>
+                                <td data-th-text="${cerveja.nome}"></td>
+                                <td data-th-text="${cerveja.quantidade}"></td>
+                                <td data-th-text="${cerveja.valorCerveja}"></td>
+                                <td><a data-th-href="@{/OpenBeer/cerveja/{id}/editar(id=${cerveja.id})}" class="btn btn-editar">Editar</a><a href="#" data-toggle="modal" data-target="#modal-delete" data-th-attr="data-actionurl=@{/OpenBeer/cerveja/{id}/remover(id=${cerveja.id})}" class="btn btn-deletar">Deletar</a>                                                                                                                                                
+                                    <input id="cerveja-id" type="hidden" name="cerveja-id"/> 
                             </tr>
                         </table><br>
                         <div style="text-align:left">
-                            <a th:href="@{/OpenBeer/cerveja/novo}" class="btn btn-editar">Adicionar</a>
+                            <a data-th-href="@{/OpenBeer/cerveja/novo}" class="btn btn-editar">Adicionar</a>
                         </div>
                     </div><!--wrap-consult-->
                 </div><!--container-->
             </section>           
-            <script type="text/javascript" th:src="@{/js/consultar.js}"></script>
+            <script type="text/javascript" data-th-src="@{/js/consultar.js}"></script>
+            <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+            <script>
+                $(function () {
+                    $('#modal-delete').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget)
+                        var actionUrl = button.data('actionurl');
+                        var modal = $(this);
+                        modal.find('.modal-footer form').attr('action', actionUrl);
+                    })
+                });
+            </script>
         </div>
     </body>
 </html>

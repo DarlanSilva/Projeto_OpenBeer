@@ -49,8 +49,8 @@ public class PagamentoController {
     @Autowired
     private CarrinhoCompras carrinho;
 
-    private final String sellerEmail = "wda.developers@hotmail.com";
-    private final String sellerToken = "F30F162446F948AD85CBB3C73FC3EE52";
+    private final String sellerEmail = "your_email";
+    private final String sellerToken = "your_token";
     private String URL = "";
     private String code[]  = new String[2];
 

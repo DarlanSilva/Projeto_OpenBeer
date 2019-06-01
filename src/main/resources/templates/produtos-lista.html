@@ -13,8 +13,6 @@
 
         <!--FONT AWESOME-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
     </head>
 
     <body>
@@ -85,22 +83,21 @@
         <section class="filtro">
             <div class="container">
                 <div class="wrap-filtro">
-                    <form action="">
+                    <form>
                         <label for="field-buscar">Buscar: </label>
                         <input type="text" name="field-buscar" id="field-buscar" autofocus>
                         <h2 class="filter-title">Filtrar por: </h2>
-                        <select name="filter-name" id="filter-name">
+                        <select name="filter-name" id="filter-name" onchange= "location = this.value;">
                             <option value="disabele-nome">Nome</option>
-                            <option value="a-z">A - Z</option>
-                            <option value="z-a">Z - A</option>
+                            <option data-th-value="@{/OpenBeer/cerveja/{ordemNome}/Lista-de-Cervejas-ordem-Nome(ordemNome=${1})}">A - Z</option>
+                            <option data-th-value="@{/OpenBeer/cerveja/{ordemNome}/Lista-de-Cervejas-ordem-Nome(ordemNome=${2})}">Z - A</option>
                         </select>
-                        <select name="filter-preco" id="filter-preco">
+                        <select name="filter-preco" id="filter-preco" onchange= "location = this.value;">
                             <option value="disable-preco">Preço</option>
-                            <option value="menorPreco">Menor Preço</option>
-                            <option value="maiorPreco">Maior Preço</option>
+                            <option data-th-value="@{/OpenBeer/cerveja/{ordemPreco}/Lista-de-Cervejas-ordem-Preco(ordemPreco=${1})}">Menor Preço</option>
+                            <option data-th-value="@{/OpenBeer/cerveja/{ordemPreco}/Lista-de-Cervejas-ordem-Preco(ordemPreco=${2})}">Maior Preço</option>
                         </select>
                     </form>
-
                 </div>
                 <!--wrap-filtro-->
             </div>
@@ -111,27 +108,22 @@
                 <div class="wrap-list">
                     <aside class="categorias">
                         <h2>CATEGORIAS</h2>
-                        <ul class="categories-list">
-                            <li><a href="#">Artesanais</a></li>
-                            <li><a href="#">Nacionais</a></li>
-                            <li><a href="#">Importadas</a></li>
-                            <li><a href="#">Adocicadas</a></li>
-                            <li><a href="#">Amargas</a></li>
-                            <li><a href="#">Em Promoção</a></li>
-                            <li><a href="#">Zero Alcool</a></li>
+                        <ul class="categories-list" data-th-each="tipo : ${tipoCerveja}">
+                            <span data-th-if="${tipo.id == 1}"><li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">TODOS</a></li></span>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/{tipoCerveja}/Lista-de-Cervejas-por-Tipo(tipoCerveja=${tipo.id})}"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>
                         </ul><!--categories-list-->
                     </aside>
                     <div class="list">
                         <div class="single-product" data-th-each="cerveja : ${cerveja}">
                             <div class="wrap-single-product">
                                 <div class="img-single-product">
-                                   <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>
+                                    <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>
                                 </div>
                                 <!--img-single-product-->
                                 <div class="desc-single-product">
                                     <div class="wrap-single-name">
                                         <div class="desc-single-name">
-                                             <h4><span data-th-text="${cerveja.nome}"></span> </h4>
+                                            <h4><span data-th-text="${cerveja.nome}"></span> </h4>
                                         </div>
                                         <!--desc-single-name-->
 
@@ -148,7 +140,7 @@
                                         <!--desc-single-name-->
 
                                         <div class="desc-single-desc">
-                                             <h4><span data-th-text="${cerveja.breveDescricao}"></span></h4>
+                                            <h4><span data-th-text="${cerveja.breveDescricao}"></span></h4>
                                         </div>
                                         <!--desc-single-name-->
                                     </div>

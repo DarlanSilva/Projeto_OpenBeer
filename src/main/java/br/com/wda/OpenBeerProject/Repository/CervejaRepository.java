@@ -1,9 +1,10 @@
 package br.com.wda.OpenBeerProject.Repository;
 
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
-import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,19 +16,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CervejaRepository extends JpaRepository<Cerveja, Integer> {
+    
+    @Query("Select c from Cerveja c where c.nome like %:nome%")
+    public List<Cerveja> findByNome(String nome);
 
-    public Optional<Cerveja> findByNome(String nome);
+    public List<Cerveja> findAllByDestaque(boolean destaque);
 
-    public Optional<Cerveja> findAllByDestaque(boolean destaque);
-
-    public Optional<Cerveja> findAllByTipoCerveja(Integer tipoCerveja);
-
-    public Optional<Cerveja> findAllByNomeOrderByNomeDesc(String nome);
-
-    public Optional<Cerveja> findAllByNomeOrderByNome(String nome);
-
-    public Optional<Cerveja> findAllByValorCervejaOrderByValorCerveja(BigDecimal valorCerveja);
-
-    public Optional<Cerveja> findAllByValorCervejaOrderByValorCervejaDesc(BigDecimal valorCerveja);
+    public List<Cerveja> findByTipoCerveja(Integer tipoCerveja);
 
 }

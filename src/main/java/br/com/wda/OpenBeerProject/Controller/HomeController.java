@@ -27,11 +27,9 @@ public class HomeController {
     @GetMapping("/Home")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("home");
-        //Optional<Cerveja> cerveja = cervejaRepository.findAllByDestaque(true);
-        
-//        if (cerveja.get().getId() != null || cerveja.get().getId() > 0 ){
-//           mv.addObject("cerveja", cerveja.get()); 
-//        }       
+        List<Cerveja> cerveja = cervejaRepository.findAllByDestaque(true);
+        mv.addObject("cerveja", cerveja);
+      
         return mv;
     }
 
