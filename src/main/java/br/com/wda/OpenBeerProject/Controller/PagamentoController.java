@@ -31,7 +31,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,13 +49,15 @@ public class PagamentoController {
     @Autowired
     private CarrinhoCompras carrinho;
 
-    private final String sellerEmail = "YOUR_EMAIL";
-    private final String sellerToken = "YOUR_TOKEN";
+    private final String sellerEmail = "wda.developers@hotmail.com";
+    private final String sellerToken = "F30F162446F948AD85CBB3C73FC3EE52";
     private String URL = "";
+    private String code[]  = new String[2];
 
-    @GetMapping("/FinalizarCompra")
-    public @ResponseBody
-    void finalizarCompra(HttpServletResponse response) {
+    @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView finalizarCompra(HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("confirmacao");
         try {
 
             final PagSeguro pagSeguro = PagSeguro
@@ -64,24 +68,21 @@ public class PagamentoController {
             RegisteredCheckout registeredCheckout = pagSeguro.checkouts().register(
                     getCheckout());
 
-            PreApprovalRegistrationBuilder registration = new PreApprovalRegistrationBuilder()
-                    .withRedirectURL("http://localhost:8080/OpenBeer/Carrinho/redirect");
-
-            send301Redirect(response, registeredCheckout.getRedirectURL());
             registeredCheckout.getRedirectURL();
             System.out.println(registeredCheckout.getRedirectURL());
             URL = registeredCheckout.getRedirectURL();
+            code = URL.split("=");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @GetMapping("/ConferirCompra")
-    public ModelAndView conferir() {
-        ModelAndView mv = new ModelAndView("confirmacao");
-        // O objeto usado esta como atributo para todas as views
+        
+        // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
+        
+        
+        mv.addObject("pagSeguroURL", code[1]);
         return mv;
+        
     }
 
     @GetMapping("/{id}/remover")
@@ -134,20 +135,6 @@ public class PagamentoController {
         return address;
     }
 
-    public void getItens() {
-
-//        PaymentItemBuilder itens = new PaymentItemBuilder();
-//
-//        for (CarrinhoItem item : carrinho.getItens()) {
-//            itens.withId(String.valueOf(item.getCerveja().getId()));
-//            itens.withDescription(item.getCerveja().getNome());
-//            itens.withAmount(item.getCerveja().getValorCerveja());
-//            itens.withQuantity(carrinho.getQuantidade(item));
-//
-//            checkout.addItem(itens);
-//        }
-    }
-
     public void send301Redirect(HttpServletResponse response, String newUrl) {
         response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
         response.setHeader("Location", newUrl);
@@ -161,19 +148,6 @@ public class PagamentoController {
                 .withReference("XXXXXX")
                 .withSender(getSender())
                 .withShipping(getShipping())
-                //                    .addItem(new PaymentItemBuilder()
-                //                            .withId("0001")
-                //                            .withDescription("Produto PagSeguroI")
-                //                            .withAmount(new BigDecimal(99999.99))
-                //                            .withQuantity(1)
-                //                            .withWeight(1000))
-                //                    .addItem(new PaymentItemBuilder()
-                //                            .withId("0002")
-                //                            .withDescription("Produto PagSeguroII")
-                //                            .withAmount(new BigDecimal(99999.98))
-                //                            .withQuantity(2)
-                //                            .withWeight(750)
-                //                    )
                 //Para definir o a inclusão ou exclusão de um meio você deverá utilizar três parâmetros: o parâmetro que define a configuração do grupo,
                 // o grupo de meios de pagamento e o nome do meio de pagamento.
                 // No parâmetro que define a configuração do grupo você informará se o grupo ou o meio de pagamento será incluído ou excluído.

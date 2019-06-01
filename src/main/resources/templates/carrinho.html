@@ -79,7 +79,7 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form data-th-action="@{/OpenBeer/Pagamento/ConferirCompra}" class="form-carrinho"  method="GET">
+                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho"  method="POST">
                         <table cellpadding = 0 cellspacing = 0 width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
@@ -131,7 +131,7 @@
                                 <p>SUBTOTAL</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                 <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
                                 <p>ENTREGA</p>
@@ -143,7 +143,7 @@
                                 <p>TOTAL</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                 <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
                             </div><!--item-subtotal-->
                             <input type="submit" name="send-payment" id="send-payment" value="FECHAR PEDIDO">
                         </div><!--content-subtotal-->
@@ -156,6 +156,9 @@
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
+        <script type="text/javascript"
+                src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+        </script>
         <script data-th-src="@{/js/header.js}"></script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-package br.com.wda.OpenBeerProject;
+package br.com.wda.OpenBeerProject.Configuration;
 
 /**
  *

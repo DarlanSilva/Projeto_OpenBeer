@@ -7,7 +7,6 @@
         <link rel="stylesheet" data-th-href="@{/css/footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-
     </head>
     <body>
         <header class="menu-internas">
@@ -72,106 +71,120 @@
                 </div><!--wrap-progress-->
             </div><!--container-->
         </section><!--progress-cadastro-->
-        <section class="order-confirmation">
-            <div class="container">
-                <div class="order-confirmation-main">
-                    <div class="wrap-order-confirmation">
-                        <h3>Sua informaçoes</h3>
-                        <h4>Nome: </h4><span>Alison Henrique da Cruz Souza</span><br>
-                        <h4>Email: </h4><span>alison-cruz@hotmail.com</span><br>
-                        <h4>Telefone: </h4><span>11977975522</span><br>
-                    </div><!--wrap-order-confirmation-->
-                    <div class="wrap-order-confirmation">
-                        <h3>Endereço</h3>
-                        <h4>Logradouro: </h4><span>Rua Moraes Santos Rosa</span><br>
-                        <h4>Número: </h4><span>54</span><br>
-                        <h4>CEP: </h4><span>04597-090</span><br>
-                        <h4>Estado: </h4><span>SP</span><br>
-                        <h4>Cidade: </h4><span>São Paulo</span><br>
-                        <h4>Bairro: </h4><span>Cocaia</span><br>   
-                    </div><!--wrap-order-confirmation-->
-                    <div class="wrap-order-confirmation">
-                        <h3>Pagamento</h3>
-                        <h4>Cartão de crédito</h4><br>
-                        <img data-th-src="@{/img/visaicon.png}" alt="visa-icon" width="40"><br>
-                        <p>Cartão utilizado: <span class="bandeira">Visa</span>
-                            <span class="card-number">2343</span></p> 
-                    </div><!--wrap-order-confirmation-->
-                    <div class="wrap-order-confirmation">
-                        <h3>Adicionar novo endereço</h3>
-                        <div class="new-endereco-novo">
-                            <div class="icon-add">
-                                <span>+</span>
-                            </div><!--icon-add-->
-                        </div><!--new-endereco-novo-->  
-                    </div><!--wrap-novo-endereco-->
-                </div><!--order-confirmation-main-->
-            </div><!--container-->
-        </section><!--form-checkout-endereco-->
-        <section class="itens-confirm">
-            <div class="container">
-                <div class="title-itens-confirm">
-                    <h4>Item</h4>
-                    <h4>Tipo</h4>
-                    <h4>Quantidade</h4>
-                    <h4>Preço</h4>
-                </div><!--title-itens-confirm-->
 
-                <div class="itens-payment-confirm" data-th-each="item : ${carrinhoCompras.itens}">
-                    <div class="itens-payment wrap-item-img-desc">
-                        <div class="img-product-confirm">
-                            <img data-th-src="@{/img/beer-artesanal.png}" alt="imagem-item" width="80"> 
-                        </div><!--img-product-confirm-->
-                        <div class="desc-item-confirm">
-                            <h4><span data-th-text="${item.cerveja.nome}"></span></h4>
-                            <span data-th-text="${item.cerveja.descricao}"></span><br><br>
-                            <a data-th-href="@{/OpenBeer/Pagamento/{id}/remover(id=${item.cerveja.id})}">Remover</a>
-                        </div><!--descp-item-confirm-->
-                    </div><!--wrap-item-img-desc-->
-                    <div class="itens-payment type-product">
-                        <span data-th-text="${item.cerveja.marca}">IPA</span>
-                    </div><!--type-product-->
+        <!--data-th-action="@{/OpenBeer/Pagamento/Finalizar}"-->
 
-                    <div class="itens-payment qtd-product">
-                        <span data-th-text="${carrinhoCompras.getQuantidade(item)}">4</span>
-                    </div><!--qtd-product-->
+        <form id="formFinalizarCompra" method="POST">
+            <section class="order-confirmation">
+                <div class="container">
+                    <div class="order-confirmation-main">
+                        <div class="wrap-order-confirmation">
+                            <h3>Sua informaçoes</h3>
+                            <h4>Nome: </h4><span>Alison Henrique da Cruz Souza</span><br>
+                            <h4>Email: </h4><span>alison-cruz@hotmail.com</span><br>
+                            <h4>Telefone: </h4><span>11977975522</span><br>
+                        </div><!--wrap-order-confirmation-->
+                        <div class="wrap-order-confirmation">
+                            <h3>Endereço</h3>
+                            <h4>Logradouro: </h4><span>Rua Moraes Santos Rosa</span><br>
+                            <h4>Número: </h4><span>54</span><br>
+                            <h4>CEP: </h4><span>04597-090</span><br>
+                            <h4>Estado: </h4><span>SP</span><br>
+                            <h4>Cidade: </h4><span>São Paulo</span><br>
+                            <h4>Bairro: </h4><span>Cocaia</span><br>   
+                        </div><!--wrap-order-confirmation-->
+                        <div class="wrap-order-confirmation">
+                            <h3>Pagamento</h3>
+                            <h4>Cartão de crédito</h4><br>
+                            <img data-th-src="@{/img/visaicon.png}" alt="visa-icon" width="40"><br>
+                            <p>Cartão utilizado: <span class="bandeira">Visa</span>
+                                <span class="card-number">2343</span></p> 
+                        </div><!--wrap-order-confirmation-->
+                        <div class="wrap-order-confirmation">
+                            <h3>Adicionar novo endereço</h3>
+                            <div class="new-endereco-novo">
+                                <div class="icon-add">
+                                    <span>+</span>
+                                </div><!--icon-add-->
+                            </div><!--new-endereco-novo-->  
+                        </div><!--wrap-novo-endereco-->
+                    </div><!--order-confirmation-main-->
+                </div><!--container-->
+            </section><!--form-checkout-endereco-->
+            <section class="itens-confirm">
+                <div class="container">
+                    <div class="title-itens-confirm">
+                        <h4>Item</h4>
+                        <h4>Tipo</h4>
+                        <h4>Quantidade</h4>
+                        <h4>Preço</h4>
+                    </div><!--title-itens-confirm-->
 
-                    <div class="itens-payment price-product-confirm">
-                        <p>R$ <span data-th-text="${carrinhoCompras.getTotal(item)}"></span></p>
-                    </div><!--price-product-confirm-->
-                </div><!--itens-payment-confirm-->
-            </div><!--container-->
-        </section><!--itens-confirm-->
-        <section class="information-value">
-            <div class="container">
-                <div class="container-information-value">
-                    <div class="wrap-information-value">
-                        <div class="subinfo-value subtotal">
-                            <h4>Subtotal: </h4>
-                            <h3>R$ <span data-th-text="${carrinhoCompras.total}"></span></h3>
-                        </div><!--subtotal-->
-                        <div class="subinfo-value frete">
-                            <h4>Frete: </h4>
-                            <h3>R$ <span>10,00</span></h3>
-                        </div><!--frete-->
-                        <div class="subinfo-value desconto">
-                            <h4>Desconto: </h4>
-                            <h3>R$ <span>00,00</span></h3>
-                        </div><!--desconto-->
-                        <div class="subinfo-value total">
-                            <h4>Total: </h4>
-                            <h2>R$ <span data-th-text="${carrinhoCompras.total}"></span></h2>
-                        </div><!--total-->
-                        <a id="button-confirm-payment" data-th-href ="@{/OpenBeer/Pagamento/FinalizarCompra}">FINALIZAR COMPRA</a>
-                    </div><!--wrap-information-value-->
-                </div><!--container-information-value-->
-            </div><!--container-->
-        </section><!--information-value-->
+                    <div class="itens-payment-confirm" data-th-each="item : ${carrinhoCompras.itens}">
+                        <div class="itens-payment wrap-item-img-desc">
+                            <div class="img-product-confirm">
+                                <img data-th-src="@{/img/beer-artesanal.png}" alt="imagem-item" width="80"> 
+                            </div><!--img-product-confirm-->
+                            <div class="desc-item-confirm">
+                                <h4><span data-th-text="${item.cerveja.nome}"></span></h4>
+                                <span data-th-text="${item.cerveja.descricao}"></span><br><br>
+                                <a data-th-href="@{/OpenBeer/Pagamento/{id}/remover(id=${item.cerveja.id})}">Remover</a>
+                            </div><!--descp-item-confirm-->
+                        </div><!--wrap-item-img-desc-->
+                        <div class="itens-payment type-product">
+                            <span data-th-text="${item.cerveja.marca}">IPA</span>
+                        </div><!--type-product-->
+
+                        <div class="itens-payment qtd-product">
+                            <span data-th-text="${carrinhoCompras.getQuantidade(item)}">4</span>
+                        </div><!--qtd-product-->
+
+                        <div class="itens-payment price-product-confirm">
+                            <p>R$ <span data-th-text="${carrinhoCompras.getTotal(item)}"></span></p>
+                        </div><!--price-product-confirm-->
+                    </div><!--itens-payment-confirm-->
+                </div><!--container-->
+            </section><!--itens-confirm-->
+            <section class="information-value">
+                <div class="container">
+                    <div class="container-information-value">
+                        <div class="wrap-information-value">
+                            <div class="subinfo-value subtotal">
+                                <h4>Subtotal: </h4>
+                                <h3>R$ <span data-th-text="${carrinhoCompras.total}"></span></h3>
+                            </div><!--subtotal-->
+                            <div class="subinfo-value frete">
+                                <h4>Frete: </h4>
+                                <h3>R$ <span>10,00</span></h3>
+                            </div><!--frete-->
+                            <div class="subinfo-value desconto">
+                                <h4>Desconto: </h4>
+                                <h3>R$ <span>00,00</span></h3>
+                            </div><!--desconto-->
+                            <div class="subinfo-value total">
+                                <h4>Total: </h4>
+                                <h2>R$ <span data-th-text="${carrinhoCompras.total}"></span></h2>
+                            </div><!--total-->
+                            <input type="hidden" id="pagSeguroURL" data-th-value="*{pagSeguroURL}">
+                            <input type="submit" id="button-confirm-payment" value="FINALIZAR COMPRA">
+                            <!--<a id="button-confirm-payment" data-th-href ="@{pagSeguroURL}" target="_blank">FINALIZAR COMPRA</a>-->
+                        </div><!--wrap-information-value-->
+                    </div><!--container-information-value-->
+                </div><!--container-->
+            </section>
+        </form><!--information-value-->
         <footer>
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
+        <!--<script type="text/javascript"
+                src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+        </script>-->
+        <script type="text/javascript"
+                src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+        </script>
         <script data-th-src="@{/js/finalizar-compra.js}"></script>
+        <script data-th-src="@{/js/pagSeguro.js}"></script>
 
     </body>
 </html>

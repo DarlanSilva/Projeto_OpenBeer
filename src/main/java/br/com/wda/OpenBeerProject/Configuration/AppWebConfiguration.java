@@ -1,4 +1,4 @@
-package br.com.wda.OpenBeerProject;
+package br.com.wda.OpenBeerProject.Configuration;
 
 import br.com.wda.OpenBeerProject.Controller.HomeController;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;

@@ -84,7 +84,7 @@ public class CervejaController {
 
     @PostMapping("/salvar")
     public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja") 
-                        @Valid Cerveja cerveja, RedirectAttributes redirectAttributes, BindingResult result ) {
+                        @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes ) {
         
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro-produto");
@@ -101,8 +101,8 @@ public class CervejaController {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
             
-        String path = fileSaver.write("product-picture", imagemCerveja);
-        cerveja.setImagem(path);
+//        String path = fileSaver.write("product-picture", imagemCerveja);
+//        cerveja.setImagem(path);
 
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
