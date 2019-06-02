@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -57,7 +59,8 @@ public class CervejaController {
                 .addObject("cerveja", cerveja);
     }
     
-     @GetMapping("/Lista-de-Cervejas")
+    @GetMapping("/Lista-de-Cervejas")
+    @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProd() {
         
         List<Cerveja> cerveja= cervejaRepository.findAll();        
@@ -68,6 +71,7 @@ public class CervejaController {
     }
 
     @GetMapping("/{busca}/Lista-de-Cervejas")
+    @Cacheable(value = "lista-cervejas")
     public ModelAndView buscaListagemProd(@PathVariable("busca") String busca) {
         List<Cerveja> cerveja;
         
@@ -84,6 +88,7 @@ public class CervejaController {
     }
 
     @GetMapping("/{tipoCerveja}/Lista-de-Cervejas-por-Tipo")
+    @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") Integer tipoCerveja) {
         List<Cerveja> cerveja = cervejaRepository.findByTipoCerveja(tipoCerveja);
         ModelAndView mv = new ModelAndView("produtos-lista");
@@ -93,6 +98,7 @@ public class CervejaController {
     }
 
     @GetMapping("/{ordemNome}/Lista-de-Cervejas-ordem-Nome")
+    @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProdOrderByNome(@PathVariable("ordemNome") Integer ordemNome) {
         List<Cerveja> cerveja;
 
@@ -109,6 +115,7 @@ public class CervejaController {
     }
 
     @GetMapping("/{ordemPreco}/Lista-de-Cervejas-ordem-Preco")
+    @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProdOrderByPreco(@PathVariable("ordemPreco") Integer ordemPreco) {
         List<Cerveja> cerveja;
 
@@ -141,6 +148,7 @@ public class CervejaController {
     }
 
     @PostMapping("/salvar")
+    @CacheEvict(value ="lista-cervejas", allEntries=true)
     public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
 
@@ -178,6 +186,7 @@ public class CervejaController {
         return new ModelAndView("redirect:/OpenBeer/cerveja/BackOffice");
     }
 
+    
     @GetMapping("{id}/detalhe")
     public ModelAndView detalhe(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView("produto");
@@ -197,6 +206,7 @@ public class CervejaController {
     }
 
     @ModelAttribute("tipoCerveja")
+    @Cacheable(value = "tipos-cervejas")
     public List<TipoCerveja> getTipoCerveja() {
 
         return tipoCervejaRepository.findAll();

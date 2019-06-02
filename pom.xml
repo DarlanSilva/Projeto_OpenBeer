@@ -58,14 +58,6 @@
         </dependency>
         
         <!--Pag Seguro-->
-        <!--<dependency>
-            <groupId>br.com.uol.pagseguro</groupId>
-            <artifactId>pagseguro-api</artifactId>
-            <version>2.2.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/repo/pagseguro-api-2.2.0.jar</systemPath>
-        </dependency>-->
-        
        <dependency>
             <groupId>br.com.uol.pagseguro</groupId>
             <artifactId>pagseguro-api</artifactId>
@@ -79,6 +71,27 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- dependencias do guava (cache) -->
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
+        </dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>4.0.9.RELEASE</version>
+	</dependency>
+        
+        <!-- dependencias email -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.7</version>
+	</dependency>
         
         <!--S3 Amazon
         <dependency>
@@ -104,15 +117,6 @@
         </dependency>-->
                            
     </dependencies>
-     
-
-    <!--<repositories>
-        <repository>
-            <id>pagseguro-lib</id>
-            <url>${home.user}/.m2/repository/</url>
-        </repository>
-    </repositories>-->
-
 
     <build>
         <plugins>

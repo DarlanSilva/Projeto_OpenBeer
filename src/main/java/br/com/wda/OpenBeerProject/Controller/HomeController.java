@@ -3,8 +3,8 @@ package br.com.wda.OpenBeerProject.Controller;
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,7 @@ public class HomeController {
     private CervejaRepository cervejaRepository;
 
     @GetMapping("/Home")
+    @Cacheable(value="produtos")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("home");
         List<Cerveja> cerveja = cervejaRepository.findAllByDestaque(true);
@@ -33,16 +34,6 @@ public class HomeController {
         return mv;
     }
 
-    @GetMapping("/Contato")
-    public ModelAndView contado() {
-        return new ModelAndView("/home");
-    }
-
-    @GetMapping("/Sobre")
-    public ModelAndView sobre() {
-        return new ModelAndView("/home");
-    }
-    
     @GetMapping("/Produto")
     public ModelAndView detalhe() {
         return new ModelAndView("/produto");

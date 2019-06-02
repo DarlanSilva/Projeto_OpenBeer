@@ -2,7 +2,6 @@ package br.com.wda.OpenBeerProject.Repository;
 
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author Alison Souza
  *
  */
+
 @Repository
 public interface CervejaRepository extends JpaRepository<Cerveja, Integer> {
     

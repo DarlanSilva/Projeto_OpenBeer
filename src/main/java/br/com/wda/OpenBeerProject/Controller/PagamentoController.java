@@ -52,7 +52,7 @@ public class PagamentoController {
     private final String sellerEmail = "your_email";
     private final String sellerToken = "your_token";
     private String URL = "";
-    private String code[]  = new String[2];
+    private String code[] = new String[2];
 
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
@@ -76,13 +76,11 @@ public class PagamentoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
-        
-        
         mv.addObject("pagSeguroURL", code[1]);
         return mv;
-        
+
     }
 
     @GetMapping("/{id}/remover")

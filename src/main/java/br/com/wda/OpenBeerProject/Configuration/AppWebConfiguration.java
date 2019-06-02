@@ -1,35 +1,41 @@
 package br.com.wda.OpenBeerProject.Configuration;
 
-import br.com.wda.OpenBeerProject.Controller.HomeController;
-import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
-import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
-import br.com.wda.OpenBeerProject.Infra.FileSaver;
+import java.util.concurrent.TimeUnit;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.guava.GuavaCacheManager;
+import com.google.common.cache.CacheBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.springframework.context.annotation.Configuration;
+
+import br.com.wda.OpenBeerProject.Controller.CervejaController;
+import br.com.wda.OpenBeerProject.Controller.HomeController;
+import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
+import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
+import br.com.wda.OpenBeerProject.Infra.FileSaver;
 
 /**
  *
  * @author Darlan Silva
  */
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {HomeController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class})
-public class AppWebConfiguration implements WebMvcConfigurer{
+@ComponentScan(basePackageClasses = { HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class })
+@EnableCaching
+public class AppWebConfiguration implements WebMvcConfigurer {
 
     @Bean
     public ClassLoaderTemplateResolver templateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("templates/");
-        templateResolver.setCacheable(false);
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCharacterEncoding("UTF-8");
@@ -37,14 +43,6 @@ public class AppWebConfiguration implements WebMvcConfigurer{
         return templateResolver;
     }
 
-//	@Bean
-//	public MessageSource messageSource(){
-//		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-//		messageSource.setBasename("/WEB-INF/messages");
-//		messageSource.setDefaultEncoding("UTF-8");
-//		messageSource.setCacheSeconds(1);
-//		return messageSource;
-//	}
     @Bean
     public FormattingConversionService mvcConversionService() {
         DefaultFormattingConversionService conversionService
@@ -64,11 +62,19 @@ public class AppWebConfiguration implements WebMvcConfigurer{
 ////        multipartResolver.setMaxUploadSize(5242880);
 ////        return multipartResolver;
 //    }
-    
-     @Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/product-picture/**")
                 .addResourceLocations("file:///resources//OpenBeer//product-picture//");
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(5,
+                TimeUnit.MINUTES);
+        GuavaCacheManager manager = new GuavaCacheManager();
+        manager.setCacheBuilder(builder);
+        return manager;
     }
 
 }
