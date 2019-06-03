@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body, html{
+    height: 100%;
+    background: #eaeaea;
+}
+
+.wrap-dados-pessoais{
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.content-dados-pessoais{
+    max-width: 500px;
+    width: 90%;
+}
+
+.wrap-cpf-tel{
+    display: flex;
+    justify-content: space-between;
+}
+
+form{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wrap-sexo{
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#masculino, #feminino{
+    margin: 0 20px;
+}
+
+
+form input:not([type=radio]){
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 0;
+    margin: 10px 0;
+}
+
+input[type=submit]{
+    height: 40px!important;
+    width: 150px!important;
+    border-radius: 50px;
+    font-size: 14px;
+    background: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    color: #ffffff;
+    margin: 20px 0;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.3); 
+    cursor: pointer;
+}
+
+#bnt-cadastrar-cliente{
+    background: #333333;
+}

@@ -20,8 +20,6 @@ import br.com.uol.pagseguro.api.common.domain.enums.PaymentMethodGroup;
 import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
-import br.com.uol.pagseguro.api.preapproval.PreApprovalRegistrationBuilder;
-import br.com.uol.pagseguro.api.preapproval.RegisteredPreApproval;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoItem;
@@ -31,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,7 +54,7 @@ public class PagamentoController {
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView finalizarCompra(HttpServletResponse response) {
-        ModelAndView mv = new ModelAndView("confirmacao");
+        ModelAndView mv = new ModelAndView("carrinho/confirmacao");
         try {
 
             final PagSeguro pagSeguro = PagSeguro
@@ -83,12 +80,30 @@ public class PagamentoController {
 
     }
 
+    @GetMapping("/ConferirCompra")
+    public ModelAndView conferirCarrinho() {
+        ModelAndView mv = new ModelAndView("carrinho/confirmacao");
+
+        return mv;
+    }
+
     @GetMapping("/{id}/remover")
     public ModelAndView removerCarrinho(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 
         carrinho.remover(id);
 
         return new ModelAndView("redirect:/OpenBeer/Pagamento/ConferirCompra");
+    }
+
+    @GetMapping("/PedidoSucesso")
+    public ModelAndView pedidoSucesso() {
+        ModelAndView mv = new ModelAndView("cliente/meus-pedidos");
+        carrinho.getItens().clear();
+
+        mv.addObject("quantidadeCarrinho", carrinho.getQuantidade());
+
+        
+        return mv;
     }
 
     public SenderBuilder getSender() {

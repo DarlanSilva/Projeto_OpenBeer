@@ -2,6 +2,8 @@ package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
+import br.com.wda.OpenBeerProject.Entity.Cliente;
+import br.com.wda.OpenBeerProject.Entity.SenderMail;
 import br.com.wda.OpenBeerProject.Entity.TipoCerveja;
 import br.com.wda.OpenBeerProject.Infra.FileSaver;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
@@ -15,6 +17,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +49,9 @@ public class CervejaController {
 
     @Autowired
     private TipoCervejaRepository tipoCervejaRepository;
+    
+    @Autowired
+    private MailSender sender;
 
     @Autowired
     private CarrinhoCompras carrinho;
@@ -55,7 +63,7 @@ public class CervejaController {
     public ModelAndView manutencao() {
 
         List<Cerveja> cerveja = cervejaRepository.findAll();
-        return new ModelAndView("consultar-produto")
+        return new ModelAndView("backOffice/consultar-produto")
                 .addObject("cerveja", cerveja);
     }
     
@@ -64,7 +72,7 @@ public class CervejaController {
     public ModelAndView listagemProd() {
         
         List<Cerveja> cerveja= cervejaRepository.findAll();        
-        ModelAndView mv = new ModelAndView("produtos-lista");
+        ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
@@ -81,7 +89,7 @@ public class CervejaController {
              cerveja = cervejaRepository.findByNome(busca);
         }
         
-        ModelAndView mv = new ModelAndView("produtos-lista");
+        ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
@@ -91,7 +99,7 @@ public class CervejaController {
     @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") Integer tipoCerveja) {
         List<Cerveja> cerveja = cervejaRepository.findByTipoCerveja(tipoCerveja);
-        ModelAndView mv = new ModelAndView("produtos-lista");
+        ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
@@ -108,7 +116,7 @@ public class CervejaController {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "nome"));
         }
 
-        ModelAndView mv = new ModelAndView("produtos-lista");
+        ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
@@ -125,7 +133,7 @@ public class CervejaController {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "valorCerveja"));
         }
 
-        ModelAndView mv = new ModelAndView("produtos-lista");
+        ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
@@ -133,7 +141,7 @@ public class CervejaController {
 
     @GetMapping("/novo")
     public ModelAndView adicionarNovo() {
-        return new ModelAndView("cadastro-produto")
+        return new ModelAndView("backOffice/cadastro-produto")
                 .addObject("cerveja", new Cerveja());
     }
 
@@ -143,7 +151,7 @@ public class CervejaController {
         Cerveja cerveja = listProd.get();
         getTipoCerveja();
 
-        return new ModelAndView("cadastro-produto")
+        return new ModelAndView("backOffice/cadastro-produto")
                 .addObject("cerveja", cerveja);
     }
 
@@ -153,7 +161,7 @@ public class CervejaController {
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("cadastro-produto");
+            ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
             mv.addObject("cerveja", cerveja);
 
             return mv;
@@ -189,7 +197,8 @@ public class CervejaController {
     
     @GetMapping("{id}/detalhe")
     public ModelAndView detalhe(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-        ModelAndView mv = new ModelAndView("produto");
+        
+        ModelAndView mv = new ModelAndView("produto/produto");
 
         Optional<Cerveja> cerveja = cervejaRepository.findById(id);
 
@@ -199,10 +208,36 @@ public class CervejaController {
 
             return listagemProd();
         }
+        
+        // VERIFICA SE ESTA EM FALTA NO ESTOQUE SE SIM REDIRECIONA PARA A PAGINA DE AVISE-ME.
+        if(cerveja.get().getQuantidade() == 0){
+           ModelAndView mvIndisponivel = new ModelAndView("produto/produto-indisponivel");
+           
+           mvIndisponivel.addObject("cerveja", cerveja.get());
+           mvIndisponivel.addObject("email", new SenderMail());
+           
+           return mvIndisponivel;
+        }
+        
         mv.addObject("cerveja", cerveja.get());
 
         return mv;
 
+    }
+    
+    @PostMapping("/Avise-me")
+    public ModelAndView produtoIndisponivel(@ModelAttribute("email") @Valid SenderMail mail, BindingResult result ,@ModelAttribute("cerveja") Cerveja cerveja){
+        
+        if (result.hasErrors()){
+            ModelAndView mv = new ModelAndView("produto/produto-indisponivel");
+            mv.addObject("cerveja", cerveja);
+            
+            return mv;
+            
+        }
+        aviseMe(mail.getEmail(), mail.getNome());
+        
+        return new ModelAndView("redirect:/OpenBeer/cerveja/Lista-de-Cervejas");
     }
 
     @ModelAttribute("tipoCerveja")
@@ -210,5 +245,15 @@ public class CervejaController {
     public List<TipoCerveja> getTipoCerveja() {
 
         return tipoCervejaRepository.findAll();
+    }
+    
+    private void aviseMe(String email, String nome){
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setSubject("OpenBeer - O melhor da cerveja esta aqui!!!");
+        mail.setTo(email);
+        mail.setText("Olá " + nome + " pode deixar que assim que o nosso estoque for reposto você será o primeiro a ser informado.");
+        mail.setFrom("OpenBeer.com.br");
+        
+        sender.send(mail);
     }
 }

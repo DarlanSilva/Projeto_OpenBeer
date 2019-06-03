@@ -6,7 +6,6 @@ var menuSticky = document.querySelector(".menu-internas");
 var btnAreaCliente = document.querySelector(".area-cliente");
 
 
-
 function alterTela(){
     var tamanhoJanela = window.innerWidth;
     if(tamanhoJanela < 780){
@@ -34,10 +33,14 @@ function OpenCloseMenu(){
 
 function scrollTop(){
     var top  = window.pageYOffset || document.documentElement.scrollTop;
-    if(top > 95){
+    console.log(top)
+    if(top > 125){
     menuSticky.classList.add("stickyMenu");
     menuSticky.style.padding = "5px 0";
-    menuMobile.style.top = "63px";    
+    menuMobile.style.top = "63px";
+    document.querySelector(".wrap-content-area").classList.remove("openAreaCliente"); 
+    document.querySelector(".wrap-content-area").classList.add("closeAreaCliente");
+    conteAreaCliente = 0;
     }else{
         menuSticky.classList.remove("stickyMenu");
         menuSticky.style.padding = "20px 0";

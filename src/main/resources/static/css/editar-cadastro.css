@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body, html{
+    height: 100%;
+}
+
+
+.wrap-dados-pessoais{
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.content-dados-pessoais{
+    max-width: 500px;
+    width: 90%;
+}
+
+.wrap-cpf-tel{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.wrap-sexo{
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#masculino, #feminino{
+    margin: 0 20px;
+}
+
+
+form input:not([type=radio]){
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 0;
+    margin: 10px 0;
+}
+
+.edit{
+    background: #eeeeee;
+    padding: 20px;
+    width: calc(100%/2);
+    display: inline-block;
+    margin-right: -4px;
+    border: 5px solid #ffffff;
+    border-radius: 10px;
+}
+
+.edit h2{
+    padding: 40px 0
+}
+
+.content-form-edit form{
+    padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fields{
+    flex: 1;
+    background: #eaeaea;
+    padding: 20px
+}
+
+.confirm{
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: none;
+}
+
+.content-form-edit h1 {
+    padding: 250px 0 100px 0;
+    text-align: center;
+    font-size: 30px;
+}
+input[type="submit"], input[type="reset"] {
+    width: 200px!important;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+}
+
+input[type="submit"]{
+   background: #333333;
+}
+
+input[type="reset"]{
+    background: #cccccc;
+}

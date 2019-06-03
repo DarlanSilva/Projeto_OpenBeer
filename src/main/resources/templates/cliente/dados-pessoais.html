@@ -1,0 +1,121 @@
+<meta charset="UTF-8">
+<title>Open Beer</title>
+<link rel="stylesheet" data-th-href="@{/css/dados-pessoais.css}">
+<link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
+<link rel="stylesheet" data-th-href="@{/css/mensagens.css}">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+<header>
+    <div class="top-header">
+        <div class="container">   
+            <div class="wrap-top-header">
+                <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                <a class="area-cliente" href="#">Área do Cliente</a>
+            </div><!--wrap-top-header-->
+            <div class="content-area-cliente">
+                <div class="wrap-content-area">
+                    <ul>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
+
+                    </ul>
+                </div><!--wrap-content-area-->
+            </div><!--content-area-cliente-->
+        </div><!--container-->
+    </div><!--top-header-->
+    <div class="menu-internas">
+        <div class="container">
+            <nav class="nav-interna">
+                <div class="name-logo">
+                    <h1>OPENBEER.</h1>
+                </div>
+                <ul class="menu-desk">
+                    <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                </ul><!--menu-desk-->
+                <ul class="menu-mobile">
+                    <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                </ul><!--menu-mobile-->
+                <div class="carrinho-icon">
+                    <i class="fas fa-bars"></i>
+                    <div class="wrap-carrinho-icon">
+                        <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
+                        <div class="circle-car">
+                            <span data-th-text ="${quantidadeCarrinho}"></span>
+                        </div><!--circle-car-->
+                    </div><!--wrap-carrinho-icon-->
+                </div><!--carrinho-icon-->
+            </nav>
+            <!--nav-interna-->
+        </div><!--container-->
+    </div><!--menu-internas-->
+</header>
+<body>
+    <section class="dados-pessoais">
+        <div class="container">
+            <div class="wrap-dados-pessoais">
+                <div class="content-dados-pessoais">
+                    <form data-th-action="@{/OpenBeer/Cliente/salvar}" method="post" data-th-object="${cliente}" novalidate>
+                        <h2>DADOS PESSOAIS</h2>
+                        <div>
+                            <label for="nome-completo">Nome Completo</label><br>
+                            <input type="text" name="nome-completo" id="nome-completo" placeholder="Digite seu nome completo" required data-th-classappend="${#fields.hasErrors('nomeCompleto')}? is-invalid" data-th-field="*{nomeCompleto}">
+                            <div data-th-if="${#fields.hasErrors('nomeCompleto')}" data-th-errors="*{nomeCompleto}" class="alert alert-danger">
+
+                            </div>
+                        </div>
+                        <div class="wrap-cpf-tel">
+                            <div class="wrap-cpf">
+                                <label for="cpf">CPF</label>
+                                <input type="number" name="cpf" id="cpf" placeholder="Digite seu CPF" required data-th-classappend="${#fields.hasErrors('cpf')}? is-invalid" data-th-field="*{cpf}"> 
+                                <div data-th-if="${#fields.hasErrors('cpf')}" data-th-errors="*{cpf}" class="alert alert-danger">
+
+                                </div>
+                            </div><!--wrap-cpf-tel-->
+                            <div class="wrap-tel">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" name="telefone" id="telefone" placeholder="Digite seu Telefone" data-th-classappend="${#fields.hasErrors('telefone')}? is-invalid" data-th-field="*{telefone}">
+                                <div data-th-if="${#fields.hasErrors('telefone')}" data-th-errors="*{telefone}" class="alert alert-danger">
+
+                                </div>
+                            </div><!--wrap-tel-->   
+                        </div><!--wrap-cpf-tel-->
+                        <div>
+                            <label for="data-nascimento">Data de nascimento</label><br>
+                            <input type="date" name="data-nascimento" id="data-nascimento" required data-th-classappend="${#fields.hasErrors('dtNascimento')}? is-invalid" data-th-field="*{dtNascimento}">
+                            <div data-th-if="${#fields.hasErrors('dtNascimento')}" data-th-errors="*{dtNascimento}" class="alert alert-danger">
+
+                            </div>
+                        </div>
+                        <div class="wrap-sexo" >
+                            <input type="radio" id="masculino"
+                                   name="sexo" value="M" data-th-field="*{sexo}">
+                            <label for="masculino">Masculino</label>
+                            <input type="radio" id="feminino"
+                                   name="sexo" value="F" data-th-field="*{sexo}">
+                            <label for="feminino">Feminino</label>
+                        </div>
+                        <div data-th-if="${#fields.hasErrors('sexo')}" data-th-errors="*{sexo}" class="alert alert-danger">
+
+                        </div>
+
+                        <input type="submit" name="btn-logar" id="btn-logar" value="Continuar">  
+                    </form>
+                    <script type="text/javascript" data-th-src="@{/js/header.js}"></script>
+                </div><!--content-login-cliente-->  
+            </div><!--wrap-login-cadastro-->
+        </div><!--container-->
+    </section><!--login-cadastro--> 
+    <footer>
+        <p>Desenvolvido por WDA</p>
+        <p>Todos os direitos reservados - 2019</p>
+    </footer>
+</body>

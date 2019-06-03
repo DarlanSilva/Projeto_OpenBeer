@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" data-th-href="@{/css/meus-pedidos.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+        <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <div class="content-area-cliente">
+                        <div class="wrap-content-area">
+                            <ul>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
+                            </ul>
+                        </div><!--wrap-content-area-->
+                    </div><!--content-area-cliente-->
+                </div><!--container-->
+            </div>
+            <!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-mobile-->
+                        <div class="carrinho-icon">
+                            <i class="fas fa-bars"></i>
+                            <div class="wrap-carrinho-icon">
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
+                                <div class="circle-car">
+                                    <span data-th-text ="${quantidadeCarrinho}"></span>
+                                </div><!--circle-car-->
+                            </div><!--wrap-carrinho-icon-->
+                        </div><!--carrinho-icon-->
+                    </nav>
+                    <!--nav-interna-->
+                </div>
+                <!--container-->
+            </div>
+            <!--menu-internas-->
+        </header>
+        <section class="meus-pedidos">
+            <div class="container">
+                <h1>MEUS PEDIDOS</h1>
+                <!--<table class="table-meus-pedidos" cellpadding = "0" cellspacing = "0" >
+                    <thead>
+                        <th>ID</th>
+                        <th>PEDIDO</th>
+                        <th>DATA</th>
+                        <th>VALOR TOTAL</th>
+                    </thead>
+                    <tbody class="main-item" align = "center">
+                        <td>5</td>
+                        <td>324SDF2</td>
+                        <td>23/05/2019</td>
+                        <td>300,00</td>
+                    </tbody>
+                </table>-->
+                <div class="content-meus-pedidos">
+                    <div class="wrap-meus-pedidos">
+                        <span class="dot-status pago">
+
+                        </span>
+                        <!--dot-status-->
+                        <div class="date-pedido">
+                            <span class="month">02</span>
+                            <span class="day">23</span>
+                        </div>
+                        <!--date-pedido-->
+                        <span class="pedido">H12G3F</span>
+                        <span class="nome-empresa">OPEN BEER</span>
+                        <span class="status-pagamento pago-text">PAGO</span>
+                        <span class="valor-total pago-text">R$354,00</span>
+                    </div>
+                    <div class="content-single-prod">
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                    </div>
+                    <!--content-single-prod-->
+                </div>
+                <!--content-meus-pedidos-->
+
+                <div class="content-meus-pedidos">
+                    <div class="wrap-meus-pedidos">
+                        <span class="dot-status nao-pago">
+
+                        </span>
+                        <!--dot-status-->
+                        <div class="date-pedido">
+                            <span class="month">02</span>
+                            <span class="day">28</span>
+                        </div>
+                        <!--date-pedido-->
+                        <span class="pedido">324KHL</span>
+                        <span class="nome-empresa">OPEN BEER</span>
+                        <span class="status-pagamento nao-pago-text">NÃO PAGO</span>
+                        <span class="valor-total nao-pago-text">R$634,00</span>
+                    </div>
+                    <div class="content-single-prod">
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                    </div>
+                    <!--content-single-prod-->
+                </div>
+                <!--content-meus-pedidos-->
+
+                <div class="content-meus-pedidos">
+                    <div class="wrap-meus-pedidos">
+                        <span class="dot-status pago">
+
+                        </span>
+                        <!--dot-status-->
+                        <div class="date-pedido">
+                            <span class="month">03</span>
+                            <span class="day">05</span>
+                        </div>
+                        <!--date-pedido-->
+                        <span class="pedido">H4JK23</span>
+                        <span class="nome-empresa">OPEN BEER</span>
+                        <span class="status-pagamento pago-text">PAGO</span>
+                        <span class="valor-total pago-text">R$432,00</span>
+                    </div>
+                    <div class="content-single-prod">
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                    </div>
+                    <!--content-single-prod-->
+                </div>
+                <!--content-meus-pedidos-->
+
+                <div class="content-meus-pedidos">
+                    <div class="wrap-meus-pedidos">
+                        <span class="dot-status pago">
+
+                        </span>
+                        <!--dot-status-->
+                        <div class="date-pedido">
+                            <span class="month">03</span>
+                            <span class="day">13</span>
+                        </div>
+                        <!--date-pedido-->
+                        <span class="pedido">2LK3J4</span>
+                        <span class="nome-empresa">OPEN BEER</span>
+                        <span class="status-pagamento pago-text">PAGO</span>
+                        <span class="valor-total pago-text">R$738,00</span>
+                    </div>
+                    <div class="content-single-prod">
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                        <ul class="single-meus-produtos">
+                            <li><img data-th-src="@{/img/beer-artesanal.png}" alt="" width="50"></li>
+                            <li>CERVEJA ARTESANAL</li>
+                            <li>VALOR UNITÁRIO</li>
+                            <li>QTD</li>
+                            <li>VALOR TOTAL</li>
+                        </ul>
+                        <!--single-meus-produtos-->
+                    </div>
+                    <!--content-single-prod-->
+                </div>
+                <!--content-meus-pedidos-->
+            </div>
+            <!--container-->
+        </section>
+        <!--meus-pedidos-->
+        <footer>
+            <p>Desenvolvido por WDA</p>
+            <p>Todos os direitos reservados - 2019</p>
+        </footer>
+        <script data-th-src="@{/js/meus-pedidos.js}"></script>
+        <script data-th-src="@{/js/header.js}"></script>
+    </body>
+
+</html>

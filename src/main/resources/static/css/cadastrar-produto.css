@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: helvetica;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body, html{
@@ -96,4 +96,5 @@ input[name="cadastrar-cerveja"]{
     color: #ffffff;
     border-radius: 50px;
     cursor: pointer;
+    position: relative;
 }

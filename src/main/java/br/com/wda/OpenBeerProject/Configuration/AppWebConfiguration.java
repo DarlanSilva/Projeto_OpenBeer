@@ -15,20 +15,25 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import br.com.wda.OpenBeerProject.Controller.CervejaController;
 import br.com.wda.OpenBeerProject.Controller.HomeController;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
 import br.com.wda.OpenBeerProject.Infra.FileSaver;
+import java.util.Properties;
+import org.springframework.mail.MailSender;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 /**
  *
  * @author Darlan Silva
  */
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class })
+@ComponentScan(basePackageClasses = {HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class})
 @EnableCaching
 public class AppWebConfiguration implements WebMvcConfigurer {
 
@@ -54,14 +59,16 @@ public class AppWebConfiguration implements WebMvcConfigurer {
         return conversionService;
     }
 
-//    @Bean
-//    public MultipartResolver multipartResolver() {
-//        return new StandardServletMultipartResolver();
-////        CommonsMultipartResolver multipartResolver
-////                = new CommonsMultipartResolver();
-////        multipartResolver.setMaxUploadSize(5242880);
-////        return multipartResolver;
-//    }
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/product-picture/**")
@@ -75,6 +82,22 @@ public class AppWebConfiguration implements WebMvcConfigurer {
         GuavaCacheManager manager = new GuavaCacheManager();
         manager.setCacheBuilder(builder);
         return manager;
+    }
+
+    @Bean
+    public MailSender mailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setUsername("email");
+        mailSender.setPassword("senha");
+        mailSender.setPort(587);
+
+        Properties mailProperties = new Properties();
+        mailProperties.setProperty("mail.smtp.auth", "true");
+        mailProperties.setProperty("mail.smtp.starttls.enable", "true");
+        mailSender.setJavaMailProperties(mailProperties);
+
+        return mailSender;
     }
 
 }

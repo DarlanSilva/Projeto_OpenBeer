@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" data-th-href="@{/css/menu-internas.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
+        <link rel="stylesheet" data-th-href="@{/css/footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <div class="content-area-cliente">
+                        <div class="wrap-content-area">
+                            <ul>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
+                            </ul>
+                        </div><!--wrap-content-area-->
+                    </div><!--content-area-cliente-->
+                </div><!--container-->
+            </div><!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-mobile-->
+                        <div class="carrinho-icon">
+                            <i class="fas fa-bars"></i>
+                            <div class="wrap-carrinho-icon">
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
+                                <div class="circle-car">
+                                    <span data-th-text ="${quantidadeCarrinho}"></span>
+                                </div><!--circle-car-->
+                            </div><!--wrap-carrinho-icon-->
+                        </div><!--carrinho-icon-->
+                    </nav>
+                    <!--nav-interna-->
+                </div><!--container-->
+            </div><!--menu-internas-->
+        </header>
+        <section class="product-description">
+            <div class="container">
+                <div class="wrap-section-desc">
+                    <div class="section-desc">
+                        <h1><span data-th-text="${cerveja.nome}"></span></h1>
+                        <h2>O melhor da cerveja esta aqui!!!</h2>
+                        <p><span data-th-text="${cerveja.descricao}"></span></p>
+                    </div>
+                    <!--section-desc-->
+                    <div class="section-fig">
+                        <img data-th-src="@{/img/beer-artesanal.png}" alt="Cerveja artesanal" width="300px">
+                    </div>
+                    <!--section-fig-->
+                    <div class="section-info">
+                        <div class="container-info">
+                            <div class="wrap-year">
+                                <h2>PREÇO</h2>
+                                <h3><span data-th-text="${cerveja.valorCerveja}"></span></h3>
+                            </div>
+                            <!--wrap-year-->
+                            <div class="wrap-middle">
+                                <div class="wrap-left">
+                                    <div class="wrap-type">
+                                        <h2><span data-th-text="${cerveja.marca}"></span></h2>
+                                    </div>
+                                    <!--wrap-type-->
+                                    <div class="wrap-teor">
+                                        <h1>Álcool</h1>
+                                        <h2><span data-th-text="${cerveja.teor}"></span> %</h2>
+                                    </div>
+                                    <!--wrap-teor-->
+                                </div>
+                                <!--wrap-left-->
+                                <div class="wrap-right">
+                                    <img th:src="@{/img/beerrr.png}" alt="Cup Beer" width="60px;">
+                                </div>
+                                <!--wrap-right-->
+
+                            </div>
+                            <!--wrap-middle-->
+                            <div class="wrap-vol">
+                                <h2><span data-th-text="${cerveja.mlCerveja}"></span>ML</h2>
+                            </div>
+                            <!--wrap-vol-->
+                        </div>
+                        <a class="btn-adicionar-carrinho" data-th-href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}"><span>ADICIONAR AO CARRINHO</span>
+                            <div class="btn-background">
+
+                            </div><!--btn-background-->
+                        </a>
+                        <!--container-info-->
+                    </div>
+                    <!--section-info-->
+                </div>
+                <!--wrap-section-desc-->
+            </div>
+            <!--container-->
+        </section>
+        <!--product-description-->
+        <footer>
+            <p>Desenvolvido por WDA</p>
+            <p>Todos os direitos reservados - 2019</p>
+        </footer>
+        <script data-th-src="@{/js/header.js}"></script>
+    </body>
+</html>

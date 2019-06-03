@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body, html{
+    height: 100%;
+    background: #eaeaea;
+}
+
+.wrap-login-cadastro {
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    height: 120%;
+    margin: 0 auto;
+}
+
+.content-login-cliente, .content-cadastro-cliente{
+    position: relative;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-cliente{
+    background: gray;
+    background-image: linear-gradient( 135deg, #35e897 10%, #118af5 100%);
+    box-shadow: 60px 10px 40px rgba(0,0,0,.3);
+}
+
+.login-cliente,  .cadastro-cliente{
+    position: relative;
+    height: 100%;
+    flex: 1;
+    padding: 0 100px;    
+}
+
+
+form input{
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 0;
+    margin: 10px 0;
+}
+
+input[type=submit]{
+    height: 40px;
+    width: 150px;
+    border-radius: 50px;
+    font-size: 14px;
+    background: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    color: #ffffff;
+    margin: 20px 0;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.3); 
+    cursor: pointer;
+}
+
+#bnt-cadastrar-cliente{
+    background: #333333;
+}

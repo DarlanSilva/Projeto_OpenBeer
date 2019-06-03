@@ -2,9 +2,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Open Beer</title>
-        <link rel="stylesheet" th:href="@{/css/template.css}">
-        <link rel="stylesheet" th:href="@{/css/carrinho.css}">
-        <link rel="stylesheet" th:href="@{/css/footer.css}">
+        <link rel="stylesheet" data-th-href="@{/css/template.css}">
+        <link rel="stylesheet" data-th-href="@{/css/carrinho.css}">
+        <link rel="stylesheet" data-th-href="@{/css/footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -30,54 +30,22 @@
                         <h1>OPENBEER.</h1>
                     </div>
                     <ul>
-                        <li><a th:href="@{/OpenBeer/Home}">HOME</a></li>
-                        <li><a th:href="@{/OpenBeer/Sobre}">SOBRE</a></li>
-                        <li><a th:href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                        <li><a th:href="@{/OpenBeer/Contato}">CONTATO</a></li>
-                        <li><a th:href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                        <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                        <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                     </ul>
                     <div class="carrinho-icon">
                         <div class="wrap-carrinho-icon">
-                            <img th:src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
+                            <img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50">
                             <div class="circle-car">
-                                <span th:text ="${quantidadeCarrinho}"></span>
+                                <span data-th-text ="${quantidadeCarrinho}"></span>
                             </div><!--circle-car-->
                         </div><!--wrap-carrinho-icon-->
                     </div><!--carrinho-icon-->
                 </nav>
                 <!--nav-interna-->
-                <div class="login-register" style="display: none">
-                    <div class="wrap-background-login-register">
-                        <div class="wrap-login-register">
-                            <div class="register">
-                                <h2>REGISTRE - SE</h2>
-                                <form action="">
-                                    <input type="name" name="name" required placeholder="Digite seu nome: ">
-                                    <input type="tel" name="phone" required placeholder="Digite seu telefone: ">
-                                    <input type="email" name="email" required placeholder="Digite seu email: ">
-                                    <input type="email" name="confirm-email" required placeholder="Confirme seu email: ">
-                                    <input type="name" name="username" required placeholder="Crie um usuário: ">
-                                    <input type="password" name="pass" required placeholder="Digite uma senha: ">
-                                    <input type="password" name="confirm-pass" required placeholder="Confirme sua senha: ">
-                                    <input type="submit" name="btn-cadastrar" value="CADASTRAR">
-                                </form>
-                            </div>
-                            <!--register-->
-                            <div class="login">
-                                <h2>FAÇA O LOGIN</h2>
-                                <form action="">
-                                    <input type="name" name="user-login" required placeholder="Insira seu user: ">
-                                    <input type="password" name="pass-login" required placeholder="Digite sua senha: ">
-                                    <input type="submit" name="btn-login" value="LOGIN">
-                                </form>
-                            </div>
-                            <!--login-->
-                        </div>
-                        <!--wrap-login-register-->
-                    </div>
-                    <!--wrap-background-login-register-->
-                </div>
-                <!--login-register-->
             </div>
         </header>
         <main layout:fragment="conteudo">
@@ -86,5 +54,6 @@
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
+        <script data-th-src="@{/js/header.js}"></script>
     </body>
 </html>

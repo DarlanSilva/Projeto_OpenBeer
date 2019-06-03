@@ -20,16 +20,15 @@
             <div class="top-header">
                 <div class="container">   
                     <div class="wrap-top-header">
-                        <a class="cad-login" href="#">Login / Cadastro</a>
+                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
                         <a class="area-cliente" href="#">Área do Cliente</a>
                     </div><!--wrap-top-header-->
                     <div class="content-area-cliente">
                         <div class="wrap-content-area">
                             <ul>
-                                <li><a href="#">Meus pedidos</a></li>
-                                <li><a href="#">Editar cadastro</a></li>
-                                <li><a href="#">Sair</a></li>
-
+                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
                             </ul>
                         </div><!--wrap-content-area-->
                     </div><!--content-area-cliente-->
@@ -43,16 +42,16 @@
                         </div>
                         <ul class="menu-desk">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                         </ul><!--menu-desk-->
                         <ul class="menu-mobile">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                         </ul><!--menu-mobile-->
                         <div class="carrinho-icon">
@@ -119,38 +118,46 @@
                                 <div class="img-single-product">
                                     <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>
                                 </div>
-                                <!--img-single-product-->
-                                <div class="desc-single-product">
-                                    <div class="wrap-single-name">
-                                        <div class="desc-single-name">
-                                            <h4><span data-th-text="${cerveja.nome}"></span> </h4>
-                                        </div>
-                                        <!--desc-single-name-->
+                                <span data-th-if="${cerveja.quantidade > 0}">
+                                    <!--img-single-product-->
+                                    <div class="desc-single-product">
+                                        <div class="wrap-single-name">
+                                            <div class="desc-single-name">
+                                                <h4><span data-th-text="${cerveja.nome}"></span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
 
-                                        <div class="desc-single-ml">
-                                            <h4><span data-th-text="${cerveja.mlCerveja}"></span> ml</h4>
+                                            <div class="desc-single-ml">
+                                                <h4><span data-th-text="${cerveja.mlCerveja}"></span> ml</h4>
+                                            </div>
+                                            <!--desc-single-name-->
                                         </div>
-                                        <!--desc-single-name-->
+                                        <!--wrap-single-name-->
+                                        <div class="wrap-single-price">
+                                            <div class="desc-single-price">
+                                                <h4>R$ <span data-th-text="${cerveja.valorCerveja}"></span> </h4>
+                                            </div>
+                                            <!--desc-single-name-->
+
+                                            <div class="desc-single-desc">
+                                                <h4><span data-th-text="${cerveja.breveDescricao}"></span></h4>
+                                            </div>
+                                            <!--desc-single-name-->
+                                        </div>
+                                        <!--wrap-single-name-->
                                     </div>
-                                    <!--wrap-single-name-->
-                                    <div class="wrap-single-price">
-                                        <div class="desc-single-price">
-                                            <h4>R$ <span data-th-text="${cerveja.valorCerveja}"></span> </h4>
-                                        </div>
-                                        <!--desc-single-name-->
+                                    <!--desc-single-product-->
 
-                                        <div class="desc-single-desc">
-                                            <h4><span data-th-text="${cerveja.breveDescricao}"></span></h4>
-                                        </div>
-                                        <!--desc-single-name-->
+                                    <div class="btn-comprar-list">
+                                        <a data-th-href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}">COMPRAR</a>
+                                    </div><!--btn-comprar-list-->
+                                </span>
+                                
+                                <span data-th-if="${cerveja.quantidade == 0}">
+                                    <div class="sem-estoque">
+                                        <p>Ops! Já vendemos todo o estoque.</p>
                                     </div>
-                                    <!--wrap-single-name-->
-                                </div>
-                                <!--desc-single-product-->
-
-                                <div class="btn-comprar-list">
-                                    <a data-th-href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}">COMPRAR</a>
-                                </div><!--btn-comprar-list-->
+                                </span>
                             </div>
                             <!--wrap-single-product-->
                         </div>

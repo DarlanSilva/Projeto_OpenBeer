@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
  * @author Alison Souza
  *
  */
-public interface LoginRepository  {
+
+@Repository
+public interface LoginRepository extends JpaRepository<Login, Long>{
+    
+    Login findByEmail(String email);
     
 }

@@ -66,8 +66,8 @@ nav.nav-interna {
     margin: 0 20px;
 }
 
-.wrap-section-desc{
-    padding: 100px 0;
+.wrap-section-desc {
+    padding: 250px 0 100px 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -195,6 +195,58 @@ a.btn-adicionar-carrinho:hover {
     z-index: -1;
     box-shadow: 0 0 20px #43cea2;
     
+}
 
+/*PRODUTO INDISPONIVEL*/
 
+.wrap-desc-estoque{
+    border: 1px solid #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.wrap-desc-estoque h4{
+    padding: 10px 0;
+    font-weight: 100;
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.cod-indisponivel{
+    padding: 10px 0;
+}
+
+.section-info form input:not([type="submit"]){
+    height: 40px;
+    padding: 10px;
+    outline: none;
+    background: #333333;
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 5px;
+    color: #ffffff;
+    border: 0;
+}
+
+input::placeholder{
+    color: #ffffff;
+}
+
+.mensagem-indisponivel{
+    padding-bottom: 20px;
+}
+
+input[type="submit"]{
+    font-weight: bold;
+    font-size: 14px;
+    background: #4286f4;
+    color: #ffffff;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    border-radius: 5px;
+
+    
 }

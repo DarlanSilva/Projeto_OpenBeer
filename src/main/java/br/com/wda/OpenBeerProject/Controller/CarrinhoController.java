@@ -62,7 +62,7 @@ public class CarrinhoController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView itensCarrinho() {
 
-        ModelAndView mv = new ModelAndView("carrinho");
+        ModelAndView mv = new ModelAndView("carrinho/carrinho");
         return mv;
     }
 
@@ -70,7 +70,7 @@ public class CarrinhoController {
     public ModelAndView compra() {
         List<ItensCarrinho> carrinho = carrinhoItensRepository.findAll();
 
-        return new ModelAndView("carrinho")
+        return new ModelAndView("carrinho/carrinho")
                 .addObject("carrinho", carrinho);
     }
 

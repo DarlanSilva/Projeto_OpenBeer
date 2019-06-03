@@ -1,0 +1,117 @@
+<meta charset="UTF-8">
+<title>Open Beer</title>
+<link rel="stylesheet" data-th-href="@{/css/login-cadastro.css}">
+<link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
+<link rel="stylesheet" data-th-href="@{/css/mensagens.css}">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+<!--FONT AWESOME-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<header>
+    <div class="top-header">
+        <div class="container">   
+            <div class="wrap-top-header">
+                <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                <a class="area-cliente" href="#">Área do Cliente</a>
+            </div><!--wrap-top-header-->
+            <div class="content-area-cliente">
+                <div class="wrap-content-area">
+                    <ul>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                        <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
+
+                    </ul>
+                </div><!--wrap-content-area-->
+            </div><!--content-area-cliente-->
+        </div><!--container-->
+    </div><!--top-header-->
+    <div class="menu-internas">
+        <div class="container">
+            <nav class="nav-interna">
+                <div class="name-logo">
+                    <h1>OPENBEER.</h1>
+                </div>
+                <ul class="menu-desk">
+                    <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                </ul><!--menu-desk-->
+                <ul class="menu-mobile">
+                    <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                    <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                    <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                </ul><!--menu-mobile-->
+                <div class="carrinho-icon">
+                    <i class="fas fa-bars"></i>
+                    <div class="wrap-carrinho-icon">
+                        <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
+                        <div class="circle-car">
+                            <span data-th-text ="${quantidadeCarrinho}"></span>
+                        </div><!--circle-car-->
+                    </div><!--wrap-carrinho-icon-->
+                </div><!--carrinho-icon-->
+            </nav>
+            <!--nav-interna-->
+        </div><!--container-->
+    </div><!--menu-internas-->
+</header>
+<body>
+    <section class="login-cadastros">
+        <div class="container">
+            <div class="wrap-login-cadastro">
+                <div class="login-cliente">
+                    <div class="content-login-cliente">
+                        <form action="">
+                            <h2>ENTRAR</h2>
+                            <div>
+                                <label for="email-login">Seu Email</label><br>
+                                <input type="email" name="email-login" id="email-login" placeholder="Digite seu email" required>  
+                            </div>
+                            <div>
+                                <label for="password">Senha</label><br>
+                                <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+                            </div>
+
+                            <input type="submit" name="btn-logar" id="btn-logar" value="Entrar">  
+                        </form>
+                    </div><!--content-login-cliente-->
+                </div><!--login-cliente-->   
+                <div class="cadastro-cliente">
+                    <div class="content-cadastro-cliente">
+                        <form data-th-action="@{/OpenBeer/Login/salvar}" method="POST" data-th-object="${login}" novalidate>
+                            <h2>CADASTRE-SE</h2>
+                            <div>
+                                <label for="email">Email</label><br>
+                                <input type="email" name="email" id="email" placeholder="Digite seu email" required data-th-classappend="${#fields.hasErrors('email')}? is-invalid" data-th-field="*{email}"> 
+                                <div data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="alert alert-danger">
+
+                                </div>
+                            </div>
+                            <div>
+                                <label for="password-cadastro">Senha</label><br>
+                                <input required type="password" name="password-cadastro" id="password-cadastro" placeholder="Digite sua senha" data-th-classappend="${#fields.hasErrors('hashSenha')}? is-invalid" data-th-field="*{hashSenha}">
+                            </div>
+                            <div>
+                                <label for="password-confirm">Confirmar Senha</label><br>
+                                <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirme sua senha" required>
+                            </div>
+                            <input type="submit" name="btn-cadastrar-cliente" id="bnt-cadastrar-cliente" value="Cadastrar">
+                        </form>
+                    </div><!--content-cadastro-cliente-->
+                </div><!--cadastro-login-->
+            </div><!--wrap-login-cadastro-->
+        </div><!--container-->
+    </section><!--login-cadastro--> 
+    <script type="text/javascript" data-th-src="@{/js/header.js}"></script>
+    <script type="text/javascript" data-th-src="@{/js/loginValidate.js}"></script>
+    <script type="text/javascript" data-th-src="@{/js/confirmarSenha.js}"></script>
+    <footer>
+        <p>Desenvolvido por WDA</p>
+        <p>Todos os direitos reservados - 2019</p>
+    </footer>
+</body>

@@ -34,7 +34,7 @@ public class HomeController {
         return mv;
     }
 
-    @GetMapping("/Produto")
+    @GetMapping("/Detalhe")
     public ModelAndView detalhe() {
         return new ModelAndView("/produto");
     }

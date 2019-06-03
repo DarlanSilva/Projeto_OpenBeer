@@ -1,6 +1,7 @@
 var pedidos = document.querySelectorAll(".wrap-meus-pedidos");
 var pedidoCont = 0;
 
+
 function effectPedido(){
 
 pedidos.forEach(function(pedido){
@@ -30,10 +31,13 @@ function openClosePedido(pedido){
 
 }
 
-    pedidos.forEach(function(pedido){
-        pedido.addEventListener("click", function(){
-        openClosePedido(this);           
-    })
+
+
+pedidos.forEach(function(pedido){
+    pedido.addEventListener("click", function(e){
+         if(e.target.id !== "status")
+            openClosePedido(this); 
+        })
 })
 
 

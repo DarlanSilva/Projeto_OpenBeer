@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
         <!--FONT AWESOME-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
@@ -19,15 +20,15 @@
             <div class="top-header">
                 <div class="container">   
                     <div class="wrap-top-header">
-                        <a class="cad-login" href="#">Login / Cadastro</a>
+                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
                         <a class="area-cliente" href="#">Área do Cliente</a>
                     </div><!--wrap-top-header-->
                     <div class="content-area-cliente">
                         <div class="wrap-content-area">
                             <ul>
-                                <li><a href="#">Meus pedidos</a></li>
-                                <li><a href="#">Editar cadastro</a></li>
-                                <li><a href="#">Sair</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
 
                             </ul>
                         </div><!--wrap-content-area-->
@@ -42,16 +43,16 @@
                         </div>
                         <ul class="menu-desk">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a href="#sobre">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a href="#contato">CONTATO</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                         </ul><!--menu-desk-->
                         <ul class="menu-mobile">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a href="#sobre">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
+                            <li><a href="#contato">CONTATO</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
                         </ul><!--menu-mobile-->
                         <div class="carrinho-icon">
@@ -68,8 +69,9 @@
                 </div><!--container-->
             </div><!--menu-internas-->
             <div class="call">
+                <img data-th-src="@{/img/header-beer.png}" alt="Imagem de um copo cheio de cerveja">
                 <div class="call-title">
-                    <img data-th-src="@{/img/title-img.png}" alt="">
+                    <h1>OPENBEER</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non sem sapien. Sed volutpat diam enim, vel faucibus quam mattis et. Phasellus elit magna, vulputate at dolor suscipit, venenatis tincidunt ante. Mauris auctor finibus justo ut luctus. Sed a sodales leo. Quisque ullamcorper ligula tellus, in posuere eros semper a.</p>
                     <button>Saiba Mais</button>
                 </div><!--call-title-->
@@ -79,30 +81,35 @@
         <div class="pos-call">
             <h3>MERGULHE NO UNIVERSO DA CERVEJA ARTESANAL</h3>
         </div><!--pos-call-->
-        <section class="universo-beer">
+        <section class="universo-beer" id="sobre">
             <div class="wrap-background">
                 <div class="wrap-sub-universe">
                     <h2>O maior prazer e alegria em tomar uma cerveja está em descobrir seus sabores</h2>
-                    <img data-th-src="@{/img/lupulo-icon.png}" alt="">
-                    <p>Nos alimentos e bebidas, o sabor vem sempre em primeiro lugar. Para nós da Blondine, além da qualidade e pureza de tudo que fazemos, a criação de sabores originais é a nossa maior habilidade e paixão. Tudo feito com o cuidado artesanal.</p>
+                    <img data-th-src="@{/img/lupulo-icon.png}" alt="Cerveja Destaque">
+                    <p>
+                        Nos alimentos e bebidas, o sabor vem sempre em primeiro lugar. Para nós da OpenBeer, além da qualidade e pureza de tudo que fazemos, a criação de sabores originais é a nossa maior habilidade e paixão. Tudo feito com o cuidado artesanal.<br><br>
+
+                        A OpenBeer nasceu para compartilhar suas experiências com os apreciadores de cervejas especiais, além de incentivar o crescente interesse por essa cultura cervejeira.
+                        Nosso objetivo é disponibilizar os melhores rótulos e guiar nossos clientes por degustações inesquecíveis.
+                    </p>
                 </div><!--wrap-sub-universe-->  
             </div><!--wrap-background-->  
         </section><!--universo-beer-->
         <section class="home-produtos">
             <div class="wrap-home-produtos">
                 <div class="image-home-produto">
-                    <img data-th-src="@{/img/beer-artesanal.png}" alt="">
+                    <img data-th-src="@{/img/beer-artesanal.png}" alt="Cerveja Destaque">
                 </div><!--image-home-produto-->
                 <div class="home-desc-produto">
                     <h2>CERVEJA TUPINIQUIN</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim sapien eget tempus consectetur. Pellentesque sit amet magna nisi. Fusce sed ex vel mauris tincidunt vulputate ut eget elit. Suspendisse pellentesque non leo mollis feugiat. Donec non velit at quam posuere faucibus porta at sapien. Proin egestas luctus ligula in euismod. Nam placerat varius velit eu aliquam. Sed consectetur at mi eu pellentesque. Curabitur facilisis magna ut eleifend egestas. Donec nec urna eu enim scelerisque condimentum. Morbi lobortis at eros sed vulputate.</p>
-                    <a href="produto2.html"><button>CONHEÇA O PRODUTO</button></a>
+                    <a href="produto.html"><button>CONHEÇA O PRODUTO</button></a>
                 </div><!--home-desc-produto-->
             </div><!--wrap-home-produtos-->
 
             <div class="wrap-home-produtos">
                 <div class="image-home-produto">
-                    <img data-th-src="@{/img/tupiniquin-beer.png}" alt="">
+                    <img data-th-src="@{/img/tupiniquin-beer.png}" alt="Cerveja Destaque">
                 </div><!--image-home-produto-->
                 <div class="home-desc-produto">
                     <h2>CERVEJA TUPINIQUIN</h2>
@@ -113,7 +120,7 @@
 
             <div class="wrap-home-produtos">
                 <div class="image-home-produto">
-                    <img data-th-src="@{/img/tupiniquin-beer.png}" alt="">
+                    <img data-th-src="@{/img/tupiniquin-beer.png}"  alt="Cerveja Destaque">
                 </div><!--image-home-produto-->
                 <div class="home-desc-produto">
                     <h2>CERVEJA TUPINIQUIN</h2>
@@ -122,6 +129,22 @@
                 </div><!--home-desc-produto-->
             </div><!--wrap-home-produtos-->
         </section><!--home-produtos-->
+        <section class="contato" id="contato">
+            <div class="container">
+                <div class="wrap-form">
+                    <h2>FALE CONOSCO</h2>
+                    <form class="form-contact" action="#">
+                        <input type="name" name="nome" placeholder="Digite seu nome" required>
+                        <input type="email" name="email" placeholder="Digite seu email" required>
+                        <input type="text" name="assunto" placeholder="Assunto" required>
+                        <textarea name="mensagem" id="mensagem" placeholder="Mensagem"></textarea>
+                        <a class="send-contact" href="#">Enviar
+                            <div class="effect"></div>
+                        </a>
+                    </form>
+                </div><!--wrap-form-->
+            </div><!--container-->    
+        </section><!--contato-->
         <footer>
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>

@@ -4,31 +4,58 @@
         <meta charset="UTF-8">
         <title>Open Beer</title>
         <link rel="stylesheet" data-th-href="@{/css/carrinho.css}">
-        <link rel="stylesheet" data-th-href="@{/css/footer.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     </head>
     <body>
-        <header class="menu-internas">
-            <div class="container">
-                <nav class="nav-interna">
-                    <div class="name-logo">
-                        <h1>OPENBEER.</h1>
-                    </div>
-                    <ul>
-                        <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                        <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
-                        <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                        <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
-                        <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
-                    </ul>
-                    <div class="carrinho-icon">
-                        <div class="wrap-carrinho-icon">
-                            <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
-                            <div class="circle-car">
-                                <span data-th-text ="${quantidadeCarrinho}"></span>
-                            </div><!--circle-car-->
-                        </div><!--wrap-carrinho-icon-->
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <div class="content-area-cliente">
+                        <div class="wrap-content-area">
+                            <ul>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
+                            </ul>
+                        </div><!--wrap-content-area-->
+                    </div><!--content-area-cliente-->
+                </div><!--container-->
+            </div><!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                        </ul><!--menu-mobile-->
+                        <div class="carrinho-icon">
+                            <i class="fas fa-bars"></i>
+                            <div class="wrap-carrinho-icon">
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
+                                <div class="circle-car">
+                                    <span data-th-text ="${quantidadeCarrinho}"></span>
+                                </div><!--circle-car-->
+                            </div><!--wrap-carrinho-icon-->
+                        </div><!--carrinho-icon-->
                     </div><!--carrinho-icon-->
                 </nav>
                 <!--nav-interna-->
@@ -40,7 +67,7 @@
                     <span>X</span>
                 </div><!--close-modal-->
                 <div class="mensagem-confirmacao">
-                    <h3>SUA COMPRA FOI REALIZADA</h3>
+                    <h3>SEU PEDIDO FOI REALIZADA</h3>
                     <h2>COM SUCESSO!</h2>
                 </div><!--mensagem-confirmacao-->
             </div><!--wrap-modal-confirm-->
@@ -93,18 +120,20 @@
                             <h4>Cidade: </h4><span>São Paulo</span><br>
                             <h4>Bairro: </h4><span>Cocaia</span><br>   
                         </div><!--wrap-order-confirmation-->
-                        <div class="wrap-order-confirmation">
+                        
+                        <!--<div class="wrap-order-confirmation">
                             <h3>Pagamento</h3>
                             <h4>Cartão de crédito</h4><br>
                             <img data-th-src="@{/img/visaicon.png}" alt="visa-icon" width="40"><br>
                             <p>Cartão utilizado: <span class="bandeira">Visa</span>
                                 <span class="card-number">2343</span></p> 
                         </div><!--wrap-order-confirmation-->
+                        
                         <div class="wrap-order-confirmation">
                             <h3>Adicionar novo endereço</h3>
                             <div class="new-endereco-novo">
                                 <div class="icon-add">
-                                    <span>+</span>
+                                    <span><a data-th-href="@{/OpenBeer/Cliente/Cadastrar-Novo-Endereco}">+</a></span>
                                 </div><!--icon-add-->
                             </div><!--new-endereco-novo-->  
                         </div><!--wrap-novo-endereco-->
@@ -148,7 +177,7 @@
             <section class="information-value">
                 <div class="container">
                     <div class="container-information-value">
-                        <div class="wrap-information-value">
+                        <div class="wrap-information-value" >
                             <div class="subinfo-value subtotal">
                                 <h4>Subtotal: </h4>
                                 <h3>R$ <span data-th-text="${carrinhoCompras.total}"></span></h3>
@@ -177,9 +206,6 @@
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
-        <!--<script type="text/javascript"
-                src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
-        </script>-->
         <script type="text/javascript"
                 src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
         </script>
