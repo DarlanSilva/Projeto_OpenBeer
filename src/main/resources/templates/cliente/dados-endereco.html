@@ -103,12 +103,12 @@ crossorigin="anonymous"></script>
                             </div><!--wrap-estado-->
                             <div class="wrap-cidade">
                                 <label for="cidade">Cidade</label>
-                                <input type="text" name="bairro" id="bairro" placeholder="Seu bairro" required data-th-classappend="${#fields.hasErrors('bairro')}? is-invalid" data-th-field="*{bairro}">
+                                <input type="text" name="cidade" id="cidade" placeholder="Sua Cidade" required data-th-classappend="${#fields.hasErrors('cidade')}? is-invalid" data-th-field="*{cidade}">
                             </div><!--wrap-cidade-->   
                         </div><!--content-cidade-->
                         <div>
                             <label for="bairro">Bairro</label><br>
-                            <input type="text" name="bairro" id="bairro" placeholder="Seu bairro" required>
+                            <input type="text" name="bairro" id="bairro" placeholder="Seu bairro" data-th-classappend="${#fields.hasErrors('bairro')}? is-invalid" data-th-field="*{bairro}" required>
                         </div>
 
                         <input type="submit" name="btn-logar" id="btn-logar" value="Continuar">  

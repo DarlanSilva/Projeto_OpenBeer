@@ -177,6 +177,7 @@ public class CervejaController {
 
 //        String path = fileSaver.write("product-picture", imagemCerveja);
 //        cerveja.setImagem(path);
+        
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja " + cerveja.getNome() + " salvo com sucesso");
