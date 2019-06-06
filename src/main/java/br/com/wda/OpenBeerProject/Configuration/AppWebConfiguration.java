@@ -34,7 +34,6 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
  * @author Darlan Silva
  */
 @Configuration
-//@EnableWebMvc
 @ComponentScan(basePackageClasses = {HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class})
 @EnableCaching
 public class AppWebConfiguration implements WebMvcConfigurer {
@@ -79,6 +78,11 @@ public class AppWebConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/product-picture/**")
                 .addResourceLocations("file:///C:/product-picture/");
     }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/product-picture/**")
+//                .addResourceLocations("file:///resources//OpenBeer//product-picture//");
+//    }
 
     @Bean
     public CacheManager cacheManager() {
