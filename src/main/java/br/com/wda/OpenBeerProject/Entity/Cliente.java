@@ -29,6 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "TB_CLIENTE")
 public class Cliente {
     
+      
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

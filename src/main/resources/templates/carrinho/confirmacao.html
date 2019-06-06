@@ -50,7 +50,7 @@
                         <div class="carrinho-icon">
                             <i class="fas fa-bars"></i>
                             <div class="wrap-carrinho-icon">
-                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
                                 <div class="circle-car">
                                     <span data-th-text ="${quantidadeCarrinho}"></span>
                                 </div><!--circle-car-->
@@ -152,20 +152,20 @@
                     <div class="itens-payment-confirm" data-th-each="item : ${carrinhoCompras.itens}">
                         <div class="itens-payment wrap-item-img-desc">
                             <div class="img-product-confirm">
-                                <img data-th-src="@{/img/beer-artesanal.png}" alt="imagem-item" width="80"> 
+                                <img data-th-src="@{/product-picture/{imagem}(imagem=${item.cerveja.imagem})}" alt="Imagem do produto" width="80"> 
                             </div><!--img-product-confirm-->
                             <div class="desc-item-confirm">
                                 <h4><span data-th-text="${item.cerveja.nome}"></span></h4>
-                                <span data-th-text="${item.cerveja.descricao}"></span><br><br>
+                                <span data-th-text="${item.cerveja.breveDescricao}"></span><br><br>
                                 <a data-th-href="@{/OpenBeer/Pagamento/{id}/remover(id=${item.cerveja.id})}">Remover</a>
                             </div><!--descp-item-confirm-->
                         </div><!--wrap-item-img-desc-->
                         <div class="itens-payment type-product">
-                            <span data-th-text="${item.cerveja.marca}">IPA</span>
+                            <span data-th-text="${item.cerveja.marca}"></span>
                         </div><!--type-product-->
 
                         <div class="itens-payment qtd-product">
-                            <span data-th-text="${carrinhoCompras.getQuantidade(item)}">4</span>
+                            <span data-th-text="${carrinhoCompras.getQuantidade(item)}"></span>
                         </div><!--qtd-product-->
 
                         <div class="itens-payment price-product-confirm">

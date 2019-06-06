@@ -57,7 +57,7 @@
                         <div class="carrinho-icon">
                             <i class="fas fa-bars"></i>
                             <div class="wrap-carrinho-icon">
-                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Carrinho Icon" width="50"></a>
+                                <a data-th-href="@{/OpenBeer/Carrinho/Compra}"><img data-th-src="@{/img/icon-carrinho.png}" alt="Ícone do Carrinho de compras" width="50"></a>
                                 <div class="circle-car">
                                     <span data-th-text ="${quantidadeCarrinho}"></span>
                                 </div><!--circle-car-->
@@ -116,7 +116,8 @@
                         <div class="single-product" data-th-each="cerveja : ${cerveja}">
                             <div class="wrap-single-product">
                                 <div class="img-single-product">
-                                    <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>
+                                    <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/product-picture/{imagem}(imagem=${cerveja.imagem})}" alt="Imagem do Produto" width="130"></a>
+                                        <!--<img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>-->
                                 </div>
                                 <span data-th-if="${cerveja.quantidade > 0}">
                                     <!--img-single-product-->

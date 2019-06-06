@@ -92,7 +92,7 @@
                             </thead>
                             <tbody align="center" class="corpo-carrinho">
                                 <tr data-th-each="item : ${carrinhoCompras.itens}">
-                                    <td><img data-th-src="@{/img/beer-artesanal.png}" alt="imagem do Produto" width="50"></td>
+                                    <td><img data-th-src="@{/product-picture/{imagem}(imagem=${item.cerveja.imagem})}" alt="imagem do Produto" width="50"></td>
                                     <td class="form-carrinho-item" data-th-text="${item.cerveja.nome}"></td>
                                     <td class="form-carrinho-item">R$ <span data-th-text="${item.cerveja.valorCerveja}"></span></td>
                                     <td class="form-carrinho-item">

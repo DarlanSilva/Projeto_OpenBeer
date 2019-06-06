@@ -28,56 +28,62 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Wesley Moura
  * @author Alison Souza
  */
-
 @Controller
 @RequestMapping("/OpenBeer/Login")
 public class LoginController {
-    
+
     @Autowired
     private LoginRepository loginRepository;
+    
+//    @RequestMapping(value = "/logar", method = RequestMethod.POST)
+//    public String mostrarFormLogin() {
+//        return "login-cadastro";
+//    }    
 
-    @GetMapping
-    public String mostrarFormLogin() {
-        return "Entrar";
+    @GetMapping("/HomeLogin")
+    @PostMapping("/HomeLogin")
+//    @RequestMapping(value = "/HomeLogin", method = RequestMethod.POST)
+    public ModelAndView homeLogin() {
+        return new ModelAndView("/login-cadastro").addObject("login", new Login());
     }
-    
+
     @GetMapping("/lista-de-login")
-    public ModelAndView listarLogin(){
+    public ModelAndView listarLogin() {
         List<Login> login = loginRepository.findAll();
-        return new ModelAndView("cliente/login-lista").addObject("login", login);
-    }    
-    
+        return new ModelAndView("login-lista").addObject("login", login);
+    }
+
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Long id){
+    public ModelAndView editar(@PathVariable("id") Long id) {
         Optional<Login> listLogin = loginRepository.findById(id);
         Login login = listLogin.get();
-        
-        return new ModelAndView("cliente/login-cadastro").addObject("login", login);
+
+        return new ModelAndView("login-cadastro").addObject("login", login);
     }
-    
+
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("login") @Valid Login login, BindingResult result, RedirectAttributes redirectAttributes){
-        
-        if (result.hasErrors()){
-            ModelAndView mv = new ModelAndView("cliente/login-cadastro");
+    public ModelAndView salvar(@ModelAttribute("login") @Valid Login login, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("login-cadastro");
             mv.addObject(login);
             return mv;
         }
 //        Permissao permissaoAcesso = null;
 //        permissaoAcesso.getId();
-        
+
         login.setDhInclusao(LocalDateTime.now());
         login.setInativo(0);
         login.setPermissaoAcesso(1);
-        
-        if(login.getId() != null){
+
+        if (login.getId() != null) {
             login.setDhAlteracao(LocalDateTime.now());
         }
-        
+
         loginRepository.save(login);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Login " + login.getEmail() + "criado com sucesso");
-                
-        return new ModelAndView("redirect:/OpenBeer/Cliente/Dados-Pessoais");
+
+        return new ModelAndView("redirect:/OpenBeer/Home");
     }
-    
+
 }

@@ -175,8 +175,9 @@ public class CervejaController {
             cerveja.setDhAlteracao(LocalDateTime.now());
         }
 
-//        String path = fileSaver.write("product-picture", imagemCerveja);
-//        cerveja.setImagem(path);
+        String path = fileSaver.write("/product-picture", imagemCerveja);
+        cerveja.setImagem(path);
+        
         cervejaRepository.save(cerveja);
         redirectAttributes.addFlashAttribute("mensagemSucesso",
                 "Cerveja " + cerveja.getNome() + " salvo com sucesso");
