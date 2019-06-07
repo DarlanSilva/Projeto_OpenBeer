@@ -34,9 +34,6 @@ public class ControllerActive {
 
     @Autowired
     private ClienteRepository clienteRepo;
-    
-    @Autowired
-    private EnderecoRepository enderecoRepo;
 
     @ModelAttribute("carrinhoCompras")
     public CarrinhoCompras getItens() {
@@ -51,37 +48,6 @@ public class ControllerActive {
     @ModelAttribute("tipoEntrega")
     public List<TipoEntrega> getTipoEntregas() {
         return tipoEntregaRepo.findAll();
-    }
-
-    @ModelAttribute("clienteAtribute")
-    public Cliente getCliente() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        Optional<Cliente> cliente = clienteRepo.findByUser(username);
-        
-        if (cliente.isPresent() == true){
-            return cliente.get();
-        }
-        
-        return new Cliente();
-        
-    }
-
-    @ModelAttribute("enderecoAtribute")
-    public Endereco getEndereco() {
-        Cliente cliente = getCliente();
-        
-        Endereco endereco = enderecoRepo.findByClienteId(cliente.getId());
-        
-        return endereco;
-        
     }
 
 }

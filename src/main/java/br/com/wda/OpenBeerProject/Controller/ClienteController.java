@@ -48,7 +48,6 @@ public class ClienteController {
 //
 //        return mv;
 //    }
-
     @GetMapping("/MeusPedidos")
     public ModelAndView meusPedidos() {
         ModelAndView mv = new ModelAndView("cliente/meus-pedidos");
@@ -62,7 +61,6 @@ public class ClienteController {
 //
 //        return mv;
 //    }
-
     @GetMapping("/Logout")
     public ModelAndView logout() {
         ModelAndView mv = new ModelAndView("home");
@@ -81,7 +79,6 @@ public class ClienteController {
 //    public ModelAndView dadosPessoais() {
 //        return new ModelAndView("cliente/dados-pessoais").addObject("cliente", new Cliente());
 //    }
-
     @GetMapping("/lista-de-cliente")
     public ModelAndView listarCliente() {
         List<Cliente> cliente = clienteRepository.findAll();
@@ -102,7 +99,7 @@ public class ClienteController {
             ModelAndView mv = new ModelAndView("cliente/dados-pessoais");
             mv.addObject(cliente);
             return mv;
-        }        
+        }
 
         Optional<Cliente> verificar = clienteRepository.findByLogin(cliente.getLogin().getId());
 
@@ -122,17 +119,18 @@ public class ClienteController {
         if (cliente.getId() != null) {
             cliente.setDhAlteracao(LocalDateTime.now());
         }
-        
+
         // OBJETO INSTANCIADO PARA ARMAZENAR O CLIENTE SALVO NO BANCO JÁ COM O ID
         Cliente clienteSalvo = new Cliente();
         clienteSalvo = clienteRepository.save(cliente);
-        redirectAttributes.addFlashAttribute("mensagemSucesso", "Dados cadastrados com sucesso");
-        
+
         // REDIRECIONA O USUÁRIO PARA CADASTRAR O ENDEREÇO
         ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
         Endereco endereco = new Endereco();
         endereco.setIdCliente(clienteSalvo);
         mvDadosEndereco.addObject("endereco", endereco);
+
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Dados cadastrados com sucesso");
 
         return mvDadosEndereco;
     }

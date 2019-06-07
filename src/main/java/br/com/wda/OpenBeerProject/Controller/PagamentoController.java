@@ -86,8 +86,8 @@ public class PagamentoController {
     @Autowired
     private CervejaRepository estoqueRepo;
 
-    private final String sellerEmail = "your_email";
-    private final String sellerToken = "your_token";
+    private final String sellerEmail = "wda.developers@hotmail.com";
+    private final String sellerToken = "F30F162446F948AD85CBB3C73FC3EE52";
     private String URL = "";
     private String code[] = new String[2];
 
@@ -117,7 +117,7 @@ public class PagamentoController {
         // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
         salvarPedido(tipoEntrega);
         atualizarEstoque();
-        
+
         mv.addObject("pagSeguroURL", code[1]);
         return mv;
 
@@ -171,14 +171,15 @@ public class PagamentoController {
     public ShippingBuilder getShipping(TipoEntrega tipoEntrega, Integer clienteID) {
         ShippingBuilder shipping = new ShippingBuilder();
 
-        if (tipoEntrega.getId() == 1) {
-            shipping.withType(ShippingType.Type.SEDEX);
-            shipping.withCost(new BigDecimal(15.0));
-        } else {
-            shipping.withType(ShippingType.Type.PAC);
-            shipping.withCost(new BigDecimal(25.0));
-            //shipping.withCost(BigDecimal.TEN);
-        }
+//        if (tipoEntrega.getId() == 1) {
+//            shipping.withType(ShippingType.Type.SEDEX);
+//            shipping.withCost(new BigDecimal(15.0));
+//        } else {
+//            shipping.withType(ShippingType.Type.PAC);
+//            shipping.withCost(new BigDecimal(25.0));
+//            
+//        }
+        shipping.withCost(BigDecimal.ZERO);
 
         shipping.withAddress(getAddresss(clienteID));
 
@@ -353,6 +354,37 @@ public class PagamentoController {
             estoqueRepo.save(estoque.get());
 
         }
+    }
+
+    @ModelAttribute("clienteAtribute")
+    public Cliente getCliente() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        Optional<Cliente> cliente = clienteRepo.findByUser(username);
+
+        if (cliente.isPresent() == true) {
+            return cliente.get();
+        }
+
+        return new Cliente();
+
+    }
+
+    @ModelAttribute("enderecoAtribute")
+    public Endereco getEndereco() {
+        Cliente cliente = getCliente();
+
+        Endereco endereco = enderecoRepo.findByClienteId(cliente.getId());
+
+        return endereco;
+
     }
 
 }

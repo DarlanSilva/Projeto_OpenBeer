@@ -56,7 +56,7 @@ public class EnderecoController {
          
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-endereco");
-            mv.addObject("cerveja", endereco);
+            mv.addObject("endereco", endereco);
 
             return mv;
         }
