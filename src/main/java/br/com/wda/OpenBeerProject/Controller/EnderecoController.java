@@ -5,6 +5,7 @@
  */
 package br.com.wda.OpenBeerProject.Controller;
 
+import br.com.wda.OpenBeerProject.Entity.Cliente;
 import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Repository.EnderecoRepository;
 import java.time.LocalDateTime;
@@ -56,7 +57,7 @@ public class EnderecoController {
     }
     
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes){
+    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result,@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes){
          
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-endereco");
@@ -67,7 +68,7 @@ public class EnderecoController {
         
         endereco.setDhInclusao(LocalDateTime.now());
         endereco.setInativo(0);
-        endereco.setIdCliente(2);
+        endereco.setIdCliente(cliente);
         
         if(endereco.getId() != null){
             endereco.setDhAlteracao(LocalDateTime.now());

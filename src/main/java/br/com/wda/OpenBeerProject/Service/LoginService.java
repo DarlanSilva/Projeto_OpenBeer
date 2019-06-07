@@ -2,6 +2,7 @@ package br.com.wda.OpenBeerProject.Service;
 
 import br.com.wda.OpenBeerProject.Entity.Login;
 import br.com.wda.OpenBeerProject.Repository.LoginRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,12 +22,12 @@ public class LoginService  implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Login usuario = loginRepository.findByEmail(email);
+        Optional<Login> usuario = loginRepository.findByEmail(email);
         
         if(usuario == null){
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
-        return usuario;
+        return usuario.get();
     }
     
 }

@@ -8,6 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import org.springframework.context.annotation.Scope;
@@ -17,28 +22,34 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author Darlan Silva
  */
-
 @Entity
-@Table(name = "VD_ITENSCARRINHO")
+@Table(name = "VD_PEDIDOITENS")
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
-public class ItensCarrinho implements Serializable{
-    
+public class PedidoItens implements Serializable {
+
     private static final long serialVersionUID = 1L;
- 
+
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "FK_PEDIDO")
-    private Integer pedido;
-    
-    @Column(name = "FK_CERVEJA")
-    private Integer cerveja;
-    
+
+//    @Column(name = "FK_PEDIDO")
+//    private Integer pedido;
+    @ManyToOne
+    @JoinColumn(name = "FK_PEDIDO")
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "FK_CERVEJA")
+    private Cerveja cerveja;
+
+//    @Column(name = "FK_CERVEJA")
+//    private Integer cerveja;
+//    
     @Column(name = "QUANTIDADE")
     private int quantidade;
-    
+
     @Digits(integer = 13, fraction = 2)
     @Column(name = "VL_TOTAL")
     private BigDecimal vlTotal;
@@ -46,10 +57,10 @@ public class ItensCarrinho implements Serializable{
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
 
-    public ItensCarrinho() {
+    public PedidoItens() {
     }
 
-    public ItensCarrinho(Integer id, Integer pedido, Integer cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao) {
+    public PedidoItens(Integer id, Pedido pedido, Cerveja cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao) {
         this.id = id;
         this.pedido = pedido;
         this.cerveja = cerveja;
@@ -57,8 +68,6 @@ public class ItensCarrinho implements Serializable{
         this.vlTotal = vlTotal;
         this.dhInclusao = dhInclusao;
     }
-    
-    
 
     public Integer getId() {
         return id;
@@ -68,19 +77,19 @@ public class ItensCarrinho implements Serializable{
         this.id = id;
     }
 
-    public Integer getPedido() {
+    public Pedido getPedido() {
         return pedido;
     }
 
-    public void setPedido(Integer pedido) {
+    public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 
-    public Integer getCerveja() {
+    public Cerveja getCerveja() {
         return cerveja;
     }
 
-    public void setCerveja(Integer cerveja) {
+    public void setCerveja(Cerveja cerveja) {
         this.cerveja = cerveja;
     }
 
@@ -107,6 +116,5 @@ public class ItensCarrinho implements Serializable{
     public void setDhInclusao(LocalDateTime dhInclusao) {
         this.dhInclusao = dhInclusao;
     }
-    
 
 }

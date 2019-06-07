@@ -5,8 +5,11 @@
  */
 package br.com.wda.OpenBeerProject.Controller;
 
+import br.com.wda.OpenBeerProject.Entity.Cliente;
 import br.com.wda.OpenBeerProject.Entity.Login;
+import br.com.wda.OpenBeerProject.Entity.Permissao;
 import br.com.wda.OpenBeerProject.Repository.LoginRepository;
+import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,12 +37,14 @@ public class LoginController {
 
     @Autowired
     private LoginRepository loginRepository;
-    
+
+    @Autowired
+    private PermissaoRepository permissaoRepo;
+
 //    @RequestMapping(value = "/logar", method = RequestMethod.POST)
 //    public String mostrarFormLogin() {
 //        return "login-cadastro";
 //    }    
-
     @GetMapping("/HomeLogin")
     @PostMapping("/HomeLogin")
 //    @RequestMapping(value = "/HomeLogin", method = RequestMethod.POST)
@@ -54,7 +59,7 @@ public class LoginController {
     }
 
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Long id) {
+    public ModelAndView editar(@PathVariable("id") Integer id) {
         Optional<Login> listLogin = loginRepository.findById(id);
         Login login = listLogin.get();
 
@@ -69,12 +74,22 @@ public class LoginController {
             mv.addObject(login);
             return mv;
         }
-//        Permissao permissaoAcesso = null;
-//        permissaoAcesso.getId();
+
+        Optional<Login> verificar = loginRepository.findByEmail(login.getEmail());
+
+        // Caso o usuário já tenha cadastrado o login porém não finalizaou o cadastro ele é redirecionado para direto
+        if (verificar.isPresent()  == true) {
+            ModelAndView mvDadosPessoais = new ModelAndView("cliente/dados-pessoais");
+            mvDadosPessoais.addObject("cliente", new Cliente());
+            mvDadosPessoais.addObject("login", verificar.get());
+
+            return mvDadosPessoais;
+        }
+        Optional<Permissao> permissaoCliente = permissaoRepo.findById(1);
 
         login.setDhInclusao(LocalDateTime.now());
         login.setInativo(0);
-        login.setPermissaoAcesso(1);
+        login.setPermissaoAcesso(permissaoCliente.get());
 
         if (login.getId() != null) {
             login.setDhAlteracao(LocalDateTime.now());
@@ -83,7 +98,11 @@ public class LoginController {
         loginRepository.save(login);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Login " + login.getEmail() + "criado com sucesso");
 
-        return new ModelAndView("redirect:/OpenBeer/Home");
+        ModelAndView mvDadosPessoais = new ModelAndView("cliente/dados-pessoais");
+        mvDadosPessoais.addObject("cliente", new Cliente());
+        mvDadosPessoais.addObject("login", login);
+
+        return mvDadosPessoais;
     }
 
 }

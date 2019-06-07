@@ -1,6 +1,9 @@
 package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
+import br.com.wda.OpenBeerProject.Entity.Permissao;
+import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,5 @@ public class ControllerActive {
     public int getQuantidadeCarrinho() {
         return carrinho.getQuantidade();
     }
-    
     
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -51,9 +53,10 @@ public class Endereco implements Serializable {
 
     @Column(name = "ESTADO")
     private String estado;
-
-    @Column(name = "FK_CLIENTE")
-    private int idCliente;
+    
+    @ManyToOne
+    @JoinColumn(name = "FK_CLIENTE")
+    private Cliente idCliente;
 
     @Column(name = "TG_INATIVO")
     private int inativo;
@@ -67,7 +70,7 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(Integer id, String destinatario, String cep, String logradouro, int numero, String complemento, String referencia, String bairro, String cidade, String estado, int idCliente, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Endereco(Integer id, String destinatario, String cep, String logradouro, int numero, String complemento, String referencia, String bairro, String cidade, String estado, Cliente idCliente, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
 //        this.destinatario = destinatario;
         this.cep = cep;
@@ -164,11 +167,11 @@ public class Endereco implements Serializable {
         this.estado = estado;
     }
 
-    public int getIdCliente() {
+    public Cliente getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(Cliente idCliente) {
         this.idCliente = idCliente;
     }
 

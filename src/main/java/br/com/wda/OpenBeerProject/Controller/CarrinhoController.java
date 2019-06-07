@@ -3,10 +3,10 @@ package br.com.wda.OpenBeerProject.Controller;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoItem;
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
-import br.com.wda.OpenBeerProject.Entity.ItensCarrinho;
+import br.com.wda.OpenBeerProject.Entity.PedidoItens;
 import br.com.wda.OpenBeerProject.Entity.TipoEntrega;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
-import br.com.wda.OpenBeerProject.Repository.ItensCarrinhoRepository;
+import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoEntregaRepository;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CarrinhoController {
 
     @Autowired
-    private ItensCarrinhoRepository carrinhoItensRepository;
+    private PedidoItensRepository carrinhoItensRepository;
 
     @Autowired
     private CervejaRepository cervejaRepository;
@@ -68,7 +68,7 @@ public class CarrinhoController {
 
     @GetMapping("/Compra")
     public ModelAndView compra() {
-        List<ItensCarrinho> carrinho = carrinhoItensRepository.findAll();
+        List<PedidoItens> carrinho = carrinhoItensRepository.findAll();
 
         return new ModelAndView("carrinho/carrinho")
                 .addObject("carrinho", carrinho);

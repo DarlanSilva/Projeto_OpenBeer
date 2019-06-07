@@ -97,7 +97,7 @@ public class CervejaController {
 
     @GetMapping("/{tipoCerveja}/Lista-de-Cervejas-por-Tipo")
     @Cacheable(value = "lista-cervejas")
-    public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") Integer tipoCerveja) {
+    public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") TipoCerveja tipoCerveja) {
         List<Cerveja> cerveja = cervejaRepository.findByTipoCerveja(tipoCerveja);
         ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);

@@ -1,8 +1,11 @@
 package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.Cliente;
+import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Entity.Login;
+import br.com.wda.OpenBeerProject.Entity.Permissao;
 import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
+import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -92,7 +95,7 @@ public class ClienteController {
     }
 
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView salvar(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, @ModelAttribute("login") Login login, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-pessoais");
@@ -100,17 +103,32 @@ public class ClienteController {
             return mv;
         }
 
+        Optional<Cliente> verificar = clienteRepository.findByLogin(login.getId());
+
+        // Caso o usuário já tenha cadastrado os dados pessoais porém não finalizaou o cadastro ele é redirecionado para direto
+        if (verificar.isPresent() == true) {
+            ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
+            mvDadosEndereco.addObject("endereco", new Endereco());
+            mvDadosEndereco.addObject("cliente", verificar);
+
+            return mvDadosEndereco;
+        }
+
         cliente.setDhInclusao(LocalDateTime.now());
         cliente.setInativo(0);
-        cliente.setLogin(1);
+        cliente.setLogin(login);
 
         if (cliente.getId() != null) {
             cliente.setDhAlteracao(LocalDateTime.now());
         }
-
         clienteRepository.save(cliente);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Dados cadastrados com sucesso");
-        return new ModelAndView("redirect:/OpenBeer/Endereco/Novo-Endereco");
+
+        ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
+        mvDadosEndereco.addObject("endereco", new Endereco());
+        mvDadosEndereco.addObject("cliente", verificar);
+
+        return mvDadosEndereco;
     }
 
 }

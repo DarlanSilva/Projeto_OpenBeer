@@ -944,3 +944,17 @@
 06/06/2019 14:21:57 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Parseando XML de resposta
 06/06/2019 14:21:57 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Parseamento finalizado
 06/06/2019 14:21:57 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Checkout finalizado
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Iniciando checkout
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Convertendo valores
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Valores convertidos
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[FINE]: Parametros: RequestMap{map={itemId1=1, extraAmount=1.00, shippingAddressState=SP, shippingType=2, paymentMethodConfigKey2_1=DISCOUNT_PERCENT, paymentMethodConfigKey3_1=MAX_INSTALLMENTS_LIMIT, paymentMethodConfigKey1_1=DISCOUNT_PERCENT, senderCPF=99999999999, reference=XXXXXX, senderName=Jose Comprador, shippingAddressComplement=99o andar, paymentMethodConfigKey4_1=MAX_INSTALLMENTS_NO_INTEREST, shippingAddressNumber=9999, senderEmail=wda@sandbox.pagseguro.com.br, paymentMethodGroup4=CREDIT_CARD, currency=BRL, senderAreaCode=99, paymentMethodGroup1=CREDIT_CARD, shippingAddressStreet=Av. PagSeguro, paymentMethodGroup3=CREDIT_CARD, paymentMethodGroup2=BOLETO, shippingAddressCity=Cidade Exemplo, itemQuantity1=1, shippingCost=10.00, acceptPaymentMethodGroup=BALANCE,BOLETO, shippingAddressCountry=BRA, senderPhone=99999999, shippingAddressDistrict=Jardim Internet, itemDescription1=Cerveja da Boa, shippingAddressPostalCode=99999999, itemAmount1=15.00, paymentMethodConfigValue1_1=10.00, paymentMethodConfigValue2_1=10.00, paymentMethodConfigValue3_1=10, paymentMethodConfigValue4_1=5}}
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.http.AuthenticatedHttpClient[INFO]: Correlation Id: 59567501-f0c1-48e1-928d-bceb352d9240
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.http.JSEHttpClient[INFO]: Executando [POST] em [https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=wda.developers@hotmail.com&token=F30F162446F948AD85CBB3C73FC3EE52&correlationId=59567501-f0c1-48e1-928d-bceb352d9240]
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.http.JSEHttpClient[INFO]: Abrindo conexao
+06/06/2019 18:05:35 PagSeguro.br.com.uol.pagseguro.api.http.JSEHttpClient[INFO]: Escrevendo body
+06/06/2019 18:05:36 PagSeguro.br.com.uol.pagseguro.api.http.JSEHttpClient[INFO]: Lendo resposta
+06/06/2019 18:05:36 PagSeguro.br.com.uol.pagseguro.api.http.JSEHttpClient[INFO]: Fechando conexao
+06/06/2019 18:05:36 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[FINE]: Resposta: HttpResponse{responseAsString='<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?><checkout><code>847A81BC3737520444C03F80A0EDD785</code><date>2019-06-06T18:05:38.000-03:00</date></checkout>', status=200}
+06/06/2019 18:05:36 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Parseando XML de resposta
+06/06/2019 18:05:37 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Parseamento finalizado
+06/06/2019 18:05:37 PagSeguro.br.com.uol.pagseguro.api.checkout.CheckoutsResource[INFO]: Checkout finalizado

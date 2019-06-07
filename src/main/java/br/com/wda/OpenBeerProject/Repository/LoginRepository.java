@@ -1,6 +1,7 @@
 package br.com.wda.OpenBeerProject.Repository;
 
 import br.com.wda.OpenBeerProject.Entity.Login;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface LoginRepository extends JpaRepository<Login, Long>{
+public interface LoginRepository extends JpaRepository<Login, Integer>{
     
-    Login findByEmail(String email);
+    public Optional<Login> findByEmail(String email);
     
 }

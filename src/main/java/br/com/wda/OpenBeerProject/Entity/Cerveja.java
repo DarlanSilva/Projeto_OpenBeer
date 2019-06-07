@@ -87,8 +87,9 @@ public class Cerveja implements Serializable {
     @Column(name = "DH_ALTERACAO", nullable = true, insertable = true, updatable = true)
     private LocalDateTime dhAlteracao;
     
-    @Column(name = "FK_TIPOCERVEJA")
-    private Integer tipoCerveja;
+    @ManyToOne
+    @JoinColumn(name="FK_TIPOCERVEJA")
+    private TipoCerveja tipoCerveja;
     
 //    @Transient
 //    @ManyToOne
@@ -105,7 +106,7 @@ public class Cerveja implements Serializable {
     public Cerveja() { 
     }
 
-    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, String imagem, String breveDescricao) {
+    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, TipoCerveja tipoCerveja, String imagem, String breveDescricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -248,11 +249,11 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Integer getTipoCerveja() {
+    public TipoCerveja getTipoCerveja() {
         return tipoCerveja;
     }
 
-    public void setTipoCerveja(Integer tipoCerveja) {
+    public void setTipoCerveja(TipoCerveja tipoCerveja) {
         this.tipoCerveja = tipoCerveja;
     }
 

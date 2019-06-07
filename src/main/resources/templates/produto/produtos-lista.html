@@ -109,7 +109,7 @@
                         <h2>CATEGORIAS</h2>
                         <ul class="categories-list" data-th-each="tipo : ${tipoCerveja}">
                             <span data-th-if="${tipo.id == 1}"><li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">TODOS</a></li></span>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/{tipoCerveja}/Lista-de-Cervejas-por-Tipo(tipoCerveja=${tipo.id})}"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/{tipoCerveja}/Lista-de-Cervejas-por-Tipo(tipoCerveja=${tipo})}"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>
                         </ul><!--categories-list-->
                     </aside>
                     <div class="list">
@@ -117,7 +117,7 @@
                             <div class="wrap-single-product">
                                 <div class="img-single-product">
                                     <a data-th-href="@{/OpenBeer/cerveja/{id}/detalhe(id=${cerveja.id})}"><img data-th-src="@{/product-picture/{imagem}(imagem=${cerveja.imagem})}" alt="Imagem do Produto" width="130"></a>
-                                        <!--<img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>-->
+                                    <!--<img data-th-src="@{/img/tupiniquin-beer.png}" alt="" width="130"></a>-->
                                 </div>
                                 <span data-th-if="${cerveja.quantidade > 0}">
                                     <!--img-single-product-->
@@ -153,7 +153,7 @@
                                         <a data-th-href="@{/OpenBeer/Carrinho/{id}/AddCarrinho(id=${cerveja.id})}">COMPRAR</a>
                                     </div><!--btn-comprar-list-->
                                 </span>
-                                
+
                                 <span data-th-if="${cerveja.quantidade == 0}">
                                     <div class="sem-estoque">
                                         <p>Ops! Já vendemos todo o estoque.</p>

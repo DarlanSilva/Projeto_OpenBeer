@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 
@@ -24,14 +27,17 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "FK_CLIENTE")
-    private Integer cliente;
+    @ManyToOne
+    @JoinColumn(name = "FK_CLIENTE")
+    private Cliente cliente;
 
-    @Column(name = "FK_TIPOENTREGA")
-    private Integer tipoEntrega;
-
-    @Column(name = "FK_STATUSPEDIDO")
-    private Integer status;
+    @ManyToOne
+    @JoinColumn(name = "FK_TIPOENTREGA")
+    private TipoEntrega TipoEntrega;
+    
+    @ManyToOne
+    @JoinColumn(name = "FK_STATUSPEDIDO")
+    private StatusPedido status;
 
     @Digits(integer = 13, fraction = 2)
     @Column(name = "VL_PEDIDO")
@@ -58,10 +64,10 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Integer id, Integer cliente, Integer tipoEntrega, Integer status, BigDecimal valorPedido, LocalDateTime dhPedidoFechado, LocalDateTime dhPedidoCancelado, LocalDateTime dhPrevisaoEntrega, LocalDateTime dhEntregue, int inativo, LocalDateTime dhInclusao) {
+    public Pedido(Integer id, Cliente cliente, TipoEntrega TipoEntrega, StatusPedido status, BigDecimal valorPedido, LocalDateTime dhPedidoFechado, LocalDateTime dhPedidoCancelado, LocalDateTime dhPrevisaoEntrega, LocalDateTime dhEntregue, int inativo, LocalDateTime dhInclusao) {
         this.id = id;
         this.cliente = cliente;
-        this.tipoEntrega = tipoEntrega;
+        this.TipoEntrega = TipoEntrega;
         this.status = status;
         this.valorPedido = valorPedido;
         this.dhPedidoFechado = dhPedidoFechado;
@@ -80,27 +86,27 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Integer getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Integer cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public Integer getTipoEntrega() {
-        return tipoEntrega;
+    public TipoEntrega getTipoEntrega() {
+        return TipoEntrega;
     }
 
-    public void setTipoEntrega(Integer tipoEntrega) {
-        this.tipoEntrega = tipoEntrega;
+    public void setTipoEntrega(TipoEntrega TipoEntrega) {
+        this.TipoEntrega = TipoEntrega;
     }
 
-    public Integer getStatus() {
+    public StatusPedido getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(StatusPedido status) {
         this.status = status;
     }
 
@@ -159,7 +165,5 @@ public class Pedido implements Serializable {
     public void setDhInclusao(LocalDateTime dhInclusao) {
         this.dhInclusao = dhInclusao;
     }
-    
-    
 
 }

@@ -13,7 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,9 +37,9 @@ public class Login implements UserDetails{
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     
-    @NotBlank(message = "CAMPO EMAIL OBRIGATÓRIO")
+    @NotBlank(message = "EMAIL INVÁLIDO")
     @Column(unique = true, name = "EMAIL")
     private String email;
     
@@ -45,10 +47,9 @@ public class Login implements UserDetails{
     @Column(name = "SENHA")
     private String hashSenha;
     
-    @JoinTable(name = "TS_PERMISSAOACESSO")
-    @Column(name = "FK_PERMISSAOACESSO")
-//    private List <Permissao> permissaoAcesso;  
-    private Integer permissaoAcesso;
+    @OneToOne
+    @JoinColumn(name = "FK_PERMISSAOACESSO")
+    private Permissao permissaoAcesso;
     
     @Column(name = "TG_INATIVO")
     private int inativo;
@@ -62,7 +63,7 @@ public class Login implements UserDetails{
     public Login() {
     }
 
-    public Login(Long id, String email, String hashSenha, Integer permissaoAcesso, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Login(Integer id, String email, String hashSenha, Permissao permissaoAcesso, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.email = email;
         this.hashSenha = hashSenha;
@@ -76,11 +77,11 @@ public class Login implements UserDetails{
 //        this.hashSenha = SecurityConfig.bcryptPasswordEncoder().encode(senhaAberta);
 //    }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -100,11 +101,11 @@ public class Login implements UserDetails{
         this.hashSenha = SecurityConfig.bcryptPasswordEncoder().encode(senhaAberta);
     }
 
-    public Integer getPermissaoAcesso() {
+    public Permissao getPermissaoAcesso() {
         return permissaoAcesso;
     }
 
-    public void setPermissaoAcesso(Integer permissaoAcesso) {
+    public void setPermissaoAcesso(Permissao permissaoAcesso) {
         this.permissaoAcesso = permissaoAcesso;
     }        
 

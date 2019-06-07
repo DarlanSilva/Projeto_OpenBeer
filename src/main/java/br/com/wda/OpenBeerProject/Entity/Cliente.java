@@ -7,11 +7,15 @@ package br.com.wda.OpenBeerProject.Entity;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,8 +58,9 @@ public class Cliente {
     @Column(name = "TELEFONE")
     private String telefone;
     
-    @Column(name = "FK_LOGIN")
-    private int login;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_LOGIN")
+    private Login login;
     
     @Column(name = "TG_INATIVO")
     private int inativo;
@@ -69,7 +74,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String cpf, String nomeCompleto, String dtNascimento, char sexo, String telefone, int login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cliente(Long id, String cpf, String nomeCompleto, String dtNascimento, char sexo, String telefone, Login login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
@@ -130,11 +135,11 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public int getLogin() {
+    public Login getLogin() {
         return login;
     }
 
-    public void setLogin(int login) {
+    public void setLogin(Login login) {
         this.login = login;
     }
 
