@@ -24,7 +24,7 @@ public class LoginService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Login> usuario = loginRepository.findByEmail(email);
         
-        if(usuario == null){
+        if(usuario.isPresent() == false){
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
         return usuario.get();

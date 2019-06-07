@@ -13,18 +13,25 @@
             <div class="top-header">
                 <div class="container">   
                     <div class="wrap-top-header">
-                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        <span data-sec-authorize="isAuthenticated()">
+                            <a class="cad-login" href="#">Usuário:  <span data-sec-authentication="name"></span></a>
+                        </span>
+                        <span sec:authorize="isAnonymous()">
+                            <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        </span>
                         <a class="area-cliente" href="#">Área do Cliente</a>
                     </div><!--wrap-top-header-->
-                    <div class="content-area-cliente">
-                        <div class="wrap-content-area">
-                            <ul>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
-                            </ul>
-                        </div><!--wrap-content-area-->
-                    </div><!--content-area-cliente-->
+                    <span data-sec-authorize="isAuthenticated()">
+                        <div class="content-area-cliente">
+                            <div class="wrap-content-area">
+                                <ul>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                    <li><a data-th-href="@{/logout}">Sair</a></li>
+                                </ul>
+                            </div><!--wrap-content-area-->
+                        </div><!--content-area-cliente-->
+                    </span>
                 </div><!--container-->
             </div><!--top-header-->
             <div class="menu-internas">
@@ -35,17 +42,21 @@
                         </div>
                         <ul class="menu-desk">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
                             <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-desk-->
                         <ul class="menu-mobile">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-mobile-->
                         <div class="carrinho-icon">
                             <i class="fas fa-bars"></i>
@@ -56,7 +67,7 @@
                                 </div><!--circle-car-->
                             </div><!--wrap-carrinho-icon-->
                         </div><!--carrinho-icon-->
-                    </div><!--carrinho-icon-->
+                </div><!--carrinho-icon-->
                 </nav>
                 <!--nav-interna-->
             </div>
@@ -105,22 +116,22 @@
             <section class="order-confirmation">
                 <div class="container">
                     <div class="order-confirmation-main">
-                        <div class="wrap-order-confirmation">
+                        <div class="wrap-order-confirmation" data-th-object="clienteAtribute">
                             <h3>Sua informaçoes</h3>
-                            <h4>Nome: </h4><span>Alison Henrique da Cruz Souza</span><br>
-                            <h4>Email: </h4><span>alison-cruz@hotmail.com</span><br>
-                            <h4>Telefone: </h4><span>11977975522</span><br>
+                            <h4>Nome: </h4><span data-th-text="${clienteAtribute.nomeCompleto}"></span><br>
+                            <h4>Email: </h4><span data-sec-authentication="name"></span><br>
+                            <h4>Telefone: </h4><span data-th-text="${clienteAtribute.telefone}"></span><br>
                         </div><!--wrap-order-confirmation-->
-                        <div class="wrap-order-confirmation">
+                        <div class="wrap-order-confirmation" data-th-object="enderecoAtribute">
                             <h3>Endereço</h3>
-                            <h4>Logradouro: </h4><span>Rua Moraes Santos Rosa</span><br>
-                            <h4>Número: </h4><span>54</span><br>
-                            <h4>CEP: </h4><span>04597-090</span><br>
-                            <h4>Estado: </h4><span>SP</span><br>
-                            <h4>Cidade: </h4><span>São Paulo</span><br>
-                            <h4>Bairro: </h4><span>Cocaia</span><br>   
+                            <h4>Logradouro: </h4><span data-th-text="${enderecoAtribute.logradouro}"></span><br>
+                            <h4>Número: </h4><span data-th-text="${enderecoAtribute.numero}"></span><br>
+                            <h4>CEP: </h4><span data-th-text="${enderecoAtribute.cep}"></span><br>
+                            <h4>Estado: </h4><span data-th-text="${enderecoAtribute.estado}"></span><br>
+                            <h4>Cidade: </h4><span data-th-text="${enderecoAtribute.cidade}"></span><br>
+                            <h4>Bairro: </h4><span data-th-text="${enderecoAtribute.bairro}"></span><br>   
                         </div><!--wrap-order-confirmation-->
-                        
+
                         <!--<div class="wrap-order-confirmation">
                             <h3>Pagamento</h3>
                             <h4>Cartão de crédito</h4><br>
@@ -128,15 +139,16 @@
                             <p>Cartão utilizado: <span class="bandeira">Visa</span>
                                 <span class="card-number">2343</span></p> 
                         </div><!--wrap-order-confirmation-->
-                        
-                        <div class="wrap-order-confirmation">
+
+                        <!--<div class="wrap-order-confirmation">
                             <h3>Adicionar novo endereço</h3>
                             <div class="new-endereco-novo">
                                 <div class="icon-add">
                                     <span><a data-th-href="@{/OpenBeer/Cliente/Cadastrar-Novo-Endereco}">+</a></span>
                                 </div><!--icon-add-->
                             </div><!--new-endereco-novo-->  
-                        </div><!--wrap-novo-endereco-->
+                        </div><!--wrap-novo-endereco-->-->
+                        
                     </div><!--order-confirmation-main-->
                 </div><!--container-->
             </section><!--form-checkout-endereco-->
@@ -144,7 +156,7 @@
                 <div class="container">
                     <div class="title-itens-confirm">
                         <h4>Item</h4>
-                        <h4>Tipo</h4>
+                        <h4>Marca</h4>
                         <h4>Quantidade</h4>
                         <h4>Preço</h4>
                     </div><!--title-itens-confirm-->

@@ -16,7 +16,7 @@
                         </div><!--wrap-side-background-->  
                         <div class="wrap-register-product">
                             <div class="register-product">
-                                <form th:action="@{/OpenBeer/cerveja/salvar}" method="POST" th:object="${cerveja}" name="MAX_FILE_SIZE" value="4194304"  enctype="multipart/form-data" >
+                                <form th:action="@{/OpenBeer/BackOffice/salvar}" method="POST" th:object="${cerveja}" name="MAX_FILE_SIZE" value="4194304"  enctype="multipart/form-data" >
                                     <input type="hidden" th:if="*{id != null}" th:field="*{id}" />
                                     <div class="wrap-register-campos">
                                         <div class="campos-register">

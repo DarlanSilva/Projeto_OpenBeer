@@ -37,7 +37,7 @@ public class Cliente {
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     
     @Column(name = "CPF")
     @NotBlank(message = "CAMPO CPF OBRIGATÓRIO")
@@ -47,7 +47,6 @@ public class Cliente {
     @NotBlank(message = "CAMPO NOME COMPLETO OBRIGATÓRIO")
     private String nomeCompleto;
     
-//    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "DT_NASCIMENTO")    
     private String dtNascimento;
@@ -74,7 +73,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String cpf, String nomeCompleto, String dtNascimento, char sexo, String telefone, Login login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cliente(Integer id, String cpf, String nomeCompleto, String dtNascimento, char sexo, String telefone, Login login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
@@ -87,11 +86,11 @@ public class Cliente {
         this.dhAlteracao = dhAlteracao;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

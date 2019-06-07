@@ -43,16 +43,16 @@ public class Pedido implements Serializable {
     @Column(name = "VL_PEDIDO")
     private BigDecimal valorPedido;
 
-    @Column(name = "DH_PEDIDOFECHADO", nullable = false, insertable = true, updatable = true)
+    @Column(name = "DH_PEDIDOFECHADO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhPedidoFechado;
 
-    @Column(name = "DH_PEDIDOCANCELADO", nullable = false, insertable = true, updatable = true)
+    @Column(name = "DH_PEDIDOCANCELADO", nullable = true, insertable = true, updatable = false)
     private LocalDateTime dhPedidoCancelado;
 
-    @Column(name = "DH_PREVICAOENTREGA", nullable = false, insertable = true, updatable = true)
+    @Column(name = "DH_PREVICAOENTREGA", nullable = true, insertable = true, updatable = true)
     private LocalDateTime dhPrevisaoEntrega;
 
-    @Column(name = "DH_ENTREGUE", nullable = false, insertable = true, updatable = true)
+    @Column(name = "DH_ENTREGUE", nullable = true, insertable = true, updatable = false)
     private LocalDateTime dhEntregue;
 
     @Column(name = "TG_INATIVO")

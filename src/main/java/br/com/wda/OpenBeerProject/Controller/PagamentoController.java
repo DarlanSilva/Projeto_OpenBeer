@@ -17,17 +17,36 @@ import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.common.domain.enums.PaymentMethodGroup;
-import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoItem;
+import br.com.wda.OpenBeerProject.Entity.Cerveja;
+import br.com.wda.OpenBeerProject.Entity.Cliente;
+import br.com.wda.OpenBeerProject.Entity.Endereco;
+import br.com.wda.OpenBeerProject.Entity.Pedido;
+import br.com.wda.OpenBeerProject.Entity.PedidoItens;
+import br.com.wda.OpenBeerProject.Entity.StatusPedido;
+import br.com.wda.OpenBeerProject.Entity.TipoEntrega;
+import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
+import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
+import br.com.wda.OpenBeerProject.Repository.EnderecoRepository;
+import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
+import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
+import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
+import br.com.wda.OpenBeerProject.Repository.TipoEntregaRepository;
+import ch.qos.logback.core.net.server.Client;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +65,27 @@ public class PagamentoController {
     @Autowired
     private CarrinhoCompras carrinho;
 
+    @Autowired
+    private ClienteRepository clienteRepo;
+
+    @Autowired
+    private StatusPedidoRepository statusRepo;
+
+    @Autowired
+    private TipoEntregaRepository tipoEntregaRepo;
+
+    @Autowired
+    private EnderecoRepository enderecoRepo;
+
+    @Autowired
+    private PedidoRepository pedidoRepo;
+
+    @Autowired
+    private PedidoItensRepository pedidoItensRepo;
+
+    @Autowired
+    private CervejaRepository estoqueRepo;
+
     private final String sellerEmail = "your_email";
     private final String sellerToken = "your_token";
     private String URL = "";
@@ -53,7 +93,7 @@ public class PagamentoController {
 
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView finalizarCompra(HttpServletResponse response) {
+    public ModelAndView finalizarCompra(HttpServletResponse response, @ModelAttribute("tipoEntrega") TipoEntrega tipoEntrega) {
         ModelAndView mv = new ModelAndView("carrinho/confirmacao");
         try {
 
@@ -63,7 +103,7 @@ public class PagamentoController {
 
             //Criando um checkout
             RegisteredCheckout registeredCheckout = pagSeguro.checkouts().register(
-                    getCheckout());
+                    getCheckout(tipoEntrega, getCurrentUser()));
 
             registeredCheckout.getRedirectURL();
             System.out.println(registeredCheckout.getRedirectURL());
@@ -75,6 +115,9 @@ public class PagamentoController {
         }
 
         // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
+        salvarPedido(tipoEntrega);
+        atualizarEstoque();
+        
         mv.addObject("pagSeguroURL", code[1]);
         return mv;
 
@@ -102,48 +145,59 @@ public class PagamentoController {
 
         mv.addObject("quantidadeCarrinho", carrinho.getQuantidade());
 
-        
         return mv;
     }
 
-    public SenderBuilder getSender() {
+    public SenderBuilder getSender(Cliente cliente) {
         SenderBuilder sender = new SenderBuilder()
-                .withEmail("wda@sandbox.pagseguro.com.br")
-                .withName("Jose Comprador")
-                .withCPF("99999999999")
-                .withPhone(getPhone());
+                //.withEmail("wda@sandbox.pagseguro.com.br")
+                .withEmail(cliente.getLogin().getEmail())
+                .withName(cliente.getNomeCompleto())
+                .withCPF(cliente.getCpf())
+                .withPhone(getPhone(cliente));
 
         return sender;
 
     }
 
-    public PhoneBuilder getPhone() {
+    public PhoneBuilder getPhone(Cliente cliente) {
         PhoneBuilder phone = new PhoneBuilder()
                 .withAreaCode("99")
-                .withNumber("99999999");
+                .withNumber(cliente.getTelefone());
 
         return phone;
     }
 
-    public ShippingBuilder getShipping() {
-        ShippingBuilder shipping = new ShippingBuilder()
-                .withType(ShippingType.Type.SEDEX)
-                .withCost(BigDecimal.TEN)
-                .withAddress(getAddresss());
+    public ShippingBuilder getShipping(TipoEntrega tipoEntrega, Integer clienteID) {
+        ShippingBuilder shipping = new ShippingBuilder();
+
+        if (tipoEntrega.getId() == 1) {
+            shipping.withType(ShippingType.Type.SEDEX);
+            shipping.withCost(new BigDecimal(15.0));
+        } else {
+            shipping.withType(ShippingType.Type.PAC);
+            shipping.withCost(new BigDecimal(25.0));
+            //shipping.withCost(BigDecimal.TEN);
+        }
+
+        shipping.withAddress(getAddresss(clienteID));
 
         return shipping;
     }
 
-    public AddressBuilder getAddresss() {
+    public AddressBuilder getAddresss(Integer clienteID) {
+        Endereco endereco = enderecoRepo.findByClienteId(clienteID);
+
         AddressBuilder address = new AddressBuilder()
-                .withPostalCode("99999999")
+                .withPostalCode(endereco.getCep())
                 .withCountry("BRA")
-                .withState(State.SP)
-                .withCity("Cidade Exemplo")
-                .withComplement("99o andar")
-                .withDistrict("Jardim Internet")
-                .withNumber("9999")
-                .withStreet("Av. PagSeguro");
+                //.withState(State.SP)
+                .withState(endereco.getEstado())
+                .withCity(endereco.getCidade())
+                .withComplement(endereco.getComplemento())
+                .withDistrict(endereco.getBairro())
+                .withNumber(Integer.toString(endereco.getNumero()))
+                .withStreet(endereco.getLogradouro());
 
         return address;
     }
@@ -154,13 +208,13 @@ public class PagamentoController {
         response.setHeader("Connection", "close");
     }
 
-    public CheckoutRegistrationBuilder getCheckout() {
+    public CheckoutRegistrationBuilder getCheckout(TipoEntrega tipoEntrega, Cliente cliente) {
         CheckoutRegistrationBuilder checkout = new CheckoutRegistrationBuilder()
                 .withCurrency(Currency.BRL)
                 .withExtraAmount(BigDecimal.ONE)
                 .withReference("XXXXXX")
-                .withSender(getSender())
-                .withShipping(getShipping())
+                .withSender(getSender(cliente))
+                .withShipping(getShipping(tipoEntrega, cliente.getId()))
                 //Para definir o a inclusão ou exclusão de um meio você deverá utilizar três parâmetros: o parâmetro que define a configuração do grupo,
                 // o grupo de meios de pagamento e o nome do meio de pagamento.
                 // No parâmetro que define a configuração do grupo você informará se o grupo ou o meio de pagamento será incluído ou excluído.
@@ -236,6 +290,69 @@ public class PagamentoController {
         }
 
         return checkout;
+    }
+
+    public Cliente getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        Optional<Cliente> cliente = clienteRepo.findByUser(username);
+
+        return cliente.get();
+    }
+
+    public void salvarPedido(TipoEntrega tipoEntrega) {
+        Cliente cliente = getCurrentUser();
+        Pedido pedido = new Pedido();
+        Optional<StatusPedido> status = statusRepo.findById(new Integer(1));
+
+        //SALVANDO PEDIDO
+        pedido.setCliente(cliente);
+        pedido.setTipoEntrega(tipoEntrega);
+        pedido.setStatus(status.get());
+        pedido.setInativo(0);
+        pedido.setDhInclusao(LocalDateTime.now());
+        pedido.setDhPedidoFechado(LocalDateTime.now());
+        pedido.setValorPedido(carrinho.getTotal());
+
+        Pedido pedidoSalvo = new Pedido();
+        pedidoSalvo = pedidoRepo.save(pedido);
+
+        //SALVANDO PEDIDOS ITENS
+        for (CarrinhoItem item : carrinho.getItens()) {
+            PedidoItens itens = new PedidoItens();
+
+            itens.setPedido(pedidoSalvo);
+            itens.setCerveja(item.getCerveja());
+            itens.setQuantidade(carrinho.getQuantidade(item));
+            itens.setVlTotal(item.getTotal(carrinho.getQuantidade(item)));
+            itens.setDhInclusao(LocalDateTime.now());
+
+            pedidoItensRepo.save(itens);
+
+        }
+
+    }
+
+    public void atualizarEstoque() {
+
+        // ATUALIZANDO ESTOQUE
+        for (CarrinhoItem item : carrinho.getItens()) {
+            int quantidade = 0;
+            Optional<Cerveja> estoque = estoqueRepo.findById(item.getCerveja().getId());
+            quantidade = estoque.get().getQuantidade() - carrinho.getQuantidade(item);
+            estoque.get().setQuantidade(quantidade);
+            estoque.get().setDhAlteracao(LocalDateTime.now());
+
+            estoqueRepo.save(estoque.get());
+
+        }
     }
 
 }

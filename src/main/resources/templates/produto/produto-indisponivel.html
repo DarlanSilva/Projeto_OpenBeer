@@ -21,18 +21,25 @@
             <div class="top-header">
                 <div class="container">   
                     <div class="wrap-top-header">
-                        <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        <span data-sec-authorize="isAuthenticated()">
+                            <a class="cad-login" href="#">Usuário:  <span data-sec-authentication="name"></span></a>
+                        </span>
+                        <span sec:authorize="isAnonymous()">
+                            <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        </span>
                         <a class="area-cliente" href="#">Área do Cliente</a>
                     </div><!--wrap-top-header-->
-                    <div class="content-area-cliente">
-                        <div class="wrap-content-area">
-                            <ul>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
-                                <li><a data-th-href="@{/OpenBeer/Cliente/Logout}">Sair</a></li>
-                            </ul>
-                        </div><!--wrap-content-area-->
-                    </div><!--content-area-cliente-->
+                    <span data-sec-authorize="isAuthenticated()">
+                        <div class="content-area-cliente">
+                            <div class="wrap-content-area">
+                                <ul>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                    <li><a data-th-href="@{/logout}">Sair</a></li>
+                                </ul>
+                            </div><!--wrap-content-area-->
+                        </div><!--content-area-cliente-->
+                    </span>
                 </div><!--container-->
             </div><!--top-header-->
             <div class="menu-internas">
@@ -43,17 +50,21 @@
                         </div>
                         <ul class="menu-desk">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
                             <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-desk-->
                         <ul class="menu-mobile">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-mobile-->
                         <div class="carrinho-icon">
                             <i class="fas fa-bars"></i>
@@ -74,7 +85,7 @@
                 <div class="wrap-section-desc">
                     <!--section-desc-->
                     <div class="section-fig">
-                        <img data-th-src="@{/img/beer-artesanal.png}" alt="Cerveja artesanal" width="300px">
+                        <img data-th-src="@{/product-picture/{imagem}(imagem=${cerveja.imagem})}" alt="Cerveja artesanal" width="300px">
                     </div>
                     <!--section-fig-->
                     <div class="section-info">
@@ -89,7 +100,7 @@
                             <label for="nome">Nome </label>
                             <input type="text" name="nome" id="nome" placeholder="Digite seu nome" data-th-classappend="${#fields.hasErrors('nome')}? is-invalid" data-th-field="*{nome}"><br>
                             <div class="alert alert-danger" data-th-if="${#fields.hasErrors('nome')}" data-th-errors="*{nome}">
-                                
+
                             </div>
                             <label for="email">Email </label>
                             <input type="email" name="email" id="email" placeholder="Digite seu email" data-th-classappend="${#fields.hasErrors('email')}? is-invalid" data-th-field="*{email}">

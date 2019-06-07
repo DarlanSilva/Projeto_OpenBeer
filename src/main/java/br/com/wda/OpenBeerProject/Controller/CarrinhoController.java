@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  * @author Darlan Silva
  */
+
 @Controller
 @RequestMapping("/OpenBeer/Carrinho")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)

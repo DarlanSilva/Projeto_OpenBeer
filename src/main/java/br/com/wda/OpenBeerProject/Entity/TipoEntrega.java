@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -39,16 +40,20 @@ public class TipoEntrega {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DH_ALTERACAO")
     private Date dhAlteracao;
+    
+    @Transient
+    private String cupom;
 
     public TipoEntrega() {
     }
 
-    public TipoEntrega(Integer id, String tipoEntrega, int inativo, Date dhInclusao, Date dhAlteracao) {
+    public TipoEntrega(Integer id, String tipoEntrega, int inativo, Date dhInclusao, Date dhAlteracao, String cupom) {
         this.id = id;
         this.tipoEntrega = tipoEntrega;
         this.inativo = inativo;
         this.dhInclusao = dhInclusao;
         this.dhAlteracao = dhAlteracao;
+        this.cupom = cupom;
     }
 
     public Integer getId() {
@@ -89,6 +94,14 @@ public class TipoEntrega {
 
     public void setDhAlteracao(Date dhAlteracao) {
         this.dhAlteracao = dhAlteracao;
+    }
+
+    public String getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(String cupom) {
+        this.cupom = cupom;
     }
     
     

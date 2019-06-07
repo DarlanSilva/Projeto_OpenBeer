@@ -14,13 +14,15 @@ import org.springframework.stereotype.Repository;
  * @author Alison Souza
  *
  */
-
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    
+
     public Optional<Cliente> findByNomeCompleto(String nomeCompleto);
-    
+
     @Query("Select c from Cliente c left join Login l on l.id = c.login where l.id = ?1")
     public Optional<Cliente> findByLogin(Integer login);
-    
+
+    @Query("Select c from Cliente c left join Login l on l.id = c.login where l.email = ?1")
+    public Optional<Cliente> findByUser(String login);
+
 }

@@ -42,7 +42,8 @@ public class Cerveja implements Serializable {
     @NotBlank(message = "CAMPO NOME DA CERVEJA OBRIGATÓRIO")
     @Column(name = "CERVEJA")
     private String nome;
-
+    
+    @Size(min = 1, max = 10000000)
     @NotBlank(message = "CAMPO DESCRIÇÃO OBRIGATÓRIO")
     @Column(name = "DESCRICAO")
     private String descricao;

@@ -19,19 +19,25 @@
             <div class="top-header">
                 <div class="container">   
                     <div class="wrap-top-header">
-                        <a class="cad-login" href="#">Login / Cadastro</a>
+                        <span data-sec-authorize="isAuthenticated()">
+                            <a class="cad-login" href="#">Usuário:  <span data-sec-authentication="name"></span></a>
+                        </span>
+                        <span sec:authorize="isAnonymous()">
+                            <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        </span>
                         <a class="area-cliente" href="#">Área do Cliente</a>
                     </div><!--wrap-top-header-->
-                    <div class="content-area-cliente">
-                        <div class="wrap-content-area">
-                            <ul>
-                                <li><a href="#">Meus pedidos</a></li>
-                                <li><a href="#">Editar cadastro</a></li>
-                                <li><a href="#">Sair</a></li>
-
-                            </ul>
-                        </div><!--wrap-content-area-->
-                    </div><!--content-area-cliente-->
+                    <span data-sec-authorize="isAuthenticated()">
+                        <div class="content-area-cliente">
+                            <div class="wrap-content-area">
+                                <ul>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                    <li><a data-th-href="@{/logout}">Sair</a></li>
+                                </ul>
+                            </div><!--wrap-content-area-->
+                        </div><!--content-area-cliente-->
+                    </span>
                 </div><!--container-->
             </div><!--top-header-->
             <div class="menu-internas">
@@ -42,17 +48,21 @@
                         </div>
                         <ul class="menu-desk">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-desk-->
                         <ul class="menu-mobile">
                             <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Sobre}">SOBRE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
                             <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                            <li><a data-th-href="@{/OpenBeer/Contato}">CONTATO</a></li>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/BackOffice}">BACKOFFICE</a></li>
+                            <li><a  data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
+                            </span>
                         </ul><!--menu-mobile-->
                         <div class="carrinho-icon">
                             <i class="fas fa-bars"></i>
@@ -78,7 +88,7 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho"  method="POST">
+                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho" data-th-object="tipoEntrega"  method="POST">
                         <table cellpadding = 0 cellspacing = 0 width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
@@ -122,8 +132,8 @@
                         </table>
                         <div class="cupom-desconto">
                             <span>CUPOM DE DESCONTO</span>
-                            <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código">
-                            <a href="">ADICIONAR</a>
+                            <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código" data-th-classappend="${#fields.hasErrors('cupom')}? is-invalid" data-th-field="*{cupom}">
+                            <!--<a href="">ADICIONAR</a>-->
                         </div><!--cupom-desconto-->
                         <div class="content-subtotal">
                             <div class="item-subtotal">
@@ -136,7 +146,12 @@
                                 <p>ENTREGA</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <a href="#">Calcular</a>
+                                <select name="tipo">
+                                    <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('tipoEntrega')}? is-invalid" data-th-field="*{tipoEntrega}"
+                                            data-th-value="${tipo.id}"
+                                            data-th-text="${tipo.tipoEntrega}"/>
+                                </select> 
+                                <!--<a href="#">Calcular</a>-->
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
                                 <p>TOTAL</p>

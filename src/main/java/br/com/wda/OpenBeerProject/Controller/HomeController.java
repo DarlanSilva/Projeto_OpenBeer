@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  */
 @Controller
-@RequestMapping("/OpenBeer")
+@RequestMapping("/OpenBeer/Home")
 public class HomeController {
 
     @Autowired
@@ -34,8 +34,8 @@ public class HomeController {
 
     @Autowired
     private MailSender sender;
-
-    @GetMapping("/Home")
+    
+    @GetMapping
     @Cacheable(value = "produtos")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("home");
@@ -51,7 +51,7 @@ public class HomeController {
         return new ModelAndView("/produto");
     }
 
-    @PostMapping("/Home/Contato")
+    @PostMapping("/Contato")
     public ModelAndView contato(@ModelAttribute("email") @Valid SenderMail mail, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {

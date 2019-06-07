@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.Cliente;
@@ -57,7 +52,7 @@ public class EnderecoController {
     }
     
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result,@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes){
+    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes){
          
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-endereco");
@@ -68,16 +63,16 @@ public class EnderecoController {
         
         endereco.setDhInclusao(LocalDateTime.now());
         endereco.setInativo(0);
-        endereco.setIdCliente(cliente);
         
         if(endereco.getId() != null){
             endereco.setDhAlteracao(LocalDateTime.now());
         }
         
-        endRepository.save(endereco);
+        Endereco enderecoSalvo = new Endereco();
+        enderecoSalvo = endRepository.save(endereco);
         redirectAttributes.addFlashAttribute("menssagemSucesso", "Endereço cadastrado com sucesso");
         
-        return new ModelAndView("redirect:/OpenBeer/Cliente/Login");
+        return new ModelAndView("redirect:/OpenBeer/Cliente/Cadastro-Login");
     }
     
 }

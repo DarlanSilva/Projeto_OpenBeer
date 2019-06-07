@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @author Wesley Moura
  * @author Alison Souza
  */
+
 @Entity
 @Table(name = "TS_PERMISSAOACESSO")
 public class Permissao implements GrantedAuthority {
@@ -94,6 +95,6 @@ public class Permissao implements GrantedAuthority {
         
     @Override
     public String getAuthority() {
-        return getPermissao();
+        return this.permissao;
     }
 }

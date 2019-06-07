@@ -56,17 +56,6 @@ public class CervejaController {
     @Autowired
     private CarrinhoCompras carrinho;
 
-    @Autowired
-    private FileSaver fileSaver;
-
-    @GetMapping("/BackOffice")
-    public ModelAndView manutencao() {
-
-        List<Cerveja> cerveja = cervejaRepository.findAll();
-        return new ModelAndView("backOffice/consultar-produto")
-                .addObject("cerveja", cerveja);
-    }
-    
     @GetMapping("/Lista-de-Cervejas")
     @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProd() {
@@ -138,63 +127,6 @@ public class CervejaController {
 
         return mv;
     }
-
-    @GetMapping("/novo")
-    public ModelAndView adicionarNovo() {
-        return new ModelAndView("backOffice/cadastro-produto")
-                .addObject("cerveja", new Cerveja());
-    }
-
-    @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Integer id) {
-        Optional<Cerveja> listProd = cervejaRepository.findById(id);
-        Cerveja cerveja = listProd.get();
-        getTipoCerveja();
-
-        return new ModelAndView("backOffice/cadastro-produto")
-                .addObject("cerveja", cerveja);
-    }
-
-    @PostMapping("/salvar")
-    @CacheEvict(value ="lista-cervejas", allEntries=true)
-    public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
-            @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
-            mv.addObject("cerveja", cerveja);
-
-            return mv;
-        }
-
-        cerveja.setDhInclusao(LocalDateTime.now());
-        cerveja.setInativo(0);
-
-        //VERIFICA SE É UMA ALTERAÇÃO PARA SALVA A DATA HORA DA ALTERAÇÃO
-        if (cerveja.getId() != null) {
-            cerveja.setDhAlteracao(LocalDateTime.now());
-        }
-
-        String path = fileSaver.write("/product-picture", imagemCerveja);
-        cerveja.setImagem(path);
-        
-        cervejaRepository.save(cerveja);
-        redirectAttributes.addFlashAttribute("mensagemSucesso",
-                "Cerveja " + cerveja.getNome() + " salvo com sucesso");
-
-        return new ModelAndView("redirect:/OpenBeer/cerveja/BackOffice");
-    }
-
-    @PostMapping("/{id}/remover")
-    public ModelAndView remover(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-        cervejaRepository.deleteById(id);
-
-        redirectAttributes.addFlashAttribute("mensagemSucesso",
-                "Cerveja ID " + id + " removido com sucesso");
-
-        return new ModelAndView("redirect:/OpenBeer/cerveja/BackOffice");
-    }
-
     
     @GetMapping("{id}/detalhe")
     public ModelAndView detalhe(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {

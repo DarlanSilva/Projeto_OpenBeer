@@ -13,7 +13,7 @@ $(document.this).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "../cerveja/" + Id + "/remover"
+            url: "../BackOffice/" + Id + "/remover"
         });
         
          modal.style.visibility = "hidden";

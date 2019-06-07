@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,13 +41,13 @@ public class ClienteController {
         return mv;
     }
 
-    @GetMapping("/Login")
-    public ModelAndView login() {
-        ModelAndView mv = new ModelAndView("cliente/login-cadastro");
-        mv.addObject("login", new Login());
-
-        return mv;
-    }
+//    @GetMapping("/Login")
+//    public ModelAndView login() {
+//        ModelAndView mv = new ModelAndView("cliente/login-cadastro");
+//        mv.addObject("login", new Login());
+//
+//        return mv;
+//    }
 
     @GetMapping("/MeusPedidos")
     public ModelAndView meusPedidos() {
@@ -55,12 +56,12 @@ public class ClienteController {
         return mv;
     }
 
-    @GetMapping("/EditarCadastro")
-    public ModelAndView editarCadastro() {
-        ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
-
-        return mv;
-    }
+//    @GetMapping("/EditarCadastro")
+//    public ModelAndView editarCadastro() {
+//        ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
+//
+//        return mv;
+//    }
 
     @GetMapping("/Logout")
     public ModelAndView logout() {
@@ -69,17 +70,17 @@ public class ClienteController {
         return mv;
     }
 
-    @GetMapping("/Cadastrar-Novo-Endereco")
-    public ModelAndView novoEndereco() {
-        ModelAndView mv = new ModelAndView("cliente/cadastro-endereco");
-
-        return mv;
-    }
-
-    @GetMapping("/Dados-Pessoais")
-    public ModelAndView dadosPessoais() {
-        return new ModelAndView("cliente/dados-pessoais").addObject("cliente", new Cliente());
-    }
+//    @GetMapping("/Cadastrar-Novo-Endereco")
+//    public ModelAndView novoEndereco() {
+//        ModelAndView mv = new ModelAndView("cliente/cadastro-endereco");
+//
+//        return mv;
+//    }
+//
+//    @GetMapping("/Dados-Pessoais")
+//    public ModelAndView dadosPessoais() {
+//        return new ModelAndView("cliente/dados-pessoais").addObject("cliente", new Cliente());
+//    }
 
     @GetMapping("/lista-de-cliente")
     public ModelAndView listarCliente() {
@@ -95,38 +96,43 @@ public class ClienteController {
     }
 
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, @ModelAttribute("login") Login login, RedirectAttributes redirectAttributes) {
+    public ModelAndView salvar(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-pessoais");
             mv.addObject(cliente);
             return mv;
-        }
+        }        
 
-        Optional<Cliente> verificar = clienteRepository.findByLogin(login.getId());
+        Optional<Cliente> verificar = clienteRepository.findByLogin(cliente.getLogin().getId());
 
-        // Caso o usuário já tenha cadastrado os dados pessoais porém não finalizaou o cadastro ele é redirecionado para direto
+        // CASO O USUÁRIO JÁ TENHA CADASTRADO OS DADOS PESSOAIS PORÉM NÃO FINALIZAOU O CADASTRO ELE É REDIRECIONADO PARA O CADASTRO DO EMAIL
         if (verificar.isPresent() == true) {
             ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
-            mvDadosEndereco.addObject("endereco", new Endereco());
-            mvDadosEndereco.addObject("cliente", verificar);
+            Endereco endereco = new Endereco();
+            endereco.setIdCliente(cliente);
+            mvDadosEndereco.addObject("endereco", endereco);
 
             return mvDadosEndereco;
         }
 
         cliente.setDhInclusao(LocalDateTime.now());
         cliente.setInativo(0);
-        cliente.setLogin(login);
 
         if (cliente.getId() != null) {
             cliente.setDhAlteracao(LocalDateTime.now());
         }
-        clienteRepository.save(cliente);
+        
+        // OBJETO INSTANCIADO PARA ARMAZENAR O CLIENTE SALVO NO BANCO JÁ COM O ID
+        Cliente clienteSalvo = new Cliente();
+        clienteSalvo = clienteRepository.save(cliente);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Dados cadastrados com sucesso");
-
+        
+        // REDIRECIONA O USUÁRIO PARA CADASTRAR O ENDEREÇO
         ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
-        mvDadosEndereco.addObject("endereco", new Endereco());
-        mvDadosEndereco.addObject("cliente", verificar);
+        Endereco endereco = new Endereco();
+        endereco.setIdCliente(clienteSalvo);
+        mvDadosEndereco.addObject("endereco", endereco);
 
         return mvDadosEndereco;
     }

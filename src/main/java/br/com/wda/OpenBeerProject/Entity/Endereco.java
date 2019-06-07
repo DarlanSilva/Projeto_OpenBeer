@@ -27,9 +27,6 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "DESTINATARIO")
-//    private String destinatario;
-
     @Column(name = "CEP")
     private String cep;
 
@@ -41,9 +38,6 @@ public class Endereco implements Serializable {
 
     @Column(name = "COMPLEMENTO")
     private String complemento;
-
-//    @Column(name = "REFERENCIA")
-//    private String referencia;
 
     @Column(name = "BAIRRO")
     private String bairro;
@@ -72,12 +66,10 @@ public class Endereco implements Serializable {
 
     public Endereco(Integer id, String destinatario, String cep, String logradouro, int numero, String complemento, String referencia, String bairro, String cidade, String estado, Cliente idCliente, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
-//        this.destinatario = destinatario;
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
-//        this.referencia = referencia;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
@@ -94,15 +86,7 @@ public class Endereco implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-//    public String getDestinatario() {
-//        return destinatario;
-//    }
-//
-//    public void setDestinatario(String destinatario) {
-//        this.destinatario = destinatario;
-//    }
-
+    
     public String getCep() {
         return cep;
     }
@@ -134,15 +118,7 @@ public class Endereco implements Serializable {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-
-//    public String getReferencia() {
-//        return referencia;
-//    }
-//
-//    public void setReferencia(String referencia) {
-//        this.referencia = referencia;
-//    }
-
+    
     public String getBairro() {
         return bairro;
     }

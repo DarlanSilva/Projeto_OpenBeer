@@ -22,6 +22,7 @@ import br.com.wda.OpenBeerProject.Controller.HomeController;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
 import br.com.wda.OpenBeerProject.Infra.FileSaver;
+import br.com.wda.OpenBeerProject.Infra.JWTUtil;
 import java.util.Properties;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.mail.MailSender;
@@ -34,7 +35,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
  * @author Darlan Silva
  */
 @SpringBootConfiguration
-@ComponentScan(basePackageClasses = {HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class})
+@ComponentScan(basePackageClasses = {HomeController.class, CervejaController.class, CervejaRepository.class, FileSaver.class, CarrinhoCompras.class, JWTUtil.class})
 @EnableCaching
 public class AppWebConfiguration implements WebMvcConfigurer {
 
