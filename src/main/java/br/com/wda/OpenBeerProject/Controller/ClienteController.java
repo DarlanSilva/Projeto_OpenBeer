@@ -101,13 +101,13 @@ public class ClienteController {
             return mv;
         }
 
-        Optional<Cliente> verificar = clienteRepository.findByLogin(cliente.getLogin().getId());
+        Optional<Cliente> verificarCliente = clienteRepository.findByLogin(cliente.getLogin().getId());
 
         // CASO O USUÁRIO JÁ TENHA CADASTRADO OS DADOS PESSOAIS PORÉM NÃO FINALIZAOU O CADASTRO ELE É REDIRECIONADO PARA O CADASTRO DO EMAIL
-        if (verificar.isPresent() == true) {
+        if (verificarCliente.isPresent() == true) {
             ModelAndView mvDadosEndereco = new ModelAndView("cliente/dados-endereco");
             Endereco endereco = new Endereco();
-            endereco.setIdCliente(cliente);
+            endereco.setIdCliente(verificarCliente.get());
             mvDadosEndereco.addObject("endereco", endereco);
 
             return mvDadosEndereco;

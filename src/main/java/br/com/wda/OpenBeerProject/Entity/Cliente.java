@@ -28,42 +28,43 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Wesley Moura
  * @author Alison Souza
  */
-
 @Entity
 @Table(name = "TB_CLIENTE")
 public class Cliente {
-    
-      
+
     @Id
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "CPF")
     @NotBlank(message = "CAMPO CPF OBRIGATÓRIO")
     private String cpf;
-    
+
     @Column(name = "NOME")
     @NotBlank(message = "CAMPO NOME COMPLETO OBRIGATÓRIO")
     private String nomeCompleto;
-    
+
+    @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-    @Column(name = "DT_NASCIMENTO")    
+    @Column(name = "DT_NASCIMENTO")
     private String dtNascimento;
-    
+
+    @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @Column(name = "TG_SEXO")
     private char sexo;
-    
+
+    @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @Column(name = "TELEFONE")
     private String telefone;
-    
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_LOGIN")
     private Login login;
-    
+
     @Column(name = "TG_INATIVO")
     private int inativo;
-    
+
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
 
@@ -165,5 +166,5 @@ public class Cliente {
     public void setDhAlteracao(LocalDateTime dhAlteracao) {
         this.dhAlteracao = dhAlteracao;
     }
-        
+
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -26,13 +28,16 @@ public class Endereco implements Serializable {
     @Column(name = "PK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
+    @NotNull(message = "CEP OBRIGÁTORIO")
     @Column(name = "CEP")
     private String cep;
-
+    
+    @Size(min = 1, max = 100)
     @Column(name = "LOGRADOURO")
     private String logradouro;
-
+    
+    @NotNull(message = "NÚMERO OBRIGÁTOTIO")
     @Column(name = "NUMERO")
     private int numero;
 

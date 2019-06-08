@@ -88,7 +88,7 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho"  method="POST">
+                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho" data-th-object="${tipoEntrega}" method="POST">
                         <table cellpadding = 0 cellspacing = 0 width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
@@ -131,9 +131,9 @@
                             </tbody>
                         </table>
                         
-                        <!--<div class="cupom-desconto">
+                       <div class="cupom-desconto">
                             <span>CUPOM DE DESCONTO</span>
-                            <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código" data-th-classappend="${#fields.hasErrors('cupom')}? is-invalid" data-th-field="*{cupom}">
+                            <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código">
                             <!--<a href="">ADICIONAR</a>
                         </div><!--cupom-desconto-->
                         
@@ -148,13 +148,12 @@
                                 <p>ENTREGA</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <!--<select name="tipo">
+                                <select name="tipo">
                                     <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('tipoEntrega')}? is-invalid" data-th-field="*{tipoEntrega}"
                                             data-th-value="${tipo.id}"
                                             data-th-text="${tipo.tipoEntrega}"/>
-                                </select>--> 
+                                </select>
                                 <!--<a href="#">Calcular</a>-->
-                                <span>GRÁTIS</span>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
                                 <p>TOTAL</p>

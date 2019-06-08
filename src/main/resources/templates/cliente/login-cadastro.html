@@ -85,11 +85,11 @@
                             </div>
                             <h2>ENTRAR</h2>
                             <div>
-                                <label for="email-login">Seu Email</label><br>
+                                <label for="email-login">Seu Email*</label><br>
                                 <input type="text" name="username" id="username" placeholder="Digite seu email" required>  
                             </div>
                             <div>
-                                <label for="password">Senha</label><br>
+                                <label for="password">Senha*</label><br>
                                 <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
                             </div>
 
@@ -103,18 +103,18 @@
                             <h2>CADASTRE-SE</h2>
                             <span data-th-if="${mensagem != null}" data-th-text="${mensagem}" class="alert alert-danger" role="alert"></span>
                             <div>
-                                <label for="email">Email</label><br>
+                                <label for="email">Email*</label><br>
                                 <input type="email" name="email" id="email" placeholder="Digite seu email" required data-th-classappend="${#fields.hasErrors('email')}? is-invalid" data-th-field="*{email}"> 
                                 <div data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="alert alert-danger">
 
                                 </div>
                             </div>
                             <div>
-                                <label for="password-cadastro">Senha</label><br>
+                                <label for="password-cadastro">Senha*</label><br>
                                 <input required type="password" name="password-cadastro" id="password-cadastro" placeholder="Digite sua senha" data-th-classappend="${#fields.hasErrors('hashSenha')}? is-invalid" data-th-field="*{hashSenha}">
                             </div>
                             <div>
-                                <label for="password-confirm">Confirmar Senha</label><br>
+                                <label for="password-confirm">Confirmar Senha*</label><br>
                                 <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirme sua senha" required>
                             </div>
                             <input type="submit" name="btn-cadastrar-cliente" id="bnt-cadastrar-cliente" value="Cadastrar">

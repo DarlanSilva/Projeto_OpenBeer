@@ -43,7 +43,7 @@ public class Cerveja implements Serializable {
     @Column(name = "CERVEJA")
     private String nome;
     
-    @Size(min = 1, max = 10000000)
+    @Size(min = 1, max = 600)
     @NotBlank(message = "CAMPO DESCRIÇÃO OBRIGATÓRIO")
     @Column(name = "DESCRICAO")
     private String descricao;
@@ -92,14 +92,10 @@ public class Cerveja implements Serializable {
     @JoinColumn(name="FK_TIPOCERVEJA")
     private TipoCerveja tipoCerveja;
     
-//    @Transient
-//    @ManyToOne
-//    @JoinColumn(name="tipocerveja_id")
-//    private TipoCerveja tipoCerv;
-//    
     @Column(name = "IMAGEMCERVEJA")
     private String imagem;
     
+    @Size(min = 1, max = 70)
     @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @Column(name = "BREVEDESCRICAO")
     private String breveDescricao;
@@ -125,26 +121,6 @@ public class Cerveja implements Serializable {
         this.imagem = imagem;
         this.breveDescricao = breveDescricao;
     }
-
-//    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, Integer tipoCerveja, TipoCerveja tipoCerv, String imagem, String breveDescricao) {
-//        this.id = id;
-//        this.nome = nome;
-//        this.descricao = descricao;
-//        this.valorCerveja = valorCerveja;
-//        this.codigoCerveja = codigoCerveja;
-//        this.marca = marca;
-//        this.teor = teor;
-//        this.quantidade = quantidade;
-//        this.mlCerveja = mlCerveja;
-//        this.inativo = inativo;
-//        this.destaque = destaque;
-//        this.dhInclusao = dhInclusao;
-//        this.dhAlteracao = dhAlteracao;
-//        this.tipoCerveja = tipoCerveja;
-//        this.tipoCerv = tipoCerv;
-//        this.imagem = imagem;
-//        this.breveDescricao = breveDescricao;
-//    }
 
     public Integer getId() {
         return id;
