@@ -70,10 +70,10 @@
                                         <div class="campos-register">
                                             <label for="tipo-cerveja">Tipo da cerveja*</label>
                                             <select class="wrap-register-campos" name="tipo"  data-th-classappend="${#fields.hasErrors('tipoCerveja')}? is-invalid"  data-th-field="*{tipoCerveja}">
-                                                <option th:each="tipo : ${tipoCerveja}"
-                                                        th:value="${tipo.id}"
-                                                        th:text="${tipo.tipoCerveja}"
-                                                        th:selected="${tipo.id == cerveja.tipoCerveja}"/>
+                                                <option data-th-each="tipo : ${tipoCerveja}"
+                                                        data-th-value="${tipo.id}"
+                                                        data-th-text="${tipo.tipoCerveja}"
+                                                        data-th-selected="${tipo.id == cerveja.tipoCerveja}"/>
                                             </select>             
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->
@@ -82,7 +82,7 @@
                                         <div class="campos-register">
                                             <label for="teor-cerveja">Teor %*</label>
                                             <input type="number" name="teor-cerveja" id="teor-cerveja" required placeholder="Teor Alcoólico % "  data-th-classappend="${#fields.hasErrors('teor')}? is-invalid"  data-th-field="*{teor}">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('teor')}" th:errors="*{teor}">
+                                            <div class="alert alert-danger" data-th-if="${#fields.hasErrors('teor')}" data-th-errors="*{teor}">
                                             </div>
                                         </div><!--campos-register-->
 

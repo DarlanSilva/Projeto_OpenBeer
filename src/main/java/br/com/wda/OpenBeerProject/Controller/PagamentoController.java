@@ -86,8 +86,8 @@ public class PagamentoController {
     @Autowired
     private CervejaRepository estoqueRepo;
 
-    private final String sellerEmail = "your_email";
-    private final String sellerToken = "your_token";
+    private final String sellerEmail = "email";
+    private final String sellerToken = "token";
     private String URL = "";
     private String code[] = new String[2];
 
@@ -186,22 +186,22 @@ public class PagamentoController {
         return shipping;
     }
 
-//    public AddressBuilder getAddresss(Integer clienteID) {
-//        Endereco endereco = enderecoRepo.findByClienteId(clienteID);
-//
-//        AddressBuilder address = new AddressBuilder()
-//                .withPostalCode(endereco.getCep())
-//                .withCountry("BRA")
-//                //.withState(State.SP)
-//                .withState(endereco.getEstado())
-//                .withCity(endereco.getCidade())
-//                .withComplement(endereco.getComplemento())
-//                .withDistrict(endereco.getBairro())
-//                .withNumber(Integer.toString(endereco.getNumero()))
-//                .withStreet(endereco.getLogradouro());
-//
-//        return address;
-//    }
+    public AddressBuilder getAddresss(Integer clienteID) {
+        Endereco endereco = enderecoRepo.findByClienteId(clienteID);
+
+        AddressBuilder address = new AddressBuilder()
+                .withPostalCode(endereco.getCep())
+                .withCountry("BRA")
+                //.withState(State.SP)
+                .withState(endereco.getEstado())
+                .withCity(endereco.getCidade())
+                .withComplement(endereco.getComplemento())
+                .withDistrict(endereco.getBairro())
+                .withNumber(Integer.toString(endereco.getNumero()))
+                .withStreet(endereco.getLogradouro());
+
+        return address;
+    }
 
     public void send301Redirect(HttpServletResponse response, String newUrl) {
         response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);

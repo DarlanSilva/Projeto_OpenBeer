@@ -15,7 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author Darlan Silva
  */
-
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CarrinhoCompras implements Serializable {
@@ -23,6 +22,14 @@ public class CarrinhoCompras implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Map<CarrinhoItem, Integer> itens = new LinkedHashMap<CarrinhoItem, Integer>();
+
+    private BigDecimal valorEntrega;
+    private BigDecimal valorDesconto;
+    private int prazoEntrega;
+
+    private Cliente cliente;
+    private Endereco endereco;
+    private TipoEntrega tipoEntrega;
 
     public Collection<CarrinhoItem> getItens() {
         return itens.keySet();
@@ -62,5 +69,77 @@ public class CarrinhoCompras implements Serializable {
 
         itens.remove(new CarrinhoItem(cerveja));
     }
+
+    public BigDecimal getTotalCompra() {
+        BigDecimal valorEntrega = getValorEntrega();
+        if (valorEntrega == null) {
+            valorEntrega = BigDecimal.ZERO;
+        }
+
+        BigDecimal valorDesconto = getValorDesconto();
+        if (valorDesconto == null) {
+            valorDesconto = BigDecimal.ZERO;
+        }
+
+        BigDecimal totalBruto = getTotal();
+        BigDecimal totalCompra = totalBruto.add(valorEntrega).subtract(valorDesconto);
+
+        return totalCompra;
+
+    }
+    
+    public Integer getIdTipoEntrega(){
+        return tipoEntrega.getId();
+    }
+
+    public BigDecimal getValorEntrega() {
+        return valorEntrega;
+    }
+
+    public void setValorEntrega(BigDecimal valorEntrega) {
+        this.valorEntrega = valorEntrega;
+    }
+
+    public BigDecimal getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(BigDecimal valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+
+    public int getPrazoEntrega() {
+        return prazoEntrega;
+    }
+
+    public void setPrazoEntrega(int prazoEntrega) {
+        this.prazoEntrega = prazoEntrega;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public TipoEntrega getTipoEntrega() {
+        return tipoEntrega;
+    }
+
+    public void setTipoEntrega(TipoEntrega tipoEntrega) {
+        this.tipoEntrega = tipoEntrega;
+    }
+    
+    
 
 }

@@ -1,3 +1,5 @@
+USE OPENBEER;
+
 ALTER TABLE TB_CERVEJA
 DROP COLUMN TG_DESTAQUE;
 
@@ -46,11 +48,17 @@ VALUES('PEDIDO EM TRANSPORTE', NOW(), 0);
 INSERT INTO TB_STATUSPEDIDO (STATUSPEDIDO, DH_INCLUSAO, TG_INATIVO)
 VALUES('PEDIDO ENTREGUE', NOW(), 0);
 
-INSERT INTO TB_TIPOENTREGA(TIPOENTREGA,TG_INATIVO,DH_INCLUSAO)
-VALUES ("SEDEX -  15,00",0,NOW());
+INSERT INTO TB_TIPOENTREGA(TIPOENTREGA,TG_INATIVO,DH_INCLUSAO, PRAZOENTREGA, VL_ENTREGA)
+VALUES ("SEDEX -  15,00",0,NOW(), 20,15.00);
 
-INSERT INTO TB_TIPOENTREGA(TIPOENTREGA,TG_INATIVO,DH_INCLUSAO)
-VALUES ("PAC -  25,00",0,NOW());
+INSERT INTO TB_TIPOENTREGA(TIPOENTREGA,TG_INATIVO,DH_INCLUSAO, PRAZOENTREGA, VL_ENTREGA)
+VALUES ("PAC -  25,00",0,NOW(),10,25.00);
+
+INSERT INTO TB_CUPOM(DS_CUPOM, DH_INCLUSAO, DH_VALIDADE, VL_CUPOM)
+VALUES ("CHAMANABREJA", NOW(),'2019-06-07 14:47:12',25.00);
+
+INSERT INTO TB_CUPOM(DS_CUPOM,DH_INCLUSAO, DH_VALIDADE, VL_CUPOM)
+VALUES ("BREJA10", NOW(),'2019-07-07 00:00:00',10.00);
 
 INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_alteracao`,`dh_inclusao`,`imagemcerveja`,`tg_inativo`,`marca`,`ml`,`cerveja`,`quantidade`,`teor`,`vl_total`,`fk_tipocerveja`) VALUES ('Produzida a partir de maltes e lúpulos selecionado','12354','Produzida a partir de maltes e lúpulos selecionados, Polar Export tem cor clara, processo de baixa fermentação, com aroma, sabor e amargor suaves. É uma herança do Rio Grande do Sul, onde foi lançado em 1929, na cidade de Estrela. Em 1972 o controle da Cervejaria Polar foi adquirido pela Cia. Paulista Antarctica.\r\nINGREDIENTES: Água, malte, milho e lúpulo.\r\nALERGÊNICOS: Contém cevada e glúten','1',NULL,'2019-06-07 14:47:12','tupiniquin-beer.png',0,'OpenBeer','10000','Polar',100,0,25.00,2);
 INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_alteracao`,`dh_inclusao`,`imagemcerveja`,`tg_inativo`,`marca`,`ml`,`cerveja`,`quantidade`,`teor`,`vl_total`,`fk_tipocerveja`) VALUES ('Tradicional cerveja alemã de Munique.','66589','Tradicional cerveja alemã de Munique, a cerveja Löwenbräu é uma típica Munich Helles: de cor clara, sabor maltado e levemente amargo, além de muito refrescante. Essas características fazem da Löwenbräu uma ótima opção de cerveja para curtir o happy hour com os amigos, acompanhada por petiscos clássicos, como amendoins ou bolinhos de bacalhau.\r\nINGREDIENTES: Água, malte de cevada, lúpulo, extrato de lúpulo.\r\nALERGÊNICOS: Contém cevada e glúten.','0',NULL,'2019-06-07 14:48:54','beer3.png',0,'OpenBeer','1000000','Löwenbräu',100,6,30.00,1);

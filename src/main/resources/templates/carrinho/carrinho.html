@@ -88,7 +88,7 @@
                             </div><!--carrinho-title-->
                         </div><!--wrap-title-carrinho--> 
                     </div><!--wrap-carrinho-product-->
-                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho" data-th-object="${tipoEntrega}" method="POST">
+                    <form data-th-action="@{/OpenBeer/Pagamento/FinalizarCompra}" class="form-carrinho" method="POST">
                         <table cellpadding = 0 cellspacing = 0 width="1200" class="tabela-carrinho">
                             <thead class="head-carrinho">
                                 <tr>
@@ -130,13 +130,14 @@
                                   </tr>-->
                             </tbody>
                         </table>
-                        
-                       <div class="cupom-desconto">
+
+                        <div class="cupom-desconto">
                             <span>CUPOM DE DESCONTO</span>
                             <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código">
-                            <!--<a href="">ADICIONAR</a>
+                            <a href="#" class="verificar-cupom">ADICIONAR</a>
+                            <span class="cupom-rejeitado"></span>
                         </div><!--cupom-desconto-->
-                        
+
                         <div class="content-subtotal">
                             <div class="item-subtotal">
                                 <p>SUBTOTAL</p>
@@ -145,22 +146,39 @@
                                 <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
+                                <p>DESCONTO</p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p>R$ <span class="cupomValido">0,00</span></p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
                                 <p>ENTREGA</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <select name="tipo">
-                                    <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('tipoEntrega')}? is-invalid" data-th-field="*{tipoEntrega}"
+                                <select class ="tipoEntrega" name="tipoEntrega">
+                                    <option value="none">Selecione</option>
+                                    <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('carrinhoCompras.idTipoEntrega')}? is-invalid" data-th-field="*{carrinhoCompras.idTipoEntrega}"
                                             data-th-value="${tipo.id}"
-                                            data-th-text="${tipo.tipoEntrega}"/>
+                                            data-th-text="${tipo.tipoEntrega}"
+                                            data-th-selected="${tipo.id == carrinhoCompras.idTipoEntrega}"/>
                                 </select>
                                 <!--<a href="#">Calcular</a>-->
                             </div><!--item-subtotal-->
+
+                            <div class="item-subtotal">
+                                <p>PRAZO (DIAS)</p>
+                            </div><!--item-subtotal-->
+                            <div class="item-subtotal">
+                                <p><span class="prazoDias" data-th-text="${carrinhoCompras.prazoEntrega}">0</span> dias</p>
+                            </div><!--item-subtotal-->
+
                             <div class="item-subtotal">
                                 <p>TOTAL</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <p>R$ <span data-th-text="${carrinhoCompras.total}"></span></p>
+                                <p>R$ <span class="totalCarrinho" data-th-text="${carrinhoCompras.totalCompra}">0,00</span></p>
                             </div><!--item-subtotal-->
+
                             <input type="submit" name="send-payment" id="send-payment" value="FECHAR PEDIDO">
                         </div><!--content-subtotal-->
 
@@ -175,6 +193,8 @@
         <script type="text/javascript"
                 src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
         </script>
-        <script data-th-src="@{/js/header.js}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" data-th-src="@{/js/header.js}"></script>
+        <script type="text/javascript" data-th-src="@{/js/carrinhoCompras.js}"></script>
     </body>
 </html>

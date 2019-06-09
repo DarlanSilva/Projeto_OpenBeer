@@ -32,11 +32,9 @@ public class ControllerActive {
     @Autowired
     private TipoEntregaRepository tipoEntregaRepo;
 
-    @Autowired
-    private ClienteRepository clienteRepo;
-
     @ModelAttribute("carrinhoCompras")
     public CarrinhoCompras getItens() {
+        carrinho.setTipoEntrega(new TipoEntrega());
         return carrinho;
     }
 
@@ -45,9 +43,9 @@ public class ControllerActive {
         return carrinho.getQuantidade();
     }
 
-    @ModelAttribute("tipoEntrega")
-    public List<TipoEntrega> getTipoEntregas() {
-        return tipoEntregaRepo.findAll();
-    }
+//    @ModelAttribute("tipoEntrega")
+//    public List<TipoEntrega> getTipoEntregas() {
+//        return tipoEntregaRepo.findAll();
+//    }
 
 }
