@@ -17,7 +17,11 @@ import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.common.domain.enums.PaymentMethodGroup;
+import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
+import br.com.uol.pagseguro.api.exception.PagSeguroBadRequestException;
+import br.com.uol.pagseguro.api.exception.PagSeguroException;
+import br.com.uol.pagseguro.api.exception.PagSeguroServiceUnavailableException;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
@@ -28,25 +32,18 @@ import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Entity.Pedido;
 import br.com.wda.OpenBeerProject.Entity.PedidoItens;
 import br.com.wda.OpenBeerProject.Entity.StatusPedido;
-import br.com.wda.OpenBeerProject.Entity.TipoEntrega;
 import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
-import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
-import br.com.wda.OpenBeerProject.Repository.EnderecoRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
-import br.com.wda.OpenBeerProject.Repository.TipoEntregaRepository;
-import ch.qos.logback.core.net.server.Client;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,16 +63,7 @@ public class PagamentoController {
     private CarrinhoCompras carrinho;
 
     @Autowired
-    private ClienteRepository clienteRepo;
-
-    @Autowired
     private StatusPedidoRepository statusRepo;
-
-    @Autowired
-    private TipoEntregaRepository tipoEntregaRepo;
-
-    @Autowired
-    private EnderecoRepository enderecoRepo;
 
     @Autowired
     private PedidoRepository pedidoRepo;
@@ -90,10 +78,11 @@ public class PagamentoController {
     private final String sellerToken = "token";
     private String URL = "";
     private String code[] = new String[2];
+    public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView finalizarCompra(HttpServletResponse response, @ModelAttribute("tipoEntrega") TipoEntrega tipoEntrega) {
+    public ModelAndView finalizarCompra(HttpServletResponse response) {
         ModelAndView mv = new ModelAndView("carrinho/confirmacao");
         try {
 
@@ -103,19 +92,21 @@ public class PagamentoController {
 
             //Criando um checkout
             RegisteredCheckout registeredCheckout = pagSeguro.checkouts().register(
-                    getCheckout(tipoEntrega, getCurrentUser()));
+                    getCheckout());
 
             registeredCheckout.getRedirectURL();
             System.out.println(registeredCheckout.getRedirectURL());
             URL = registeredCheckout.getRedirectURL();
             code = URL.split("=");
 
-        } catch (Exception e) {
+        } catch (PagSeguroBadRequestException e) {
             e.printStackTrace();
+            System.out.println(e.getErrors());
+            System.out.println(e.getCause());
         }
 
         // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
-        salvarPedido(tipoEntrega);
+        salvarPedido();
         atualizarEstoque();
 
         mv.addObject("pagSeguroURL", code[1]);
@@ -148,57 +139,101 @@ public class PagamentoController {
         return mv;
     }
 
-    public SenderBuilder getSender(Cliente cliente) {
+    public SenderBuilder getSender() {
+        Cliente cliente = carrinho.getCliente();
+
+        String email = cliente.getLogin().getEmail().trim();
+        String nome = cliente.getNomeCompleto().trim();
+        String cpf = cliente.getCpf().trim();
+
+        if (cpf.contains("-")) {
+            cpf.replaceAll("-", "");
+        }
+
+        if (cpf.contains(".")) {
+            cpf.replaceAll(".", "");
+        }
+
         SenderBuilder sender = new SenderBuilder()
-                //.withEmail("wda@sandbox.pagseguro.com.br")
-                .withEmail(cliente.getLogin().getEmail())
-                .withName(cliente.getNomeCompleto())
-                .withCPF(cliente.getCpf())
-                .withPhone(getPhone(cliente));
+                .withEmail("\"" + email + "\"")
+                .withName("\"" + nome + "\"")
+                .withCPF("\"" + cpf + "\"")
+                .withPhone(getPhone());
 
         return sender;
 
     }
 
-    public PhoneBuilder getPhone(Cliente cliente) {
+    public PhoneBuilder getPhone() {
+        Cliente cliente = carrinho.getCliente();
+
+        String telefone = cliente.getTelefone().trim();
+        String dd = "";
+        String phoneClient = "";
+
+        if (telefone.contains("-")) {
+            telefone.replaceAll("-", "");
+        }
+
+        if (telefone.contains(".")) {
+            telefone.replaceAll(".", "");
+        }
+
+        if (telefone.length() > 9) {
+            phoneClient = telefone.substring(3);
+            dd = telefone.substring(1, 3);
+            System.out.println(phoneClient);
+            System.out.println(dd);
+        } else {
+            dd = "99";
+            phoneClient = telefone;
+        }
+
         PhoneBuilder phone = new PhoneBuilder()
-                .withAreaCode("99")
-                .withNumber(cliente.getTelefone());
+                .withAreaCode("\"" + dd + "\"")
+                .withNumber("\"" + phoneClient + "\"");
 
         return phone;
     }
 
-    public ShippingBuilder getShipping(TipoEntrega tipoEntrega, Integer clienteID) {
+    public ShippingBuilder getShipping() {
         ShippingBuilder shipping = new ShippingBuilder();
 
-//        if (tipoEntrega.getId() == 1) {
-//            shipping.withType(ShippingType.Type.SEDEX);
-//            shipping.withCost(new BigDecimal(15.0));
-//        } else {
-//            shipping.withType(ShippingType.Type.PAC);
-//            shipping.withCost(new BigDecimal(25.0));
-//            
-//        }
-        shipping.withCost(BigDecimal.ZERO);
+        if (carrinho.getIdTipoEntrega() == 2) {
+            shipping.withType(ShippingType.Type.SEDEX);
+            shipping.withCost(new BigDecimal(15.00));
+        } else {
+            shipping.withType(ShippingType.Type.PAC);
+            shipping.withCost(new BigDecimal(25.00));
 
-//        shipping.withAddress(getAddresss(clienteID));
+        }
+
+        shipping.withAddress(getAddresss());
 
         return shipping;
     }
 
-    public AddressBuilder getAddresss(Integer clienteID) {
-        Endereco endereco = enderecoRepo.findByClienteId(clienteID);
+    public AddressBuilder getAddresss() {
+        Endereco endereco = carrinho.getEndereco();
+        //.withState(carrinho.getEndereco().getEstado())
+
+        String cep = endereco.getCep().replaceAll("-", "");
+        String cepClient = cep.replaceAll(".", "").trim();
+        String numero = Integer.toString(endereco.getNumero()).trim();
+        String cidade = endereco.getCidade().trim();
+        String complemento = endereco.getComplemento().trim();
+        String bairro = endereco.getBairro().trim();
+        String logradouro = endereco.getLogradouro().trim();
 
         AddressBuilder address = new AddressBuilder()
-                .withPostalCode(endereco.getCep())
+                .withPostalCode("\"" + cepClient + "\"")
                 .withCountry("BRA")
-                //.withState(State.SP)
-                .withState(endereco.getEstado())
-                .withCity(endereco.getCidade())
-                .withComplement(endereco.getComplemento())
-                .withDistrict(endereco.getBairro())
-                .withNumber(Integer.toString(endereco.getNumero()))
-                .withStreet(endereco.getLogradouro());
+                .withState(State.SP)
+                .withCity("\"" + cidade + "\"")
+                .withComplement("\"" + complemento + "\"")
+                .withDistrict("\"" + bairro + "\"")
+                .withNumber("\"" + numero + "\"")
+                .withStreet("\"" + logradouro + "\"");
 
         return address;
     }
@@ -209,13 +244,25 @@ public class PagamentoController {
         response.setHeader("Connection", "close");
     }
 
-    public CheckoutRegistrationBuilder getCheckout(TipoEntrega tipoEntrega, Cliente cliente) {
+    public CheckoutRegistrationBuilder getCheckout() {
+        // CALCULANDO DESCONTO(%)
+        BigDecimal valorDesconto = carrinho.getValorDesconto();
+        BigDecimal valorTotal = carrinho.getTotal();
+        BigDecimal porcDesconto = BigDecimal.ZERO;
+
+        if (valorDesconto == null) {
+            porcDesconto = BigDecimal.ZERO;
+        } else {
+            porcDesconto = calcPorcentagem(porcDesconto, valorTotal);
+            System.out.println(porcDesconto);
+        }
+
         CheckoutRegistrationBuilder checkout = new CheckoutRegistrationBuilder()
                 .withCurrency(Currency.BRL)
                 .withExtraAmount(BigDecimal.ONE)
                 .withReference("XXXXXX")
-                .withSender(getSender(cliente))
-                .withShipping(getShipping(tipoEntrega, cliente.getId()))
+                .withSender(getSender())
+                .withShipping(getShipping())
                 //Para definir o a inclusão ou exclusão de um meio você deverá utilizar três parâmetros: o parâmetro que define a configuração do grupo,
                 // o grupo de meios de pagamento e o nome do meio de pagamento.
                 // No parâmetro que define a configuração do grupo você informará se o grupo ou o meio de pagamento será incluído ou excluído.
@@ -242,7 +289,7 @@ public class PagamentoController {
                         )
                         .withConfig(new ConfigBuilder()
                                 .withKey(ConfigKey.DISCOUNT_PERCENT)
-                                .withValue(new BigDecimal(10.00))
+                                .withValue(porcDesconto)
                         )
                 )
                 .addPaymentMethodConfig(new PaymentMethodConfigBuilder()
@@ -251,7 +298,7 @@ public class PagamentoController {
                         )
                         .withConfig(new ConfigBuilder()
                                 .withKey(ConfigKey.DISCOUNT_PERCENT)
-                                .withValue(new BigDecimal(10.00))
+                                .withValue(porcDesconto)
                         )
                 )
                 //Para definir o parcelamento você deverá utilizar três parâmetros: grupo, chave e valor.
@@ -293,29 +340,18 @@ public class PagamentoController {
         return checkout;
     }
 
-    public Cliente getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        Optional<Cliente> cliente = clienteRepo.findByUser(username);
-
-        return cliente.get();
+    public static BigDecimal calcPorcentagem(BigDecimal base, BigDecimal total) {
+        MathContext mc = new MathContext(3);
+        return base.divide(total).multiply(ONE_HUNDRED).round(mc);
     }
 
-    public void salvarPedido(TipoEntrega tipoEntrega) {
-        Cliente cliente = getCurrentUser();
+    public void salvarPedido() {
         Pedido pedido = new Pedido();
         Optional<StatusPedido> status = statusRepo.findById(new Integer(1));
 
         //SALVANDO PEDIDO
-        pedido.setCliente(cliente);
-        pedido.setTipoEntrega(tipoEntrega);
+        pedido.setCliente(carrinho.getCliente());
+        pedido.setTipoEntrega(carrinho.getTipoEntrega().get(carrinho.getIdTipoEntrega()));
         pedido.setStatus(status.get());
         pedido.setInativo(0);
         pedido.setDhInclusao(LocalDateTime.now());
@@ -355,36 +391,4 @@ public class PagamentoController {
 
         }
     }
-
-    @ModelAttribute("clienteAtribute")
-    public Cliente getCliente() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        Optional<Cliente> cliente = clienteRepo.findByUser(username);
-
-        if (cliente.isPresent() == true) {
-            return cliente.get();
-        }
-
-        return new Cliente();
-
-    }
-
-//    @ModelAttribute("enderecoAtribute")
-//    public Endereco getEndereco() {
-//        Cliente cliente = getCliente();
-//
-//        Endereco endereco = enderecoRepo.findByClienteId(cliente.getId());
-//
-//        return endereco;
-//
-//    }
-
 }

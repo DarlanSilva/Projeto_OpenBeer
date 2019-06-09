@@ -122,7 +122,7 @@ public class CarrinhoController {
         
         carrinho.setPrazoEntrega(tipoEntrega.get().getPrazoEntrega());
         carrinho.setValorEntrega(tipoEntrega.get().getValorEntrega());
-        carrinho.setTipoEntrega(tipoEntrega.get());
+        carrinho.setIdTipoEntrega(tipoEntrega.get().getId());
         tipoEntrega.get().setValorTotal(carrinho.getTotalCompra());
         
         return tipoEntrega.get();

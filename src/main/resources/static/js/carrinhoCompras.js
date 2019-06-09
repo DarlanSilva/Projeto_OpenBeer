@@ -15,10 +15,12 @@ $('.verificar-cupom').click(function (e) {
         error: onErrorValidarCupom,
         success: function(data) {
             if (data.id == null) {
-                $('span.cupom-rejeitado').text("Cupom Inválido ou expirou.") 
+                $('span.cupom-rejeitado').text("Cupom Inválido ou expirou.")
+                $('span.totalCarrinho').text("0,00")
             }else{
               $('span.cupomValido').text(data.valorCupom + ".00")
               $('span.totalCarrinho').text(data.valorTotal + ".00")
+              $('span.cupom-rejeitado').text("") 
           } 
     }});
 
@@ -31,9 +33,9 @@ $('.tipoEntrega').change((function (e) {
     var tipoEntrega = $(this).find("option:selected").val();
     console.log(tipoEntrega);
     
-    if(tipoEntrega == "none"){
-        return;
-    }
+//    if(tipoEntrega == 1){
+//        return;
+//    }
 
         var json = {
             "tipoEntrega": tipoEntrega

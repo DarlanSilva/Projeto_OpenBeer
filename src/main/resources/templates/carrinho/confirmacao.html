@@ -93,7 +93,7 @@
                             </div><!--carrinho-title-->
                             <div class="carrinho-qtd-itens">
                                 <div class="wrap-payment-confirm-button">
-                                    <h4>Total da compra: <b>R$</b><span data-th-text="${carrinhoCompras.total}"></span></h4>
+                                    <h4>Total da compra: <b>R$</b><span data-th-text="${carrinhoCompras.totalCompra}"></span></h4>
                                     <a href="#" id="button-confirm-payment">CONFIRMAR</a> 
                                 </div><!--wrap-payment-confirm-button-->
                             </div><!--carrinho-qtd-itens-->
@@ -113,24 +113,27 @@
         <!--data-th-action="@{/OpenBeer/Pagamento/Finalizar}"-->
 
         <form id="formFinalizarCompra" method="POST">
+            <input type="hidden" data-th-classappend="${#fields.hasErrors('carrinhoCompras.cliente')}? is-invalid" data-th-field="*{carrinhoCompras.cliente}">
+            <input type="hidden" data-th-classappend="${#fields.hasErrors('carrinhoCompras.endereco')}? is-invalid" data-th-field="*{carrinhoCompras.endereco}">
             <section class="order-confirmation">
                 <div class="container">
                     <div class="order-confirmation-main">
                         <div class="wrap-order-confirmation">
                             <h3>Sua informaçoes</h3>
-                            <h4>Nome: </h4><span data-th-text="${clienteAtribute.nomeCompleto}"></span><br>
+                            <h4>Nome: </h4><span data-th-text="${carrinhoCompras.cliente.nomeCompleto}"></span><br>
                             <h4>Email: </h4><span data-sec-authentication="name"></span><br>
-                            <h4>Telefone: </h4><span data-th-text="${clienteAtribute.telefone}"></span><br>
+                            <h4>Telefone: </h4><span data-th-text="${carrinhoCompras.cliente.telefone}"></span><br>
                         </div><!--wrap-order-confirmation-->
                         <div class="wrap-order-confirmation">
                             <h3>Endereço</h3>
-                            <h4>Logradouro: </h4><span data-th-text="${enderecoAtribute.logradouro}"></span><br>
-                            <h4>Número: </h4><span data-th-text="${enderecoAtribute.numero}"></span><br>
-                            <h4>CEP: </h4><span data-th-text="${enderecoAtribute.cep}"></span><br>
-                            <h4>Estado: </h4><span data-th-text="${enderecoAtribute.estado}"></span><br>
-                            <h4>Cidade: </h4><span data-th-text="${enderecoAtribute.cidade}"></span><br>
-                            <h4>Bairro: </h4><span data-th-text="${enderecoAtribute.bairro}"></span><br>   
+                            <h4>Logradouro: </h4><span data-th-text="${carrinhoCompras.endereco.logradouro}"></span><br>
+                            <h4>Número: </h4><span data-th-text="${carrinhoCompras.endereco.numero}"></span><br>
+                            <h4>CEP: </h4><span data-th-text="${carrinhoCompras.endereco.cep}"></span><br>
+                            <h4>Estado: </h4><span data-th-text="${carrinhoCompras.endereco.estado}"></span><br>
+                            <h4>Cidade: </h4><span data-th-text="${carrinhoCompras.endereco.cidade}"></span><br>
+                            <h4>Bairro: </h4><span data-th-text="${carrinhoCompras.endereco.bairro}"></span><br>   
                         </div><!--wrap-order-confirmation-->
+
 
                         <!--<div class="wrap-order-confirmation">
                             <h3>Pagamento</h3>
@@ -138,17 +141,17 @@
                             <img data-th-src="@{/img/visaicon.png}" alt="visa-icon" width="40"><br>
                             <p>Cartão utilizado: <span class="bandeira">Visa</span>
                                 <span class="card-number">2343</span></p> 
-                        </div><!--wrap-order-confirmation-->
+                        </div><!--wrap-order-confirmation
 
                         <!--<div class="wrap-order-confirmation">
                             <h3>Adicionar novo endereço</h3>
                             <div class="new-endereco-novo">
                                 <div class="icon-add">
                                     <span><a data-th-href="@{/OpenBeer/Cliente/Cadastrar-Novo-Endereco}">+</a></span>
-                                </div><!--icon-add-->
-                            </div><!--new-endereco-novo-->  
-                        </div><!--wrap-novo-endereco-->-->
-                        
+                                </div><!--icon-add
+                            </div><!--new-endereco-novo  
+                        </div><!--wrap-novo-endereco-->
+
                     </div><!--order-confirmation-main-->
                 </div><!--container-->
             </section><!--form-checkout-endereco-->
@@ -196,15 +199,15 @@
                             </div><!--subtotal-->
                             <div class="subinfo-value frete">
                                 <h4>Frete: </h4>
-                                <h3>R$ <span>10,00</span></h3>
+                                <h3>R$ <span data-th-text="${carrinhoCompras.valorEntrega}">0,00</span></h3>
                             </div><!--frete-->
                             <div class="subinfo-value desconto">
                                 <h4>Desconto: </h4>
-                                <h3>R$ <span>00,00</span></h3>
+                                <h3>R$ <span data-th-text="${carrinhoCompras.valorDesconto}">0,00</span></h3>
                             </div><!--desconto-->
                             <div class="subinfo-value total">
                                 <h4>Total: </h4>
-                                <h2>R$ <span data-th-text="${carrinhoCompras.total}"></span></h2>
+                                <h2>R$ <span data-th-text="${carrinhoCompras.totalCompra}"></span></h2>
                             </div><!--total-->
                             <input type="hidden" id="pagSeguroURL" data-th-value="*{pagSeguroURL}">
                             <input type="submit" id="button-confirm-payment" value="FINALIZAR COMPRA">
@@ -221,8 +224,9 @@
         <script type="text/javascript"
                 src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
         </script>
-        <script data-th-src="@{/js/finalizar-compra.js}"></script>
-        <script data-th-src="@{/js/pagSeguro.js}"></script>
+        <script type="text/javascript" data-th-src="@{/js/finalizar-compra.js}"></script>
+        <script type="text/javascript" data-th-src="@{/js/pagSeguro.js}"></script>
+        <script type="text/javascript" data-th-src="@{/js/header.js}"></script>
 
     </body>
 </html>

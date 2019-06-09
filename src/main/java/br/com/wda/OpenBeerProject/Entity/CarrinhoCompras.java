@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -26,10 +27,11 @@ public class CarrinhoCompras implements Serializable {
     private BigDecimal valorEntrega;
     private BigDecimal valorDesconto;
     private int prazoEntrega;
+    private Integer idTipoEntrega;
 
     private Cliente cliente;
     private Endereco endereco;
-    private TipoEntrega tipoEntrega;
+    private List<TipoEntrega> tipoEntrega;
 
     public Collection<CarrinhoItem> getItens() {
         return itens.keySet();
@@ -87,10 +89,6 @@ public class CarrinhoCompras implements Serializable {
         return totalCompra;
 
     }
-    
-    public Integer getIdTipoEntrega(){
-        return tipoEntrega.getId();
-    }
 
     public BigDecimal getValorEntrega() {
         return valorEntrega;
@@ -132,14 +130,21 @@ public class CarrinhoCompras implements Serializable {
         this.endereco = endereco;
     }
 
-    public TipoEntrega getTipoEntrega() {
+    public List<TipoEntrega> getTipoEntrega() {
         return tipoEntrega;
     }
 
-    public void setTipoEntrega(TipoEntrega tipoEntrega) {
+    public void setTipoEntrega(List<TipoEntrega> tipoEntrega) {
         this.tipoEntrega = tipoEntrega;
     }
-    
+
+    public Integer getIdTipoEntrega() {
+        return idTipoEntrega;
+    }
+
+    public void setIdTipoEntrega(Integer idTipoEntrega) {
+        this.idTipoEntrega = idTipoEntrega;
+    }  
     
 
 }

@@ -156,7 +156,6 @@
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
                                 <select class ="tipoEntrega" name="tipoEntrega">
-                                    <option value="none">Selecione</option>
                                     <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('carrinhoCompras.idTipoEntrega')}? is-invalid" data-th-field="*{carrinhoCompras.idTipoEntrega}"
                                             data-th-value="${tipo.id}"
                                             data-th-text="${tipo.tipoEntrega}"

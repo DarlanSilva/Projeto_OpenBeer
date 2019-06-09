@@ -19,7 +19,7 @@ INSERT INTO TS_LOGIN_PERMISSAOACESSO(LOGIN_PK_ID,	PERMISSAO_ACESSO_PK_ID)
 VALUES(1,2);
 
 INSERT INTO TB_CLIENTE(CPF, NOME, DT_NASCIMENTO, TG_SEXO, TELEFONE, FK_LOGIN, TG_INATIVO, DH_INCLUSAO)
-VALUES('123456789', 'DARLAN ROCHA', 1996-01-06, 'M','95555-7777',1,0,NOW());
+VALUES('52923880099', 'DARLAN ROCHA', 1996-01-06, 'M','95555-7777',1,0,NOW());
 
 INSERT INTO TB_TIPOCERVEJA (TIPOCERVEJA, TG_INATIVO, DH_INCLUSAO)
 VALUES ('ARTESANAL',0,NOW());
@@ -68,3 +68,16 @@ INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_
 INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_alteracao`,`dh_inclusao`,`imagemcerveja`,`tg_inativo`,`marca`,`ml`,`cerveja`,`quantidade`,`teor`,`vl_total`,`fk_tipocerveja`) VALUES ('Combina com ocasiões especiais','556247','Essa Premium American Lager combina com ocasiões especiais. Uma cerveja feita com três tipos especiais de malte, equilibrada entre o amargor e o adocicado, nascida para comemorar a reabertura da Cervejaria Bohemia, em 2012.\r\n\r\nINGREDIENTES: Água, malte e lúpulo.\r\nALERGÊNICOS: Contém cevada e glúten.','1',NULL,'2019-06-07 14:55:15','bohemia-imperial_550ml.png',0,'OpenBeer','1000','Imperial',100,5,50.00,1);
 INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_alteracao`,`dh_inclusao`,`imagemcerveja`,`tg_inativo`,`marca`,`ml`,`cerveja`,`quantidade`,`teor`,`vl_total`,`fk_tipocerveja`) VALUES ('A Bohemia Escura conta com maltes raros.','55624','A Bohemia Escura conta com maltes raros bem torrados que são importados de Munique, na Alemanha. O resultado é uma bebida de cor única, encorpada e extremamente cremosa. Com sabor suave, a Bohemia Escura tem aroma com notas de toffe e espuma de consistência aveludada.\r\n\r\nINGREDIENTES: Água, malte, milho, lúpulo e corante caramelo III INS 150c.\r\nALERGÊNICOS: Contém cevada e glúten.','0',NULL,'2019-06-07 14:56:31','bohemia-escura_350ml.png',0,'OpenBeer','350','Bohemia Escura',0,5,10.00,2);
 INSERT INTO TB_CERVEJA (`brevedescricao`,`codigo`,`descricao`,`tg_destaque`,`dh_alteracao`,`dh_inclusao`,`imagemcerveja`,`tg_inativo`,`marca`,`ml`,`cerveja`,`quantidade`,`teor`,`vl_total`,`fk_tipocerveja`) VALUES ('Resultado da união da tradicional receita belga.','88662','A Wäls Witte é resultado da união da tradicional receita belga das cervejas de trigo com especiarias diversas, que criam um sabor suave com fundo amargo. Seu aroma é picante, lembrando pimenta jamaicana e sua refrescância é ideal para os dias mais quentes. É uma cerveja medalha de ouro no Bière Beer e prata no Festival Brasileiro da Cerveja.\r\n\r\nINGREDIENTES: Água, malte, trigo, aveia, lúpulo, leveduras.\r\nALERGÊNICOS: Contém cevada, trigo e glúten.','0',NULL,'2019-06-07 14:58:46','wals_belgian-witte_600ml.png',0,'OpenBeer','600','Wäls Belgian Witte',0,5,26.00,2);
+
+INSERT INTO TS_LOGIN(EMAIL, SENHA, TG_INATIVO, DH_INCLUSAO)
+VALUES('cliente@sandbox.pagseguro.com.br','$2a$10$zQ.u0Ca8pqnWGorUtNLLU.KvgTvrYW77OWpNeru/ArNp22T/rZEnS',0,NOW());
+
+INSERT INTO TB_CLIENTE(CPF, NOME, DT_NASCIMENTO, TG_SEXO, TELEFONE, FK_LOGIN, TG_INATIVO, DH_INCLUSAO)
+VALUES('39912182081', 'Cliente Teste', 1996-01-06, 'M','1195555-7777',2,0,NOW());
+
+INSERT INTO TB_ENDERECO(BAIRRO, CEP, CIDADE, COMPLEMENTO, ESTADO, LOGRADOURO, NUMERO, FK_CLIENTE, DH_INCLUSAO, TG_INATIVO)
+VALUES("Jardim Internet", "99999999", "Cidade Exemplo", "99o andar", "SP", "Av. Senac", "9999", 2, NOW(), 0);
+
+INSERT INTO TS_LOGIN_PERMISSAOACESSO(LOGIN_PK_ID, PERMISSAO_ACESSO_PK_ID)
+VALUES(2, 1);
+

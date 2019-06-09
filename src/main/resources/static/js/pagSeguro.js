@@ -16,7 +16,7 @@ function pagSeguro() {
         },
         abort: function () {
             //Insira os comandos para quando o usuário abandonar a tela de pagamento.
-            window.location.href = "http://localhost:8080/OpenBeer/Pagamento/FinalizarCompra";
+            window.location.href = "http://localhost:8080/OpenBeer/cerveja/Lista-de-Cervejas";
             console.log("abortado");
         }
     };

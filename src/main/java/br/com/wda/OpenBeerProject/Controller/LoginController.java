@@ -5,19 +5,25 @@
  */
 package br.com.wda.OpenBeerProject.Controller;
 
+import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.Cliente;
+import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Entity.Login;
 import br.com.wda.OpenBeerProject.Entity.Permissao;
 import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
+import br.com.wda.OpenBeerProject.Repository.EnderecoRepository;
 import br.com.wda.OpenBeerProject.Repository.LoginRepository;
 import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -50,10 +56,51 @@ public class LoginController {
 
     @Autowired
     private ClienteRepository clienteRepo;
+
+    @Autowired
+    private CarrinhoCompras carrinho;
     
+    @Autowired
+    private EnderecoRepository enderecoRepo;
+
     @PostMapping("/login")
-    public ModelAndView loginForm(){
+    public ModelAndView loginForm() {
         return new ModelAndView("cliente/login-cadastro").addObject("login", new Login());
+    }
+
+    @GetMapping("/Sucess")
+    public ModelAndView loginSucesso(HttpSession session) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        Optional<Cliente> cliente = clienteRepo.findByUser(username);
+        
+        // GUARDA O CLIENTE LOGADO NA SESSÃO
+        if (cliente.isPresent()== true){
+            Optional<Login> login = loginRepository.findByClienteID(cliente.get().getId());
+            
+            if(login.isPresent() == true){
+                cliente.get().setLogin(login.get());
+            }
+            
+            carrinho.setCliente(cliente.get());
+            
+            Optional<Endereco> endereco = enderecoRepo.findByClienteId(cliente.get().getId());
+            
+            if (endereco.isPresent() == true){
+                carrinho.setEndereco(endereco.get());
+            }
+            session.setAttribute("carrinhoCompras", carrinho);
+        } 
+        
+        return new ModelAndView("redirect:/OpenBeer/Home");
     }
 
     @GetMapping("/lista-de-login")
@@ -84,11 +131,11 @@ public class LoginController {
         if (verificarLogin.isPresent() == true) {
 
             Optional<Cliente> verificarCliente = clienteRepo.findByLogin(verificarLogin.get().getId());
-            
+
             // CASO O EMAIL INFORMADO JA POSSUA UM CLIENTE VINVULADO A ELE REDIRECIONA DO USUARIO PARA TELA DE LOGIN COM MENSAGEM
             if (verificarCliente.isPresent() == true) {
                 ModelAndView mv = new ModelAndView("cliente/login-cadastro");
-                
+
                 redirectAttributes.addFlashAttribute("mensagem", "O email já esta em uso.");
 
                 return mv;
@@ -114,12 +161,12 @@ public class LoginController {
         }
         // OBJETO INSTANCIADO PARA RECEBER O LOGIN SALVO JÁ COM O ID DO BANCO
         Login loginSalvo = new Login();
-        
+
         // SALVA LOGIN NO BANCO
         loginSalvo = loginRepository.save(login);
-        
+
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Login " + login.getEmail() + "criado com sucesso");
-        
+
         // REDIRECIONA O USUÁRIO PARA CADASTRAR OS DADOS PESSOAIS
         ModelAndView mvDadosPessoais = new ModelAndView("cliente/dados-pessoais");
         Cliente cliente = new Cliente();
