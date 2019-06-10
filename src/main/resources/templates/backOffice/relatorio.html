@@ -1,147 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Open Beer</title>
-    <link rel="stylesheet" href="css/meus-pedidos.css">
-    <link rel="stylesheet" href="css/header-footer.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Beer</title>
+        <link rel="stylesheet" data-th-href="@{/css/meus-pedidos.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
-    <!--FONT AWESOME-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-</head>
+    </head>
 
-<body>
-    <header>
-        <div class="top-header">
-            <div class="container">
-                <div class="wrap-top-header">
-                    <a class="cad-login" href="#">Login / Cadastro</a>
-                    <a class="area-cliente" href="#">Área do Cliente</a>
+    <body>
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <span data-sec-authorize="isAuthenticated()">
+                            <a class="cad-login" href="#">Usuário:  <span data-sec-authentication="name"></span></a>
+                        </span>
+                        <span sec:authorize="isAnonymous()">
+                            <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        </span>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <span data-sec-authorize="isAuthenticated()">
+                        <div class="content-area-cliente">
+                            <div class="wrap-content-area">
+                                <ul>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                    <li><a data-th-href="@{/logout}">Sair</a></li>
+                                </ul>
+                            </div><!--wrap-content-area-->
+                        </div><!--content-area-cliente-->
+                    </span>
+                </div><!--container-->
+            </div><!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">ESTOQUE</a></li>
+                            </span>
+                            <li><a data-th-href="@{/OpenBeer/BackOffice/Relatorio-Pedidos}">RELÁTORIO DE PEDIDOS</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">ESTOQUE</a></li>
+                            </span>
+                            <li><a data-th-href="@{/OpenBeer/BackOffice/Relatorio-Pedidos}">RELÁTORIO DE PEDIDOS</a></li>
+                        </ul><!--menu-mobile-->
+                    </nav>
+                    <!--nav-interna-->
                 </div>
-                <!--wrap-top-header-->
-                <div class="content-area-cliente">
-                    <div class="wrap-content-area">
-                        <ul>
-                            <li><a href="meus-pedidos.html">Meus pedidos</a></li>
-                            <li><a href="#">Editar cadastro</a></li>
-                            <li><a href="#">Sair</a></li>
-
+                <!--container-->
+            </div>
+            <!--menu-internas-->
+        </header>
+        <section class="meus-pedidos">
+            <div class="container">
+                <h1>RELATÓRIOS</h1>
+                <div class="title-relatorio">
+                    <h3></h3>
+                    <h3>Código</h3>
+                    <h3>Nome</h3>
+                    <h3>Data</h3>
+                    <h3>Valor</h3>
+                    <h3>Status</h3>
+                </div><!--title-relatorio-->
+                <div class="filtro-relatorio">
+                    <form action="">
+                        De: <input type="date" name="date-de" id="date-de">
+                        Até: <input type="date" name="date-ate" id="date-ate">
+                        <input type="submit" name="filtrar" value="Filtrar">
+                    </form>
+                </div><!--filtro-relatorio-->
+                <div class="content-meus-pedidos" data-th-each="pedido : ${pedido}">
+                    <div class="wrap-meus-pedidos">
+                        <span class="dot-status pago" data-th-if="${pedido.dhEntregue != null}"></span>
+                        <span class="dot-status nao-pago" data-th-if="${pedido.dhEntregue == null}"></span>
+                        <!--dot-status-->
+                        <span class="pedido" data-th-text="${pedido.id}"></span>
+                        <span class="pedido" data-th-text="${pedido.cliente.nomeCompleto}"></span>
+                        <div class="date-pedido">
+                            <span class="month">Dt.Pedido</span>
+                            <span class="day" data-th-text="${#temporals.format(pedido.dhPedidoFechado, 'dd-MM-yyyy')}"></span>
+                        </div>
+                        <span class="valor-total pago-text" data-th-text="${pedido.valorPedido}"></span>
+                        <select name="status" id="status">
+                            <option data-th-each="status : ${statusPedido}"
+                                    data-th-value="${status.id}"
+                                    data-th-text="${status.status}"
+                                    data-th-selected="${status.id == pedido.status.id}"/>
+                        </select>
+                    </div>
+                    <div class="content-single-prod">
+                        <ul class="single-meus-produtos" data-th-each="itens : ${itens}" data-th-if="${itens.pedido.id == pedido.id }">
+                            <li><img data-th-src="@{/product-picture/{imagem}(imagem=${itens.cerveja.imagem})}" alt="" width="50"></li>
+                            <li data-th-text="${itens.cerveja.nome}"></li>
+                            <li data-th-text="${itens.vlUnitario}"></li>
+                            <li data-th-text="${itens.quantidade}"></li>
+                            <li data-th-text="${itens.vlTotal}"></li>
                         </ul>
                     </div>
-                    <!--wrap-content-area-->
-                </div>
-                <!--content-area-cliente-->
-            </div>
-            <!--container-->
-        </div>
-        <!--top-header-->
-        <div class="menu-internas">
-            <div class="container">
-                <nav class="nav-interna">
-                    <div class="name-logo">
-                        <h1>OPENBEER.</h1>
-                    </div>
-                    <ul class="menu-desk">
-                        <li><a href="index.html">HOME</a></li>
-                        <li><a href="sobre.html">SOBRE</a></li>
-                        <li><a href="cervejas.html">CERVEJAS</a></li>
-                        <li><a href="contato.html">CONTATO</a></li>
-                        <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
-                    </ul>
-                    <!--menu-desk-->
-                    <ul class="menu-mobile">
-                        <li><a href="index.html">HOME</a></li>
-                        <li><a href="sobre.html">SOBRE</a></li>
-                        <li><a href="cervejas.html">CERVEJAS</a></li>
-                        <li><a href="contato.html">CONTATO</a></li>
-                        <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
-                    </ul>
-                    <!--menu-mobile-->
-                    <div class="carrinho-icon">
-                        <i class="fas fa-bars"></i>
-                        <div class="wrap-carrinho-icon">
-                            <img src="img/icon-carrinho.png" alt="Carrinho Icon" width="50">
-                            <div class="circle-car">
-                                <span>3</span>
-                            </div>
-                            <!--circle-car-->
-                        </div>
-                        <!--wrap-carrinho-icon-->
-                    </div>
-                    <!--carrinho-icon-->
-                </nav>
-                <!--nav-interna-->
-            </div>
-            <!--container-->
-        </div>
-        <!--menu-internas-->
-    </header>
-    <section class="meus-pedidos">
-        <div class="container">
-            <h1>RELATÓRIOS</h1>
-            <div class="title-relatorio">
-                <h3></h3>
-                <h3>Código</h3>
-                <h3>Nome</h3>
-                <h3>Data</h3>
-                <h3>Valor</h3>
-                <h3>Status</h3>
-            </div><!--title-relatorio-->
-            <div class="content-meus-pedidos">
-                <div class="wrap-meus-pedidos">
-                    <span class="dot-status pago"></span><!--DOT-STATUS-->
-                    <span class="pedido">H12G3F</span>
-                    <span class="pedido">Nome</span>
-                    <div class="date-pedido">
-                        <span class="month">02</span>
-                        <span class="day">23</span>
-                    </div>
-                    <span class="valor-total pago-text">R$354,00</span>
-                    <select name="status" id="status">
-                        <option value="">Em análise</option>
-                        <option value="">Aprovado</option>
-                        <option value="">Em transporte</option>
-                        <option value="">Recebido pelo cliente</option>
-                        <option value="">Recusado</option>
-                    </select>
-                </div>
-                <div class="content-single-prod">
-                    <ul class="single-meus-produtos">
-                        <li><img src="img/beer-artesanal.png" alt="" width="50"></li>
-                        <li>CERVEJA ARTESANAL</li>
-                        <li>VALOR UNITÁRIO</li>
-                        <li>QTD</li>
-                        <li>VALOR TOTAL</li>
-                    </ul>
-                    <!--single-meus-produtos-->
-                    <ul class="single-meus-produtos">
-                        <li><img src="img/beer-artesanal.png" alt="" width="50"></li>
-                        <li>CERVEJA ARTESANAL</li>
-                        <li>VALOR UNITÁRIO</li>
-                        <li>QTD</li>
-                        <li>VALOR TOTAL</li>
-                    </ul>
-                    <!--single-meus-produtos-->
-                    <ul class="single-meus-produtos">
-                        <li><img src="img/beer-artesanal.png" alt="" width="50"></li>
-                        <li>CERVEJA ARTESANAL</li>
-                        <li>VALOR UNITÁRIO</li>
-                        <li>QTD</li>
-                        <li>VALOR TOTAL</li>
-                    </ul>
-                    <!--single-meus-produtos-->
-                    <ul class="single-meus-produtos">
-                        <li><img src="img/beer-artesanal.png" alt="" width="50"></li>
-                        <li>CERVEJA ARTESANAL</li>
-                        <li>VALOR UNITÁRIO</li>
-                        <li>QTD</li>
-                        <li>VALOR TOTAL</li>
-                    </ul>
                     <!--single-meus-produtos-->
                 </div>
                 <!--content-single-prod-->
@@ -152,11 +126,11 @@
     </section>
     <!--meus-pedidos-->
     <footer>
-        <p>Desenvolvido por Opeen Beer</p>
+        <p>Desenvolvido por WDA</p>
         <p>Todos os direitos reservados - 2019</p>
     </footer>
-    <script src="js/meus-pedidos.js"></script>
-    <script src="js/header.js"></script>
+    <script data-th-src="@{/js/meus-pedidos.js}"></script>
+    <script data-th-src="@{/js/header.js}"></script>
 </body>
 
 </html>

@@ -1,34 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
     <head>
         <meta charset="UTF-8">
         <title>Open Beer</title>
+        <link rel="stylesheet" data-th-href="@{/css/meus-pedidos.css}">
+        <link rel="stylesheet" data-th-href="@{/css/header-footer.css}">
         <link rel="stylesheet" data-th-href="@{/css/template.css}">
         <link rel="stylesheet" data-th-href="@{/css/carrinho.css}">
         <link rel="stylesheet" data-th-href="@{/css/footer.css}">
         <link rel="stylesheet" data-th-href="@{/css/mensagens.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
+
+        <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     </head>
-
     <body>
-        <header class="menu-internas">
-            <div class="container">
-                <nav class="nav-interna">
-                    <div class="name-logo">
-                        <h1>OPENBEER.</h1>
-                    </div>
-                    <ul>
-                        <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
-                        <li><a data-th-href="@{/OpenBeer/Home#sobre}">SOBRE</a></li>
-                        <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
-                        <li><a data-th-href="@{/OpenBeer/Home#contato}">CONTATO</a></li>
-                        <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">BACKOFFICE</a></li>
-                    </ul>
-                <!--nav-interna-->
+        <header>
+            <div class="top-header">
+                <div class="container">   
+                    <div class="wrap-top-header">
+                        <span data-sec-authorize="isAuthenticated()">
+                            <a class="cad-login" href="#">Usuário:  <span data-sec-authentication="name"></span></a>
+                        </span>
+                        <span sec:authorize="isAnonymous()">
+                            <a class="cad-login" data-th-href="@{/OpenBeer/Cliente/Cadastro-Login}">Login / Cadastro</a>
+                        </span>
+                        <a class="area-cliente" href="#">Área do Cliente</a>
+                    </div><!--wrap-top-header-->
+                    <span data-sec-authorize="isAuthenticated()">
+                        <div class="content-area-cliente">
+                            <div class="wrap-content-area">
+                                <ul>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/MeusPedidos}">Meus pedidos</a></li>
+                                    <li><a data-th-href="@{/OpenBeer/Cliente/EditarCadastro}">Editar cadastro</a></li>
+                                    <li><a data-th-href="@{/logout}">Sair</a></li>
+                                </ul>
+                            </div><!--wrap-content-area-->
+                        </div><!--content-area-cliente-->
+                    </span>
+                </div><!--container-->
+            </div><!--top-header-->
+            <div class="menu-internas">
+                <div class="container">
+                    <nav class="nav-interna">
+                        <div class="name-logo">
+                            <h1>OPENBEER.</h1>
+                        </div>
+                        <ul class="menu-desk">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">ESTOQUE</a></li>
+                            </span>
+                            <li><a data-th-href="@{/OpenBeer/BackOffice/Relatorio-Pedidos}">RELÁTORIO DE PEDIDOS</a></li>
+                        </ul><!--menu-desk-->
+                        <ul class="menu-mobile">
+                            <li><a data-th-href="@{/OpenBeer/Home}">HOME</a></li>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">CERVEJAS</a></li>
+                            <span data-sec-authorize="hasRole('ROLE_ADMIN')">
+                                <li><a data-th-href="@{/OpenBeer/BackOffice/Consultar-Produtos}">ESTOQUE</a></li>
+                            </span>
+                            <li><a data-th-href="@{/OpenBeer/BackOffice/Relatorio-Pedidos}">RELÁTORIO DE PEDIDOS</a></li>
+                        </ul><!--menu-mobile-->
+                    </nav>
+                    <!--nav-interna-->
+                </div>
+                <!--container-->
             </div>
+            <!--menu-internas-->
         </header>
         <main layout:fragment="conteudo">
         </main>
@@ -36,6 +81,7 @@
             <p>Desenvolvido por WDA</p>
             <p>Todos os direitos reservados - 2019</p>
         </footer>
+        <script data-th-src="@{/js/meus-pedidos.js}"></script>
         <script data-th-src="@{/js/header.js}"></script>
     </body>
 </html>

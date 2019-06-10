@@ -5,6 +5,7 @@ import br.com.wda.OpenBeerProject.Entity.TipoEntrega;
 import br.com.wda.OpenBeerProject.Repository.TipoEntregaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -27,11 +28,12 @@ public class ControllerActive {
     private TipoEntregaRepository tipoEntregaRepo;
 
     @ModelAttribute("carrinhoCompras")
+    @Cacheable(value = "tipos-de-cerveja")
     public CarrinhoCompras getItens() {
         List<TipoEntrega> tipoEntrega = tipoEntregaRepo.findAll();
-        carrinho.setIdTipoEntrega(1);
-        carrinho.setPrazoEntrega(tipoEntrega.get(0).getPrazoEntrega());
-        carrinho.setValorEntrega(tipoEntrega.get(0).getValorEntrega());
+//        carrinho.setIdTipoEntrega(1);
+//        carrinho.setPrazoEntrega(tipoEntrega.get(0).getPrazoEntrega());
+//        carrinho.setValorEntrega(tipoEntrega.get(0).getValorEntrega());
         carrinho.setTipoEntrega(tipoEntrega);
         return carrinho;
     }
@@ -45,5 +47,4 @@ public class ControllerActive {
 //    public List<TipoEntrega> getTipoEntregas() {
 //        return tipoEntregaRepo.findAll();
 //    }
-
 }

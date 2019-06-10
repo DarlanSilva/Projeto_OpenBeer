@@ -92,6 +92,7 @@ public class Cerveja implements Serializable {
     @JoinColumn(name="FK_TIPOCERVEJA")
     private TipoCerveja tipoCerveja;
     
+    @NotBlank(message = "CAMPO DA IMAGEM OBRIGATÓRIO")
     @Column(name = "IMAGEMCERVEJA")
     private String imagem;
     

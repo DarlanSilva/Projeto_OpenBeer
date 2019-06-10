@@ -39,6 +39,8 @@ import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,11 +76,10 @@ public class PagamentoController {
     @Autowired
     private CervejaRepository estoqueRepo;
 
-    private final String sellerEmail = "email";
-    private final String sellerToken = "token";
+    private final String sellerEmail = "your_email";
+    private final String sellerToken = "your_token";
     private String URL = "";
     private String code[] = new String[2];
-    public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
@@ -105,10 +106,6 @@ public class PagamentoController {
             System.out.println(e.getCause());
         }
 
-        // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
-        salvarPedido();
-        atualizarEstoque();
-
         mv.addObject("pagSeguroURL", code[1]);
         return mv;
 
@@ -132,6 +129,17 @@ public class PagamentoController {
     @GetMapping("/PedidoSucesso")
     public ModelAndView pedidoSucesso() {
         ModelAndView mv = new ModelAndView("cliente/meus-pedidos");
+
+        // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
+        salvarPedido();
+        atualizarEstoque();
+        
+        List<Pedido> pedido = pedidoRepo.findAllByClienteID(carrinho.getCliente().getId());
+        List<PedidoItens> itens = pedidoItensRepo.findAllByClienteID(carrinho.getCliente().getId());
+        
+        mv.addObject("pedido", pedido);
+        mv.addObject("itens", itens);
+
         carrinho.getItens().clear();
 
         mv.addObject("quantidadeCarrinho", carrinho.getQuantidade());
@@ -145,19 +153,23 @@ public class PagamentoController {
         String email = cliente.getLogin().getEmail().trim();
         String nome = cliente.getNomeCompleto().trim();
         String cpf = cliente.getCpf().trim();
+        String cpfClient = "";
 
         if (cpf.contains("-")) {
-            cpf.replaceAll("-", "");
+            cpfClient = cpf.replaceAll("-", "");
         }
 
-        if (cpf.contains(".")) {
-            cpf.replaceAll(".", "");
+        if (cpfClient.contains(".")) {
+            cpfClient = cpfClient.replaceAll(".", "");
+        }
+        if (cpfClient.isEmpty()) {
+            cpfClient = cpf;
         }
 
         SenderBuilder sender = new SenderBuilder()
                 .withEmail("\"" + email + "\"")
                 .withName("\"" + nome + "\"")
-                .withCPF("\"" + cpf + "\"")
+                .withCPF("\"" + cpfClient + "\"")
                 .withPhone(getPhone());
 
         return sender;
@@ -168,25 +180,26 @@ public class PagamentoController {
         Cliente cliente = carrinho.getCliente();
 
         String telefone = cliente.getTelefone().trim();
+        String tel = "";
         String dd = "";
         String phoneClient = "";
 
         if (telefone.contains("-")) {
-            telefone.replaceAll("-", "");
+            tel = telefone.replaceAll("-", "");
         }
 
-        if (telefone.contains(".")) {
-            telefone.replaceAll(".", "");
+        if (tel.contains(".")) {
+            tel = tel.replaceAll(".", "");
         }
 
-        if (telefone.length() > 9) {
-            phoneClient = telefone.substring(3);
-            dd = telefone.substring(1, 3);
+        if (tel.length() > 9) {
+            phoneClient = tel.substring(2);
+            dd = tel.substring(0, 2);
             System.out.println(phoneClient);
             System.out.println(dd);
         } else {
             dd = "99";
-            phoneClient = telefone;
+            phoneClient = tel;
         }
 
         PhoneBuilder phone = new PhoneBuilder()
@@ -199,7 +212,7 @@ public class PagamentoController {
     public ShippingBuilder getShipping() {
         ShippingBuilder shipping = new ShippingBuilder();
 
-        if (carrinho.getIdTipoEntrega() == 2) {
+        if (carrinho.getIdTipoEntrega() == 1) {
             shipping.withType(ShippingType.Type.SEDEX);
             shipping.withCost(new BigDecimal(15.00));
         } else {
@@ -217,13 +230,24 @@ public class PagamentoController {
         Endereco endereco = carrinho.getEndereco();
         //.withState(carrinho.getEndereco().getEstado())
 
-        String cep = endereco.getCep().replaceAll("-", "");
-        String cepClient = cep.replaceAll(".", "").trim();
+        String cep = endereco.getCep().trim();
+        String cepClient = cep.replaceAll(".", "");
         String numero = Integer.toString(endereco.getNumero()).trim();
         String cidade = endereco.getCidade().trim();
         String complemento = endereco.getComplemento().trim();
         String bairro = endereco.getBairro().trim();
         String logradouro = endereco.getLogradouro().trim();
+
+        if (cep.contains("-")) {
+            cepClient = cep.replaceAll("-", "");
+        }
+
+        if (cepClient.contains(".")) {
+            cepClient = cepClient.replaceAll(".", "");
+        }
+        if (cepClient.isEmpty()) {
+            cepClient = cep;
+        }
 
         AddressBuilder address = new AddressBuilder()
                 .withPostalCode("\"" + cepClient + "\"")
@@ -246,14 +270,14 @@ public class PagamentoController {
 
     public CheckoutRegistrationBuilder getCheckout() {
         // CALCULANDO DESCONTO(%)
-        BigDecimal valorDesconto = carrinho.getValorDesconto();
-        BigDecimal valorTotal = carrinho.getTotal();
+        double valorDesconto = carrinho.getValorDesconto().doubleValue();
+        double valorTotal = carrinho.getTotal().doubleValue();
         BigDecimal porcDesconto = BigDecimal.ZERO;
 
-        if (valorDesconto == null) {
+        if (valorDesconto == 0) {
             porcDesconto = BigDecimal.ZERO;
         } else {
-            porcDesconto = calcPorcentagem(porcDesconto, valorTotal);
+            porcDesconto = calcPorcentagem(valorDesconto, valorTotal);
             System.out.println(porcDesconto);
         }
 
@@ -340,9 +364,10 @@ public class PagamentoController {
         return checkout;
     }
 
-    public static BigDecimal calcPorcentagem(BigDecimal base, BigDecimal total) {
-        MathContext mc = new MathContext(3);
-        return base.divide(total).multiply(ONE_HUNDRED).round(mc);
+    public static BigDecimal calcPorcentagem(double base, double total) {
+        double result = Math.round((base / total) * 100);
+        BigDecimal porcentagem = BigDecimal.valueOf(result);
+        return porcentagem;
     }
 
     public void salvarPedido() {
@@ -351,12 +376,13 @@ public class PagamentoController {
 
         //SALVANDO PEDIDO
         pedido.setCliente(carrinho.getCliente());
-        pedido.setTipoEntrega(carrinho.getTipoEntrega().get(carrinho.getIdTipoEntrega()));
+        pedido.setTipoEntrega(carrinho.getTipoEntrega().get(carrinho.getIdTipoEntrega() - 1));
         pedido.setStatus(status.get());
         pedido.setInativo(0);
         pedido.setDhInclusao(LocalDateTime.now());
+        pedido.setDhPrevisaoEntrega(LocalDateTime.now().plusDays(carrinho.getPrazoEntrega()));
         pedido.setDhPedidoFechado(LocalDateTime.now());
-        pedido.setValorPedido(carrinho.getTotal());
+        pedido.setValorPedido(carrinho.getTotalCompra());
 
         Pedido pedidoSalvo = new Pedido();
         pedidoSalvo = pedidoRepo.save(pedido);
@@ -367,6 +393,7 @@ public class PagamentoController {
 
             itens.setPedido(pedidoSalvo);
             itens.setCerveja(item.getCerveja());
+            itens.setVlUnitario(item.getCerveja().getValorCerveja());
             itens.setQuantidade(carrinho.getQuantidade(item));
             itens.setVlTotal(item.getTotal(carrinho.getQuantidade(item)));
             itens.setDhInclusao(LocalDateTime.now());

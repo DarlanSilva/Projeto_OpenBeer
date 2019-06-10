@@ -1,16 +1,23 @@
 package br.com.wda.OpenBeerProject.Controller;
 
+import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.Cliente;
 import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Entity.Login;
+import br.com.wda.OpenBeerProject.Entity.Pedido;
+import br.com.wda.OpenBeerProject.Entity.PedidoItens;
 import br.com.wda.OpenBeerProject.Entity.Permissao;
 import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
+import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
+import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,10 +36,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping("/OpenBeer/Cliente")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class ClienteController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepo;
+
+    @Autowired
+    private PedidoItensRepository pedidoItensRepo;
+
+    @Autowired
+    private CarrinhoCompras carrinho;
 
     @GetMapping("/Cadastro-Login")
     public ModelAndView cadatroLogin() {
@@ -49,8 +67,17 @@ public class ClienteController {
 //        return mv;
 //    }
     @GetMapping("/MeusPedidos")
+    @Cacheable(value = "meus-pedidos")
     public ModelAndView meusPedidos() {
         ModelAndView mv = new ModelAndView("cliente/meus-pedidos");
+
+        if (carrinho.getCliente().getId() != 0 || carrinho.getCliente().getId() != null) {
+            List<Pedido> pedido = pedidoRepo.findAllByClienteID(carrinho.getCliente().getId());
+            List<PedidoItens> itens = pedidoItensRepo.findAllByClienteID(carrinho.getCliente().getId());
+
+            mv.addObject("pedido", pedido);
+            mv.addObject("itens", itens);
+        }
 
         return mv;
     }

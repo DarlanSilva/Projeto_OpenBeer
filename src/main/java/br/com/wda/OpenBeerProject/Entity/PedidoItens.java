@@ -34,8 +34,6 @@ public class PedidoItens implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "FK_PEDIDO")
-//    private Integer pedido;
     @ManyToOne
     @JoinColumn(name = "FK_PEDIDO")
     private Pedido pedido;
@@ -44,9 +42,6 @@ public class PedidoItens implements Serializable {
     @JoinColumn(name = "FK_CERVEJA")
     private Cerveja cerveja;
 
-//    @Column(name = "FK_CERVEJA")
-//    private Integer cerveja;
-//    
     @Column(name = "QUANTIDADE")
     private int quantidade;
 
@@ -54,18 +49,23 @@ public class PedidoItens implements Serializable {
     @Column(name = "VL_TOTAL")
     private BigDecimal vlTotal;
 
+    @Digits(integer = 13, fraction = 2)
+    @Column(name = "VL_UNITARIO")
+    private BigDecimal vlUnitario;
+
     @Column(name = "DH_INCLUSAO", nullable = false, insertable = true, updatable = false)
     private LocalDateTime dhInclusao;
 
     public PedidoItens() {
     }
 
-    public PedidoItens(Integer id, Pedido pedido, Cerveja cerveja, int quantidade, BigDecimal vlTotal, LocalDateTime dhInclusao) {
+    public PedidoItens(Integer id, Pedido pedido, Cerveja cerveja, int quantidade, BigDecimal vlTotal, BigDecimal vlUnitario, LocalDateTime dhInclusao) {
         this.id = id;
         this.pedido = pedido;
         this.cerveja = cerveja;
         this.quantidade = quantidade;
         this.vlTotal = vlTotal;
+        this.vlUnitario = vlUnitario;
         this.dhInclusao = dhInclusao;
     }
 
@@ -108,6 +108,14 @@ public class PedidoItens implements Serializable {
     public void setVlTotal(BigDecimal vlTotal) {
         this.vlTotal = vlTotal;
     }
+
+    public BigDecimal getVlUnitario() {
+        return vlUnitario;
+    }
+
+    public void setVlUnitario(BigDecimal vlUnitario) {
+        this.vlUnitario = vlUnitario;
+    }    
 
     public LocalDateTime getDhInclusao() {
         return dhInclusao;

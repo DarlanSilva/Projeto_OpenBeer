@@ -14,15 +14,17 @@ import org.springframework.stereotype.Repository;
  * @author Alison Souza
  *
  */
-
 @Repository
 public interface CervejaRepository extends JpaRepository<Cerveja, Integer> {
-    
+
     @Query("Select c from Cerveja c where c.nome like %:nome%")
     public List<Cerveja> findByNome(String nome);
 
     public List<Cerveja> findAllByDestaque(boolean destaque);
 
+    @Query("Select c from Cerveja c left join TipoCerveja t on c.tipoCerveja = t.id where t.id = :tipoCervejaID")
+    public List<Cerveja> findByTipoCerveja(Integer tipoCervejaID);
+    
     public List<Cerveja> findByTipoCerveja(TipoCerveja tipoCerveja);
 
 }

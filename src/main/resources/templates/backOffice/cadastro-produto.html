@@ -23,7 +23,7 @@
                                             <label for="cod">Código do produto*</label>
                                             <input type="text" name="cod" id="cod" required placeholder="Código do produto" data-th-classappend="${#fields.hasErrors('codigoCerveja')}? is-invalid" data-th-field="*{codigoCerveja}">
                                             <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('codigoCerveja')}" data-th-errors="*{codigoCerveja}">
-                                               
+
                                             </div>
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->            
@@ -33,12 +33,16 @@
                                             <label for="name-cerveja">Nome da cerveja*</label>
                                             <input type="text" name="name-cerveja" id="name-cerveja" required placeholder="Nome da cerveja" maxlength="350"  data-th-classappend="${#fields.hasErrors('nome')}? is-invalid"  data-th-field="*{nome}">
                                             <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('nome')}"  data-th-errors="*{nome}">
-                                                
+
                                             </div>
                                         </div><!--campos-register-->
                                         <div class="campos-register">
-                                            <label for="imagemCerveja">Imagem</label>
-                                            <input type="file" name="imagemCerveja" id="imagemCerveja">   
+                                            <div data-th-if="${mensagemErro != null}" data-th-text="${mensagemErro}" class="alert alert-danger" role="alert"></div>
+                                            <label for="imagemCerveja">Imagem*</label>
+                                            <input type="file" name="imagemCerveja" id="imagemCerveja" data-th-classappend="${#fields.hasErrors('imagem')}? is-invalid"  data-th-field="*{imagem}">   
+                                            <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('imagem')}"  data-th-errors="*{imagem}">
+
+                                            </div>
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->
 
@@ -47,7 +51,7 @@
                                             <label for="preco-cerveja">Preço*</label>
                                             <input type="number" name="preco-cerveja" id="preco-cerveja" required placeholder="Preço da cerveja"  data-th-classappend="${#fields.hasErrors('valorCerveja')}? is-invalid"  data-th-field="*{valorCerveja}">
                                             <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('valorCerveja')}"  data-th-errors="*{valorCerveja}">
-                                               
+
                                             </div>
                                         </div><!--campos-register-->
 
@@ -89,7 +93,7 @@
                                         <div class="campos-register">
                                             <label for="ml-cerveja">Quantidade em Ml's*</label>
                                             <input type="text" name="ml-cerveja" id="ml-cerveja" required placeholder="Ml da cerveja"  data-th-classappend="${#fields.hasErrors('mlCerveja')}? is-invalid"  data-th-field="*{mlCerveja}">
-                                             <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('teor')}"  data-th-errors="*{teor}">
+                                            <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('teor')}"  data-th-errors="*{teor}">
                                             </div>
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->
@@ -101,7 +105,7 @@
                                             <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('breveDescricao')}"  data-th-errors="*{breveDescricao}">
                                             </div>
                                         </div><!--campos-register-->
-                                        
+
                                         <div>
                                             <input type="checkbox" id="destaque" name="destaque" data-th-classappend="${#fields.hasErrors('destaque')}? is-invalid" data-th-field="*{destaque}">
                                             <label for="destaque">Produto em destaque</label>

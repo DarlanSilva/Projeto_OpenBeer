@@ -70,6 +70,18 @@ span.dot-status {
 
 }
 
+.analise{
+    background: #f7e041;
+    box-shadow: 0 0 10px #e4ff04;
+}
+
+.analise-text{
+    color: #f7e041;
+
+}
+
+
+
 
 .date-pedido {
     display: flex;
@@ -168,3 +180,29 @@ select#status {
     outline: none;
 }
 
+.filtro-relatorio {
+    background: #333333;
+    border-radius: 0 0 20px 20px;
+    text-align: center;
+    padding: 20px 0;
+    color: #ffffff;
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.filtro-relatorio input {
+    border: 0;
+    height: 30px;
+    text-align: center;
+    outline: none;
+    margin: 0 10px;
+}
+
+input[type="submit"] {
+    background: #333333;
+    padding: 0px 30px;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
