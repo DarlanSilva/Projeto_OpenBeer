@@ -10,6 +10,7 @@ import br.com.wda.OpenBeerProject.Repository.CervejaRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,7 +53,7 @@ public class CervejaController {
 
     @Autowired
     private TipoCervejaRepository tipoCervejaRepository;
-    
+
     @Autowired
     private MailSender sender;
 
@@ -59,78 +63,94 @@ public class CervejaController {
     @GetMapping("/Lista-de-Cervejas")
     @Cacheable(value = "lista-cervejas")
     public ModelAndView listagemProd() {
-        
-        List<Cerveja> cerveja= cervejaRepository.findAll();        
+
+        List<Cerveja> cerveja = cervejaRepository.findAll();
         ModelAndView mv = new ModelAndView("produto/produtos-lista");
         mv.addObject("cerveja", cerveja);
 
         return mv;
     }
 
-    @GetMapping("/{busca}/Lista-de-Cervejas")
+    @RequestMapping(value = "/Lista-de-Cervejas-por-Tipo", method = RequestMethod.POST)
     @Cacheable(value = "lista-cervejas")
-    public ModelAndView buscaListagemProd(@PathVariable("busca") String busca) {
+    public @ResponseBody
+    List<Cerveja> tipoEntrega(@RequestBody Map<String, Object> corpo) {
+        String tipoCerveja[] = new String[2];
+        String tipo = corpo.toString();
+        tipoCerveja = tipo.split("=");
+
+        List<Cerveja> listaCervejas;
+
+        if (Integer.parseInt(tipoCerveja[1].replaceAll("}", "").trim()) == 0) {
+            listaCervejas = cervejaRepository.findAll();
+        } else {
+            listaCervejas = cervejaRepository.findByTipoCerveja(Integer.parseInt(tipoCerveja[1].replaceAll("}", "").trim()));
+        }
+
+        return listaCervejas;
+
+    }
+
+    @RequestMapping(value = "/Lista-de-Cervejas-busca", method = RequestMethod.POST)
+    @Cacheable(value = "lista-cervejas")
+    public @ResponseBody
+    List<Cerveja> buscaListagemProd(@RequestBody Map<String, Object> corpo) {
+        String buscaCerveja[] = new String[2];
+        String busca = corpo.toString();
+        buscaCerveja = busca.split("=");
+
         List<Cerveja> cerveja;
-        
-        if (busca == null || busca.trim().isEmpty()) {
+
+        if (buscaCerveja[1].replaceAll("}", "").trim() == null || buscaCerveja[1].replaceAll("}", "").trim().isEmpty()) {
             cerveja = cervejaRepository.findAll();
         } else {
-             cerveja = cervejaRepository.findByNome(busca);
+            cerveja = cervejaRepository.findByNome("%"+buscaCerveja[1].replaceAll("}", "").trim()+"%");
         }
-        
-        ModelAndView mv = new ModelAndView("produto/produtos-lista");
-        mv.addObject("cerveja", cerveja);
 
-        return mv;
+        return cerveja;
     }
 
-    @GetMapping("/{tipoCerveja}/Lista-de-Cervejas-por-Tipo")
+    @RequestMapping(value = "/Lista-de-Cervejas-ordem-Nome", method = RequestMethod.POST)
     @Cacheable(value = "lista-cervejas")
-    public ModelAndView listagemProdPorTipo(@PathVariable("tipoCerveja") TipoCerveja tipoCerveja) {
-        List<Cerveja> cerveja = cervejaRepository.findByTipoCerveja(tipoCerveja);
-        ModelAndView mv = new ModelAndView("produto/produtos-lista");
-        mv.addObject("cerveja", cerveja);
+    public @ResponseBody
+    List<Cerveja> listagemProdOrderByNome(@RequestBody Map<String, Object> corpo) {
+        String ordemNome[] = new String[2];
+        String ordem = corpo.toString();
+        ordemNome = ordem.split("=");
 
-        return mv;
-    }
-
-    @GetMapping("/{ordemNome}/Lista-de-Cervejas-ordem-Nome")
-    @Cacheable(value = "lista-cervejas")
-    public ModelAndView listagemProdOrderByNome(@PathVariable("ordemNome") Integer ordemNome) {
         List<Cerveja> cerveja;
 
-        if (ordemNome == 1) {
+        if (Integer.parseInt(ordemNome[1].replaceAll("}", "").trim()) == 1) {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
         } else {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "nome"));
         }
 
-        ModelAndView mv = new ModelAndView("produto/produtos-lista");
-        mv.addObject("cerveja", cerveja);
-
-        return mv;
+        return cerveja;
     }
 
-    @GetMapping("/{ordemPreco}/Lista-de-Cervejas-ordem-Preco")
+    @RequestMapping(value = "/Lista-de-Cervejas-ordem-Preco", method = RequestMethod.POST)
     @Cacheable(value = "lista-cervejas")
-    public ModelAndView listagemProdOrderByPreco(@PathVariable("ordemPreco") Integer ordemPreco) {
+    public @ResponseBody
+    List<Cerveja> listagemProdOrderByPreco(@RequestBody Map<String, Object> corpo) {
+        String ordemPreco[] = new String[2];
+        String ordem = corpo.toString();
+        ordemPreco = ordem.split("=");
+
         List<Cerveja> cerveja;
 
-        if (ordemPreco == 1) {
+        if (Integer.parseInt(ordemPreco[1].replaceAll("}", "").trim()) == 1) {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.ASC, "valorCerveja"));
         } else {
             cerveja = cervejaRepository.findAll(Sort.by(Sort.Direction.DESC, "valorCerveja"));
         }
 
-        ModelAndView mv = new ModelAndView("produto/produtos-lista");
-        mv.addObject("cerveja", cerveja);
-
-        return mv;
+        return cerveja;
     }
-    
+
     @GetMapping("{id}/detalhe")
     public ModelAndView detalhe(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-        
+
         ModelAndView mv = new ModelAndView("produto/produto");
 
         Optional<Cerveja> cerveja = cervejaRepository.findById(id);
@@ -141,35 +161,35 @@ public class CervejaController {
 
             return listagemProd();
         }
-        
+
         // VERIFICA SE ESTA EM FALTA NO ESTOQUE SE SIM REDIRECIONA PARA A PAGINA DE AVISE-ME.
-        if(cerveja.get().getQuantidade() == 0){
-           ModelAndView mvIndisponivel = new ModelAndView("produto/produto-indisponivel");
-           
-           mvIndisponivel.addObject("cerveja", cerveja.get());
-           mvIndisponivel.addObject("email", new SenderMail());
-           
-           return mvIndisponivel;
+        if (cerveja.get().getQuantidade() == 0) {
+            ModelAndView mvIndisponivel = new ModelAndView("produto/produto-indisponivel");
+
+            mvIndisponivel.addObject("cerveja", cerveja.get());
+            mvIndisponivel.addObject("email", new SenderMail());
+
+            return mvIndisponivel;
         }
-        
+
         mv.addObject("cerveja", cerveja.get());
 
         return mv;
 
     }
-    
+
     @PostMapping("/Avise-me")
-    public ModelAndView produtoIndisponivel(@ModelAttribute("email") @Valid SenderMail mail, BindingResult result ,@ModelAttribute("cerveja") Cerveja cerveja){
-        
-        if (result.hasErrors()){
+    public ModelAndView produtoIndisponivel(@ModelAttribute("email") @Valid SenderMail mail, BindingResult result, @ModelAttribute("cerveja") Cerveja cerveja) {
+
+        if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("produto/produto-indisponivel");
             mv.addObject("cerveja", cerveja);
-            
+
             return mv;
-            
+
         }
         aviseMe(mail.getEmail(), mail.getNome());
-        
+
         return new ModelAndView("redirect:/OpenBeer/cerveja/Lista-de-Cervejas");
     }
 
@@ -179,14 +199,14 @@ public class CervejaController {
 
         return tipoCervejaRepository.findAll();
     }
-    
-    private void aviseMe(String email, String nome){
+
+    private void aviseMe(String email, String nome) {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setSubject("OpenBeer - O melhor da cerveja esta aqui!!!");
         mail.setTo(email);
         mail.setText("Olá " + nome + " pode deixar que assim que o nosso estoque for reposto você será o primeiro a ser informado.");
         mail.setFrom("OpenBeer.com.br");
-        
+
         sender.send(mail);
     }
 }

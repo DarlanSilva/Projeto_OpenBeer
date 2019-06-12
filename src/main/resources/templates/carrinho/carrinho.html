@@ -134,7 +134,7 @@
                         <div class="cupom-desconto">
                             <span>CUPOM DE DESCONTO</span>
                             <input type="text" name="cupom-desconto" id="cupom-desconto" placeholder="Código">
-                            <a href="#" class="verificar-cupom">ADICIONAR</a>
+                            <a href="#" onclick="return false" class="verificar-cupom">ADICIONAR</a>
                             <span class="cupom-rejeitado"></span>
                         </div><!--cupom-desconto-->
 
@@ -155,7 +155,7 @@
                                 <p>ENTREGA</p>
                             </div><!--item-subtotal-->
                             <div class="item-subtotal">
-                                <select class ="tipoEntrega" name="tipoEntrega">
+                                <select class ="tipoEntrega" name="tipoEntrega" onclick="return false">
                                     <option data-th-each="tipo : ${tipoEntrega}" data-th-classappend="${#fields.hasErrors('carrinhoCompras.idTipoEntrega')}? is-invalid" data-th-field="*{carrinhoCompras.idTipoEntrega}"
                                             data-th-value="${tipo.id}"
                                             data-th-text="${tipo.tipoEntrega}"

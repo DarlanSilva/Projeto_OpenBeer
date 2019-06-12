@@ -45,13 +45,13 @@ public class BackOfficeController {
 
     @Autowired
     private FileSaver fileSaver;
-    
+
     @Autowired
     private StatusPedidoRepository statusPedidoRepo;
-    
+
     @Autowired
     private PedidoItensRepository pedidoItensRepo;
-    
+
     @Autowired
     private PedidoRepository pedidoRepo;
 
@@ -83,7 +83,9 @@ public class BackOfficeController {
     @CacheEvict(value = "lista-cervejas", allEntries = true)
     public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
-
+        
+        cerveja.setImagemValidacao(imagemCerveja);
+        
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
             mv.addObject("cerveja", cerveja);
@@ -91,15 +93,15 @@ public class BackOfficeController {
             return mv;
         }
 
-        if (imagemCerveja.isEmpty() || imagemCerveja == null) {
-            ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
-            mv.addObject("cerveja", cerveja);
-
-            redirectAttributes.addFlashAttribute("mensagemErro",
-                    "Selecione a imagem do produto");
-
-            return mv;
-        }
+//        if (imagemCerveja.isEmpty() || imagemCerveja == null) {
+//            ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
+//            mv.addObject("cerveja", cerveja);
+//
+//            redirectAttributes.addFlashAttribute("mensagemErro",
+//                    "Selecione a imagem do produto");
+//
+//            return mv;
+//        }
 
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
@@ -120,6 +122,7 @@ public class BackOfficeController {
     }
 
     @PostMapping("/{id}/remover")
+    @CacheEvict(value = "lista-cervejas", allEntries = true)
     public ModelAndView remover(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         cervejaRepository.deleteById(id);
 
@@ -128,19 +131,19 @@ public class BackOfficeController {
 
         return new ModelAndView("redirect:/OpenBeer/BackOffice/Consultar-Produtos");
     }
-    
+
     @GetMapping("/Relatorio-Pedidos")
-    public ModelAndView relatorioPedidos(){
+    public ModelAndView relatorioPedidos() {
         ModelAndView mv = new ModelAndView("backOffice/relatorio");
-        
+
         List<Pedido> pedidos = pedidoRepo.findAllByDhInclusao();
         List<PedidoItens> itens = pedidoItensRepo.findAllByDhInclusao();
-        
+
         mv.addObject("itens", itens);
         mv.addObject("pedido", pedidos);
-        
+
         return mv;
-    }    
+    }
 
     @ModelAttribute("tipoCerveja")
     @Cacheable(value = "tipos-cervejas")

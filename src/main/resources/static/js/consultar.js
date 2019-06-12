@@ -41,6 +41,7 @@ botaoDeletar.addEventListener("click", function () {
         url: "../BackOffice/" + idCerveja + "/remover",
         success: function (data) {
             modal.style.visibility = "hidden";
+            location.reload();
         }
     });
 });

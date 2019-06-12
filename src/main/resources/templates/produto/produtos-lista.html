@@ -95,17 +95,17 @@
                 <div class="wrap-filtro">
                     <form>
                         <label for="field-buscar">Buscar: </label>
-                        <input type="text" name="field-buscar" id="field-buscar" autofocus>
+                        <input type="text" name="field-buscar" id="field-buscar" class="searchByName" autofocus>
                         <h2 class="filter-title">Filtrar por: </h2>
-                        <select name="filter-name" id="filter-name" onchange= "location = this.value;">
+                        <select name="filter-name" id="filter-name" class="orderByName">
                             <option value="disabele-nome">Nome</option>
-                            <option data-th-value="@{/OpenBeer/cerveja/{ordemNome}/Lista-de-Cervejas-ordem-Nome(ordemNome=${1})}">A - Z</option>
-                            <option data-th-value="@{/OpenBeer/cerveja/{ordemNome}/Lista-de-Cervejas-ordem-Nome(ordemNome=${2})}">Z - A</option>
+                            <option value="1">A - Z</option>
+                            <option value="2">Z - A</option>
                         </select>
-                        <select name="filter-preco" id="filter-preco" onchange= "location = this.value;">
+                        <select name="filter-preco" id="filter-preco" class="orderByPrice">
                             <option value="disable-preco">Preço</option>
-                            <option data-th-value="@{/OpenBeer/cerveja/{ordemPreco}/Lista-de-Cervejas-ordem-Preco(ordemPreco=${1})}">Menor Preço</option>
-                            <option data-th-value="@{/OpenBeer/cerveja/{ordemPreco}/Lista-de-Cervejas-ordem-Preco(ordemPreco=${2})}">Maior Preço</option>
+                            <option value="1">Menor Preço</option>
+                            <option value="2">Maior Preço</option>
                         </select>
                     </form>
                 </div>
@@ -119,11 +119,13 @@
                     <aside class="categorias">
                         <h2>CATEGORIAS</h2>
                         <ul class="categories-list" data-th-each="tipo : ${tipoCerveja}">
-                            <span data-th-if="${tipo.id == 1}"><li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">TODOS</a></li></span>
-                            <li><a data-th-href="@{/OpenBeer/cerveja/{tipoCerveja}/Lista-de-Cervejas-por-Tipo(tipoCerveja=${tipo})}"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>
+                            <span data-th-if="${tipo.id == 1}"><li><a data-th-attr="onclick = ${ 'filterProduct(' + 0 + '); return false' }" href="#">TODOS</a></li></span>
+                            <li><a data-th-attr="onclick = ${ 'filterProduct(' + tipo.id + '); return false' }"  href="#"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>
+                            <!--<span data-th-if="${tipo.id == 1}"><li><a data-th-href="@{/OpenBeer/cerveja/Lista-de-Cervejas}">TODOS</a></li></span>
+                            <li><a data-th-href="@{/OpenBeer/cerveja/{tipoCerveja}/Lista-de-Cervejas-por-Tipo(tipoCerveja=${tipo})}"><span data-th-text="${tipo.tipoCerveja}"></span></a></li>-->
                         </ul><!--categories-list-->
                     </aside>
-                    <div class="list">
+                    <div class="list" id="list-product">
                         <div class="single-product" data-th-each="cerveja : ${cerveja}">
                             <div class="wrap-single-product">
                                 <div class="img-single-product">
@@ -135,7 +137,7 @@
                                     <div class="desc-single-product">
                                         <div class="wrap-single-name">
                                             <div class="desc-single-name">
-                                                <h4><span data-th-text="${cerveja.nome}"></span> </h4>
+                                                <h4 id="name-product"><span data-th-text="${cerveja.nome}"></span> </h4>
                                             </div>
                                             <!--desc-single-name-->
 
@@ -186,5 +188,9 @@
             <p>Todos os direitos reservados - 2019</p>
         </footer>
         <!--lista-produtos-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
         <script data-th-src="@{/js/header.js}"></script>
-    </body></html>
+        <script data-th-src="@{/js/filter-list-products.js}"></script>
+    </body>
+</html>

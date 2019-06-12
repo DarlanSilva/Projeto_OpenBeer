@@ -39,8 +39,8 @@
                                         <div class="campos-register">
                                             <div data-th-if="${mensagemErro != null}" data-th-text="${mensagemErro}" class="alert alert-danger" role="alert"></div>
                                             <label for="imagemCerveja">Imagem*</label>
-                                            <input type="file" name="imagemCerveja" id="imagemCerveja" data-th-classappend="${#fields.hasErrors('imagem')}? is-invalid"  data-th-field="*{imagem}">   
-                                            <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('imagem')}"  data-th-errors="*{imagem}">
+                                            <input type="file" name="imagemCerveja" id="imagemCerveja">   
+                                            <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('imagemValidacao')}"  data-th-errors="*{imagemValidacao}">
 
                                             </div>
                                         </div><!--campos-register-->
