@@ -12,6 +12,7 @@ import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +92,7 @@ public class BackOfficeController {
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
 
         cerveja.setImagemValidacao(imagemCerveja);
+        cerveja.setImagem(imagemCerveja.getOriginalFilename());
 
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
@@ -154,15 +156,78 @@ public class BackOfficeController {
     @RequestMapping(value = "/Relatorio-Pedidos", method = RequestMethod.POST)
     @Cacheable(value = "relatorio-pedidos")
     public @ResponseBody
-    List relatorioPedidosBusca(@RequestBody Map<String, Object> corpo) {
+    ModelAndView relatorioPedidosBusca(@RequestBody Map<String, Object> corpo) {
+        String data[] = new String[3];
+        String dataIni[] = new String[2];
+        String filtro = corpo.toString();
+        data = filtro.split("=");
+        dataIni = data[1].split(",");
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        LocalDateTime dtInicio = LocalDateTime.parse(dataIni[0].trim(),formatter);
+        LocalDateTime dtFinal = LocalDateTime.parse(data[2].replaceAll("}", "").trim(),formatter);
+        System.out.println(corpo);
+        System.out.println(dtInicio);
+        System.out.println(dtFinal);
+
+        List<Pedido> listaPedidos;
+        if (dtInicio != null && dtFinal != null) {
+            listaPedidos = pedidoRepo.findAllByDhInclusao(dtInicio, dtFinal);
+        } else if (dtInicio != null && dtFinal == null) {
+            listaPedidos = pedidoRepo.findAllByDhInclusaoIni(dtInicio);
+        } else if (dtInicio == null && dtFinal != null) {
+            listaPedidos = pedidoRepo.findAllByDhInclusaoFin(dtFinal);
+        } else {
+            listaPedidos = (List<Pedido>) pedidoRepo.findAll();
+        }
+
+        List<PedidoItens> listaPedidosItens;
+        if (dtInicio != null && dtFinal != null) {
+            listaPedidosItens = pedidoItensRepo.findAllByDhInclusao(dtInicio, dtFinal);
+        } else if (dtInicio != null && dtFinal == null) {
+            listaPedidosItens = pedidoItensRepo.findAllByDhInclusaoIni(dtFinal);
+        } else if (dtInicio == null && dtFinal != null) {
+            listaPedidosItens = pedidoItensRepo.findAllByDhInclusaoFin(dtFinal);
+        } else {
+            listaPedidosItens = (List<PedidoItens>) pedidoItensRepo.findAll();
+        }
+
+        ModelAndView mv = new ModelAndView("backOffice/relatorio");
+
+        mv.addObject("itens", listaPedidosItens);
+        mv.addObject("pedido", listaPedidos);
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/Alterar-Status-Pedido", method = RequestMethod.POST)
+    @Cacheable(value = "relatorio-pedidos")
+    public @ResponseBody
+    void alterarStatusPedido(@RequestBody Map<String, Object> corpo) {
+        String json[] = new String[3];
+        String pedido[] = new String[2];
+        String filtro = corpo.toString();
+        json = filtro.split("=");
+        pedido = json[1].split(",");
         System.out.println(corpo);
 
-        List listaPedidos = new ArrayList<>();
-//        List<Pedido> pedidos = pedidoRepo.findAllByDhInclusao();
-//        List<PedidoItens> itens = pedidoItensRepo.findAllByDhInclusao();
+        Optional<Pedido> alteraPedido = pedidoRepo.findById(Integer.parseInt(pedido[0].trim()));
+        Optional<StatusPedido> statusPedido = statusPedidoRepo.findAllByStatus(json[2].replaceAll("}", "").trim());
 
-        return listaPedidos;
+        if (json[2].replaceAll("}", "").trim().toUpperCase().equals("PEDIDO ENTREGUE")) {
+            alteraPedido.get().setDhEntregue(LocalDateTime.now());
+        }
+
+        if (json[2].replaceAll("}", "").trim().toUpperCase().equals("PEDIDO RECUSADO")) {
+            alteraPedido.get().setDhPedidoCancelado(LocalDateTime.now());
+        }
+
+        alteraPedido.get().setStatus(statusPedido.get());
+
+        pedidoRepo.save(alteraPedido.get());
+
+        //return new ModelAndView("redirect:/OpenBeer/BackOffice/Relatorio-Pedidos");
     }
 
     @ModelAttribute("tipoCerveja")

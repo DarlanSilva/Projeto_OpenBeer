@@ -84,6 +84,12 @@ public class PagamentoController {
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView finalizarCompra(HttpServletResponse response) {
+        
+//        if(carrinho.getCliente() == null || carrinho.getCliente().getId() == null){
+//            return new ModelAndView("redirect:/OpenBeer/Cliente/Cadastro-Login");
+//        }
+//        
+        
         ModelAndView mv = new ModelAndView("carrinho/confirmacao");
         try {
 
@@ -270,7 +276,14 @@ public class PagamentoController {
 
     public CheckoutRegistrationBuilder getCheckout() {
         // CALCULANDO DESCONTO(%)
-        double valorDesconto = carrinho.getValorDesconto().doubleValue();
+        double valorDesconto;
+        
+        if (carrinho.getValorDesconto() == null){
+            valorDesconto = 0;
+        }else{
+           valorDesconto = carrinho.getValorDesconto().doubleValue();
+        }
+        
         double valorTotal = carrinho.getTotal().doubleValue();
         BigDecimal porcDesconto = BigDecimal.ZERO;
 

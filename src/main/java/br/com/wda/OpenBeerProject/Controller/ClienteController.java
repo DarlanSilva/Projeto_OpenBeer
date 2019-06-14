@@ -139,7 +139,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Long id) {
+    public ModelAndView editar(@PathVariable("id") Integer id) {
         Optional<Cliente> listCliente = clienteRepository.findById(id);
         Cliente cliente = listCliente.get();
         return new ModelAndView("cliente/dados-pessoais").addObject("cliente", cliente);

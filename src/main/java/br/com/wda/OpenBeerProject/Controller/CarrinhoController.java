@@ -50,6 +50,9 @@ public class CarrinhoController {
     @Autowired
     private CupomRepository cupomRepo;
 
+    @Autowired
+    private TipoEntregaRepository tipoEntregaRepo;
+
     private CarrinhoItem criarItem(Integer cervejaID) {
         Optional<Cerveja> cerveja = cervejaRepository.findById(cervejaID);
         CarrinhoItem carrinhoItem = new CarrinhoItem(cerveja.get());
@@ -63,6 +66,16 @@ public class CarrinhoController {
         ModelAndView mv = new ModelAndView("redirect:/OpenBeer/Carrinho");
         CarrinhoItem carrinhoItem = criarItem(id);
         carrinho.add(carrinhoItem);
+
+        if (carrinho.getIdTipoEntrega() == null || carrinho.getIdTipoEntrega() == 0) {
+
+            Optional<TipoEntrega> tipoEntrega = tipoEntregaRepo.findById(1);
+            carrinho.setIdTipoEntrega(tipoEntrega.get().getId());
+            carrinho.setPrazoEntrega(tipoEntrega.get().getPrazoEntrega());
+            carrinho.setValorEntrega(tipoEntrega.get().getValorEntrega());
+
+        }
+
         return mv;
     }
 
@@ -109,23 +122,24 @@ public class CarrinhoController {
     }
 
     @RequestMapping(value = "/VerificarTipoEntrega", method = RequestMethod.POST)
-    public @ResponseBody TipoEntrega tipoEntrega(@RequestBody Map<String, Object> corpo) {
+    public @ResponseBody
+    TipoEntrega tipoEntrega(@RequestBody Map<String, Object> corpo) {
         String tipoEntregaID[] = new String[2];
         String tipo = corpo.toString();
         tipoEntregaID = tipo.split("=");
-        
+
         Optional<TipoEntrega> tipoEntrega = tipoEntregaRepository.findById(Integer.parseInt(tipoEntregaID[1].replaceAll("}", "").trim()));
-        
-        if (tipoEntrega.isPresent() == false){
+
+        if (tipoEntrega.isPresent() == false) {
             return new TipoEntrega();
         }
-        
+
         carrinho.setPrazoEntrega(tipoEntrega.get().getPrazoEntrega());
         carrinho.setValorEntrega(tipoEntrega.get().getValorEntrega());
         carrinho.setIdTipoEntrega(tipoEntrega.get().getId());
         System.out.println(carrinho.getTotalCompra());
         tipoEntrega.get().setValorTotal(carrinho.getTotalCompra());
-        
+
         return tipoEntrega.get();
 
     }

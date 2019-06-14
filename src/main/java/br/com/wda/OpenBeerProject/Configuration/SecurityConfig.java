@@ -74,17 +74,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/Carrinho/**",
-                            "/cerveja/**",
-                            "/Cliente/**",
-                            "/Endereco/**",
-                            "/Home/**",
-                            "/Login/**",
-                            "/css/**",
-                            "/img/**",
-                            "/js/**").permitAll()
-                .antMatchers("/BackOffice/**").hasRole("ADMIN")
-                .antMatchers("/Pagamento/**").authenticated()
+                .antMatchers("/OpenBeer/Carrinho/**",
+                            "/OpenBeer/cerveja/**",
+                            "/OpenBeer/Cliente/**",
+                            "/OpenBeer/Endereco/**",
+                            "/OpenBeer/Home/**",
+                            "/OpenBeer/Login/**",
+                            "*/css/**",
+                            "*/img/**",
+                            "*/js/**").permitAll()
+                .antMatchers("/OpenBeer/BackOffice/**").hasRole("ADMIN")
+                .antMatchers("/OpenBeer/Pagamento/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/OpenBeer/Login/login")
