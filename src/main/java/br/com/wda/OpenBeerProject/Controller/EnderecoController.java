@@ -24,55 +24,54 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Wesley Moura
  * @author Alison Souza
  */
-
 @Controller
 @RequestMapping("/OpenBeer/Endereco")
 public class EnderecoController {
-    
+
     @Autowired
     private EnderecoRepository endRepository;
-    
+
     @GetMapping("/Novo-Endereco")
-    public ModelAndView novoEndereco(){
+    public ModelAndView novoEndereco() {
         return new ModelAndView("cliente/dados-endereco").addObject("endereco", new Endereco());
     }
-    
+
     @GetMapping("/lista-de-endereco")
-    public ModelAndView listarLogin(){
+    public ModelAndView listarLogin() {
         List<Endereco> endereco = endRepository.findAll();
         return new ModelAndView("cliente/endereco-lista").addObject("endereco", endereco);
     }
-    
+
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable("id") Integer id){
+    public ModelAndView editar(@PathVariable("id") Integer id) {
         Optional<Endereco> listEndereco = endRepository.findById(id);
         Endereco endereco = listEndereco.get();
-        
+
         return new ModelAndView("cliente/dados-endereco").addObject("endereco", endereco);
     }
-    
+
     @PostMapping("/salvar")
-    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes){
-         
+    public ModelAndView salvar(@ModelAttribute("endereco") @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) {
+
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("cliente/dados-endereco");
             mv.addObject("endereco", endereco);
 
             return mv;
         }
-        
+
         endereco.setDhInclusao(LocalDateTime.now());
         endereco.setInativo(0);
-        
-        if(endereco.getId() != null){
+
+        if (endereco.getId() != null) {
             endereco.setDhAlteracao(LocalDateTime.now());
         }
-        
+
         Endereco enderecoSalvo = new Endereco();
         enderecoSalvo = endRepository.save(endereco);
-        redirectAttributes.addFlashAttribute("menssagemSucesso", "Endereço cadastrado com sucesso");
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Dados cadastrado com sucesso, faça o login! :)");
         
         return new ModelAndView("redirect:/OpenBeer/Cliente/Cadastro-Login");
     }
-    
+
 }

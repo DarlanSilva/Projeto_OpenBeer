@@ -10,6 +10,7 @@ import br.com.wda.OpenBeerProject.Repository.CupomRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoEntregaRepository;
 import ch.qos.logback.core.CoreConstants;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,7 @@ public class CarrinhoController {
             carrinho.setIdTipoEntrega(tipoEntrega.get().getId());
             carrinho.setPrazoEntrega(tipoEntrega.get().getPrazoEntrega());
             carrinho.setValorEntrega(tipoEntrega.get().getValorEntrega());
+            carrinho.setValorDesconto(BigDecimal.ZERO);
 
         }
 

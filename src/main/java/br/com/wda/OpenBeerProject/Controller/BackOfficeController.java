@@ -1,6 +1,7 @@
 package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.Cerveja;
+import br.com.wda.OpenBeerProject.Entity.FilterRel;
 import br.com.wda.OpenBeerProject.Entity.Pedido;
 import br.com.wda.OpenBeerProject.Entity.PedidoItens;
 import br.com.wda.OpenBeerProject.Entity.StatusPedido;
@@ -11,9 +12,12 @@ import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -61,8 +65,10 @@ public class BackOfficeController {
     @Autowired
     private PedidoRepository pedidoRepo;
 
+    @Autowired
+    private FilterRel filterRel;
+
     @GetMapping("/Consultar-Produtos")
-    @Cacheable(value = "lista-produtos")
     public ModelAndView manutencao() {
 
         List<Cerveja> cerveja = cervejaRepository.findAll();
@@ -87,12 +93,8 @@ public class BackOfficeController {
     }
 
     @PostMapping("/salvar")
-    @CacheEvict(value = "lista-cervejas", allEntries = true)
     public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
-
-        cerveja.setImagemValidacao(imagemCerveja);
-        cerveja.setImagem(imagemCerveja.getOriginalFilename());
 
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
@@ -101,15 +103,6 @@ public class BackOfficeController {
             return mv;
         }
 
-//        if (imagemCerveja.isEmpty() || imagemCerveja == null) {
-//            ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
-//            mv.addObject("cerveja", cerveja);
-//
-//            redirectAttributes.addFlashAttribute("mensagemErro",
-//                    "Selecione a imagem do produto");
-//
-//            return mv;
-//        }
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
 
@@ -128,15 +121,20 @@ public class BackOfficeController {
         return new ModelAndView("redirect:/OpenBeer/BackOffice/Consultar-Produtos");
     }
 
-    @PostMapping("/{id}/remover")
-    @CacheEvict(value = "lista-cervejas", allEntries = true)
+    @GetMapping("/{id}/remover")
     public ModelAndView remover(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-        cervejaRepository.deleteById(id);
 
         redirectAttributes.addFlashAttribute("mensagemSucesso",
-                "Cerveja ID " + id + " removido com sucesso");
+                "Impossível deletar este produto, pois o mesmo possue vinculo com pedidos efetuados.");
 
         return new ModelAndView("redirect:/OpenBeer/BackOffice/Consultar-Produtos");
+
+//        cervejaRepository.deleteById(id);
+//
+//        redirectAttributes.addFlashAttribute("mensagemSucesso",
+//                "Cerveja ID " + id + " removido com sucesso");
+//
+//        return new ModelAndView("redirect:/OpenBeer/BackOffice/Consultar-Produtos");
     }
 
     @GetMapping("/Relatorio-Pedidos")
@@ -146,28 +144,18 @@ public class BackOfficeController {
 
         List<Pedido> pedidos = pedidoRepo.findAllByDhInclusao();
         List<PedidoItens> itens = pedidoItensRepo.findAllByDhInclusao();
-
         mv.addObject("itens", itens);
         mv.addObject("pedido", pedidos);
+        mv.addObject("filterRel", filterRel);
 
         return mv;
     }
 
     @RequestMapping(value = "/Relatorio-Pedidos", method = RequestMethod.POST)
-    @Cacheable(value = "relatorio-pedidos")
-    public @ResponseBody
-    ModelAndView relatorioPedidosBusca(@RequestBody Map<String, Object> corpo) {
-        String data[] = new String[3];
-        String dataIni[] = new String[2];
-        String filtro = corpo.toString();
-        data = filtro.split("=");
-        dataIni = data[1].split(",");
+    public ModelAndView relatorioPedidosBusca(@ModelAttribute("filterRel") FilterRel filterRel) {
+        Date dtInicio = filterRel.getDtInicio();
+        Date dtFinal = filterRel.getDtFinal();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-        LocalDateTime dtInicio = LocalDateTime.parse(dataIni[0].trim(),formatter);
-        LocalDateTime dtFinal = LocalDateTime.parse(data[2].replaceAll("}", "").trim(),formatter);
-        System.out.println(corpo);
         System.out.println(dtInicio);
         System.out.println(dtFinal);
 
@@ -202,7 +190,6 @@ public class BackOfficeController {
     }
 
     @RequestMapping(value = "/Alterar-Status-Pedido", method = RequestMethod.POST)
-    @Cacheable(value = "relatorio-pedidos")
     public @ResponseBody
     void alterarStatusPedido(@RequestBody Map<String, Object> corpo) {
         String json[] = new String[3];
@@ -242,6 +229,11 @@ public class BackOfficeController {
     public List<StatusPedido> getStatusPedido() {
 
         return statusPedidoRepo.findAll();
+    }
+
+    @ModelAttribute("filterRel")
+    public FilterRel getFilter() {
+        return filterRel;
     }
 
 }

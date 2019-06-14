@@ -82,9 +82,9 @@
                     <h3>Status</h3>
                 </div><!--title-relatorio-->
                 <div class="filtro-relatorio">
-                    <form  action="" id="formFiltroByDate">
-                        De: <input type="date" name="date-de" id="date-de">
-                        Até: <input type="date" name="date-ate" id="date-ate">
+                    <form  data-th-action="@{/OpenBeer/BackOffice/Relatorio-Pedidos}" method="POST" data-th-object="${filterRel}">
+                        De: <input type="date" name="date-de" id="date-de" data-th-classappend="${#fields.hasErrors('dtInicio')}? is-invalid" data-th-field="*{dtInicio}">
+                        Até: <input type="date" name="date-ate" id="date-ate" data-th-classappend="${#fields.hasErrors('dtFinal')}? is-invalid" data-th-field="*{dtFinal}">
                         <input type="submit" name="filtrar" id='filtrar' value="Filtrar">
                     </form>
                 </div><!--filtro-relatorio-->
@@ -99,8 +99,8 @@
                             <span class="month">Dt.Pedido</span>
                             <span class="day" data-th-text="${#temporals.format(pedido.dhPedidoFechado, 'dd-MM-yyyy')}"></span>
                         </div>
-                        <span class="valor-total pago-text" data-th-text="${pedido.valorPedido}"></span>
-                        <select name="status" id="status">
+                        <span class="valor-total pago-text" data-th-text="${pedido.valorPedido}" ></span>
+                        <select name="status" id="status" onchange="atualizaStatus(this.id, this.text)">
                             <option data-th-each="status : ${statusPedido}"
                                     data-th-value="${pedido.id}"
                                     data-th-text="${status.status}"

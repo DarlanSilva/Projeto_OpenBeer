@@ -91,13 +91,10 @@ public class ClienteController {
     public ModelAndView editarCadastro() {
 
         ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
-        Login login = carrinho.getCliente().getLogin();
-//	DadosCliente dadosCliente = new DadosCliente();
+
         dadosCliente.setLogin(carrinho.getCliente().getLogin());
-        dadosCliente.getCliente().setLogin(login);
-        dadosCliente.setEndereco(carrinho.getEndereco());
-        dadosCliente.getEndereco().setIdCliente(carrinho.getCliente());
         dadosCliente.setCliente(carrinho.getCliente());
+        dadosCliente.setEndereco(carrinho.getEndereco());
 
         mv.addObject("dadosCliente", dadosCliente);
 
@@ -121,13 +118,20 @@ public class ClienteController {
 
             return mv;
         }
+
         dadosCliente.getCliente().setDhAlteracao(LocalDateTime.now());
         dadosCliente.getEndereco().setDhAlteracao(LocalDateTime.now());
         dadosCliente.getLogin().setDhAlteracao(LocalDateTime.now());
+        dadosCliente.getCliente().setLogin(carrinho.getCliente().getLogin());
+        dadosCliente.getEndereco().setIdCliente(carrinho.getEndereco().getIdCliente());
 
         clienteRepository.save(dadosCliente.getCliente());
         enderecoRepo.save(dadosCliente.getEndereco());
         loginRepo.save(dadosCliente.getLogin());
+
+        //Atualizar os dados alterados na sessão
+        carrinho.setCliente(dadosCliente.getCliente());
+        carrinho.setEndereco(dadosCliente.getEndereco());
 
         return new ModelAndView("redirect:/OpenBeer/Home");
     }

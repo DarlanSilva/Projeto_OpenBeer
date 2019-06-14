@@ -1,4 +1,4 @@
-var modal = document.querySelector(".modal-delete");
+/*var modal = document.querySelector(".modal-delete");
 var botaoDeletar = document.querySelector(".btn-modal-deletar");
 var botaoCancelarModal = document.querySelector(".btn-modal-cancelar");
 
@@ -20,8 +20,8 @@ botaoDeletar.addEventListener("click", function () {
         url: "../BackOffice/" + idCerveja + "/remover",
         success: function (data) {
             modal.style.visibility = "hidden";
-            location.reload();
+            window.location.href = "http://localhost:8080/OpenBeer/BackOffice/Consultar-Produtos";
         }
     });
 });
-};
+};*/

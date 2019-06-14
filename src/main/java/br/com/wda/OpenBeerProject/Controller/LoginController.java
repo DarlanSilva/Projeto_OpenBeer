@@ -130,11 +130,11 @@ public class LoginController {
 
             // CASO O EMAIL INFORMADO JA POSSUA UM CLIENTE VINVULADO A ELE REDIRECIONA DO USUARIO PARA TELA DE LOGIN COM MENSAGEM
             if (verificarCliente.isPresent() == true) {
-                ModelAndView mv = new ModelAndView("cliente/login-cadastro");
+                //ModelAndView mv = new ModelAndView("cliente/login-cadastro");
 
                 redirectAttributes.addFlashAttribute("mensagem", "O email já esta em uso.");
 
-                return mv;
+                return new ModelAndView("redirect:/OpenBeer/Cliente/Cadastro-Login");
             }
 
             ModelAndView mvDadosPessoais = new ModelAndView("cliente/dados-pessoais");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.wda.OpenBeerProject.Entity;
 
 import br.com.wda.OpenBeerProject.Configuration.SecurityConfig;
@@ -103,7 +98,13 @@ public class Login implements UserDetails {
     }
 
     public void setHashSenha(String senhaAberta) {
-        this.hashSenha = SecurityConfig.bcryptPasswordEncoder().encode(senhaAberta);
+        senhaAberta = senhaAberta.trim();
+
+        if (senhaAberta.equalsIgnoreCase(",") || senhaAberta.equalsIgnoreCase("") || senhaAberta == null) {
+            this.hashSenha = null;
+        } else {
+            this.hashSenha = SecurityConfig.bcryptPasswordEncoder().encode(senhaAberta);
+        }
     }
 
     public List<Permissao> getPermissaoAcesso() {

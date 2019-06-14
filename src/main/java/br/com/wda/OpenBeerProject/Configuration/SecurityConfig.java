@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/OpenBeer/Login/Sucess").permitAll()
-                .failureUrl("/OpenBeer/Home")
+                //.failureUrl("/OpenBeer/Home")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/OpenBeer/Home")

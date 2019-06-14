@@ -93,13 +93,9 @@ public class Cerveja implements Serializable {
     @JoinColumn(name="FK_TIPOCERVEJA")
     private TipoCerveja tipoCerveja;
     
-    @NotBlank(message = "IMAGEM OBRIGATÓRIO")
     @Column(name = "IMAGEMCERVEJA")
     private String imagem;
-    
-    @NotNull(message = "IMAGEM OBRIGATÓRIO")
-    @Transient
-    private MultipartFile imagemValidacao;
+
     
     @Size(min = 1, max = 70)
     @NotBlank(message = "CAMPO OBRIGATÓRIO")
@@ -125,26 +121,6 @@ public class Cerveja implements Serializable {
         this.dhAlteracao = dhAlteracao;
         this.tipoCerveja = tipoCerveja;
         this.imagem = imagem;
-        this.breveDescricao = breveDescricao;
-    }
-
-    public Cerveja(Integer id, String nome, String descricao, BigDecimal valorCerveja, String codigoCerveja, String marca, int teor, int quantidade, String mlCerveja, int inativo, boolean destaque, LocalDateTime dhInclusao, LocalDateTime dhAlteracao, TipoCerveja tipoCerveja, String imagem, MultipartFile imagemValidacao, String breveDescricao) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.valorCerveja = valorCerveja;
-        this.codigoCerveja = codigoCerveja;
-        this.marca = marca;
-        this.teor = teor;
-        this.quantidade = quantidade;
-        this.mlCerveja = mlCerveja;
-        this.inativo = inativo;
-        this.destaque = destaque;
-        this.dhInclusao = dhInclusao;
-        this.dhAlteracao = dhAlteracao;
-        this.tipoCerveja = tipoCerveja;
-        this.imagem = imagem;
-        this.imagemValidacao = imagemValidacao;
         this.breveDescricao = breveDescricao;
     }
 
@@ -275,15 +251,6 @@ public class Cerveja implements Serializable {
     public void setBreveDescricao(String breveDescricao) {
         this.breveDescricao = breveDescricao;
     }
-
-    public MultipartFile getImagemValidacao() {
-        return imagemValidacao;
-    }
-
-    public void setImagemValidacao(MultipartFile imagemValidacao) {
-        this.imagemValidacao = imagemValidacao;
-    }
-
     
     @Override
     public int hashCode() {

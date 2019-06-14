@@ -39,10 +39,7 @@
                                         <div class="campos-register">
                                             <div data-th-if="${mensagemErro != null}" data-th-text="${mensagemErro}" class="alert alert-danger" role="alert"></div>
                                             <label for="imagemCerveja">Imagem*</label>
-                                            <input type="file" name="imagemCerveja" id="imagemCerveja">   
-                                            <div class="alert alert-danger"  data-th-if="${#fields.hasErrors('imagemValidacao')}"  data-th-errors="*{imagemValidacao}">
-
-                                            </div>
+                                            <input type="file" name="imagemCerveja" id="imagemCerveja">
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->
 
@@ -98,7 +95,7 @@
                                         </div><!--campos-register-->
                                     </div><!--wrap-register-campos-->
 
-                                    <div class="wrap-register-campos">
+                                    <div class="wrap-register-campos class-de-destaque">
                                         <div class="campos-register">
                                             <label for="breveDescricao">Breve Descrição*</label>
                                             <input type="text" name="breveDescricao" id="breveDescricao" required placeholder="Breve Descrição" maxlength="70"  data-th-classappend="${#fields.hasErrors('breveDescricao')}? is-invalid"  data-th-field="*{breveDescricao}">
@@ -106,7 +103,7 @@
                                             </div>
                                         </div><!--campos-register-->
 
-                                        <div>
+                                        <div class="produto-destaque">
                                             <input type="checkbox" id="destaque" name="destaque" data-th-classappend="${#fields.hasErrors('destaque')}? is-invalid" data-th-field="*{destaque}">
                                             <label for="destaque">Produto em destaque</label>
                                         </div>                                        

@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -76,8 +77,8 @@ public class PagamentoController {
     @Autowired
     private CervejaRepository estoqueRepo;
 
-    private final String sellerEmail = "your_email";
-    private final String sellerToken = "your_token";
+    private final String sellerEmail = "wda.developers@hotmail.com";
+    private final String sellerToken = "F30F162446F948AD85CBB3C73FC3EE52";
     private String URL = "";
     private String code[] = new String[2];
 
@@ -288,7 +289,7 @@ public class PagamentoController {
         BigDecimal porcDesconto = BigDecimal.ZERO;
 
         if (valorDesconto == 0) {
-            porcDesconto = BigDecimal.ZERO;
+            porcDesconto = new BigDecimal(0.01);
         } else {
             porcDesconto = calcPorcentagem(valorDesconto, valorTotal);
             System.out.println(porcDesconto);
