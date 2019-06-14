@@ -72,13 +72,16 @@ crossorigin="anonymous"></script>
     </div><!--menu-internas-->
 </header>
 <body>
-    <section class="login-cadastros">
+    <section class="dados-endereco">
         <div class="container">
             <div class="wrap-dados-endereco">
                 <div class="content-dados-endereco">
                     <form data-th-action="@{/OpenBeer/Endereco/salvar}" method="POST" data-th-object="${endereco}" novalidate>
                         <h2>CADASTRE UM ENDEREÇO</h2>
-                        <input type="hidden" data-th-classappend="${#fields.hasErrors('idCliente')}? is-invalid" data-th-field="*{idCliente}">
+                        <input type="text" autocomplete="off" style="display: none;" data-th-classappend="${#fields.hasErrors('idCliente')}? is-invalid" data-th-field="*{idCliente}">
+                        <div data-th-if="${#fields.hasErrors('idCliente')}" data-th-errors="*{idCliente}" class="alert alert-danger">
+
+                        </div>
                         <div class="wrap-cep-numero">
                             <div class="wrap-cep">
                                 <label for="cep">CEP</label>
@@ -90,7 +93,7 @@ crossorigin="anonymous"></script>
                             </div><!--wrap-cpf-cep-->
                             <div class="wrap-tel">
                                 <label for="numero">Número</label>
-                                <input type="text" name="numero" id="numero" placeholder="Número da casa" data-th-classappend="${#fields.hasErrors('numero')}? is-invalid" data-th-field="*{numero}">
+                                <input type="text" name="numero" id="numero" autocomplete="off" placeholder="Número da casa" data-th-classappend="${#fields.hasErrors('numero')}? is-invalid" data-th-field="*{numero}">
                                 <div data-th-if="${#fields.hasErrors('numero')}" data-th-errors="*{numero}" class="alert alert-danger">
 
                                 </div>
@@ -106,23 +109,35 @@ crossorigin="anonymous"></script>
                         <div>
                             <label for="logradouro">Logradouro</label><br>
                             <input type="text" name="logradouro" id="logradouro" placeholder="Logradouro" required data-th-classappend="${#fields.hasErrors('logradouro')}? is-invalid" data-th-field="*{logradouro}">  
+                            <div data-th-if="${#fields.hasErrors('logradouro')}" data-th-errors="*{logradouro}" class="alert alert-danger">
+
+                            </div>
                         </div>
                         <div class="content-cidade">
                             <div class="wrap-estado">
                                 <label for="estado">Estado</label>
                                 <input type="text" name="estado" id="estado" placeholder="Seu Estado" required data-th-classappend="${#fields.hasErrors('estado')}? is-invalid" data-th-field="*{estado}"> 
+                                <div data-th-if="${#fields.hasErrors('estado')}" data-th-errors="*{estado}" class="alert alert-danger">
+
+                                </div>
                             </div><!--wrap-estado-->
                             <div class="wrap-cidade">
                                 <label for="cidade">Cidade</label>
                                 <input type="text" name="cidade" id="cidade" placeholder="Sua Cidade" required data-th-classappend="${#fields.hasErrors('cidade')}? is-invalid" data-th-field="*{cidade}">
+                                <div data-th-if="${#fields.hasErrors('cidade')}" data-th-errors="*{cidade}" class="alert alert-danger">
+
+                                </div>
                             </div><!--wrap-cidade-->   
                         </div><!--content-cidade-->
                         <div>
                             <label for="bairro">Bairro</label><br>
                             <input type="text" name="bairro" id="bairro" placeholder="Seu bairro" data-th-classappend="${#fields.hasErrors('bairro')}? is-invalid" data-th-field="*{bairro}" required>
+                            <div data-th-if="${#fields.hasErrors('bairro')}" data-th-errors="*{bairro}" class="alert alert-danger">
+
+                            </div>
                         </div>
 
-                        <input type="submit" name="btn-logar" id="btn-logar" value="Continuar">  
+                        <input type="submit" name="btn-continuar" id="btn-continuar" value="Continuar">  
                     </form>
                     <script type="text/javascript" data-th-src="@{/js/buscaEndereco.js}"></script>
                     <script type="text/javascript" data-th-src="@{/js/header.js}"></script>

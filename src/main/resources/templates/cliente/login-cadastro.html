@@ -77,12 +77,14 @@
                 <div class="login-cliente">
                     <div class="content-login-cliente">
                         <form data-th-action="@{/OpenBeer/Login/login}" method="POST">
-                            <div data-th-if="${param.error}">
-                                <span class="alert alert-danger"  data-th-text = '${Invalid username or password.}'></span>
+                            <div class="alert alert-danger" data-th-if="${param.error != null}" >
+                                <!-- <span class="alert alert-info" data-th-text="${messageSource}"></span> --> 
+                                <span class="alert alert-info" >E-mail ou Senha incorreto!</span>
                             </div>
-                            <div data-th-if="${param.logout}">
-                                <span class="alert alert-info" data-th-text = '${You have been logged out.}'></span>
+                            <div data-th-if="${param.logout}" data-th-with="messageSource=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" >
+                                <!-- <span class="alert alert-info" data-th-text="${messageSource}"></span> -->
                             </div>
+                            <div data-th-if="${mensagemSucesso != null}" data-th-text="${mensagemSucesso}" class="alert alert-success" role="alert"></div>
                             <h2>ENTRAR</h2>
                             <div>
                                 <label for="email-login">Seu Email*</label><br>
@@ -100,18 +102,22 @@
                 <div class="cadastro-cliente">
                     <div class="content-cadastro-cliente">                        
                         <form data-th-action="@{/OpenBeer/Login/salvar}" method="POST" data-th-object="${login}" novalidate>
-                            <h2>CADASTRE-SE</h2>
-                            <span data-th-if="${mensagem != null}" data-th-text="${mensagem}" class="alert alert-danger" role="alert"></span>
+                            <h2>CADASTRE-SE</h2>                           
+                            <div data-th-if="${mensagem != null}" data-th-text="${mensagem}" class="alert alert-danger" role="alert"></div>
                             <div>
                                 <label for="email">Email*</label><br>
                                 <input type="email" name="email" id="email" placeholder="Digite seu email" required data-th-classappend="${#fields.hasErrors('email')}? is-invalid" data-th-field="*{email}"> 
                                 <div data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="alert alert-danger">
 
-                                </div>
+                                </div>                                
+                                
                             </div>
                             <div>
-                                <label for="password-cadastro">Senha*</label><br>
-                                <input required type="password" name="password-cadastro" id="password-cadastro" placeholder="Digite sua senha" data-th-classappend="${#fields.hasErrors('hashSenha')}? is-invalid" data-th-field="*{hashSenha}">
+                                <label for="password-cadastro">Senha*</label><br>                                
+                                <input type="password" name="password-cadastro" id="password-cadastro" placeholder="Digite sua senha" required data-th-classappend="${#fields.hasErrors('hashSenha')}? is-invalid" data-th-field="*{hashSenha}">
+                                <div data-th-if="${#fields.hasErrors('hashSenha')}" data-th-errors="*{hashSenha}" class="alert alert-danger">
+
+                                </div>
                             </div>
                             <div>
                                 <label for="password-confirm">Confirmar Senha*</label><br>

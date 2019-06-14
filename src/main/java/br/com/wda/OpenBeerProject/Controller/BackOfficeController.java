@@ -12,7 +12,9 @@ import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,6 +61,7 @@ public class BackOfficeController {
     private PedidoRepository pedidoRepo;
 
     @GetMapping("/Consultar-Produtos")
+    @Cacheable(value = "lista-produtos")
     public ModelAndView manutencao() {
 
         List<Cerveja> cerveja = cervejaRepository.findAll();
@@ -83,9 +89,9 @@ public class BackOfficeController {
     @CacheEvict(value = "lista-cervejas", allEntries = true)
     public ModelAndView salvar(MultipartFile imagemCerveja, @ModelAttribute("cerveja")
             @Valid Cerveja cerveja, BindingResult result, RedirectAttributes redirectAttributes) {
-        
+
         cerveja.setImagemValidacao(imagemCerveja);
-        
+
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("backOffice/cadastro-produto");
             mv.addObject("cerveja", cerveja);
@@ -102,7 +108,6 @@ public class BackOfficeController {
 //
 //            return mv;
 //        }
-
         cerveja.setDhInclusao(LocalDateTime.now());
         cerveja.setInativo(0);
 
@@ -133,6 +138,7 @@ public class BackOfficeController {
     }
 
     @GetMapping("/Relatorio-Pedidos")
+    @Cacheable(value = "relatorio-pedidos")
     public ModelAndView relatorioPedidos() {
         ModelAndView mv = new ModelAndView("backOffice/relatorio");
 
@@ -143,6 +149,20 @@ public class BackOfficeController {
         mv.addObject("pedido", pedidos);
 
         return mv;
+    }
+
+    @RequestMapping(value = "/Relatorio-Pedidos", method = RequestMethod.POST)
+    @Cacheable(value = "relatorio-pedidos")
+    public @ResponseBody
+    List relatorioPedidosBusca(@RequestBody Map<String, Object> corpo) {
+
+        System.out.println(corpo);
+
+        List listaPedidos = new ArrayList<>();
+//        List<Pedido> pedidos = pedidoRepo.findAllByDhInclusao();
+//        List<PedidoItens> itens = pedidoItensRepo.findAllByDhInclusao();
+
+        return listaPedidos;
     }
 
     @ModelAttribute("tipoCerveja")

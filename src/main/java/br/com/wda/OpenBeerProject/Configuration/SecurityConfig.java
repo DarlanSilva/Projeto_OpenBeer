@@ -95,7 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/OpenBeer/Home")
-                .invalidateHttpSession(true).deleteCookies("JSESSIONID");
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID")
+                .and()
+                .exceptionHandling().accessDeniedPage("/erro/403");
     }
 
     @Override

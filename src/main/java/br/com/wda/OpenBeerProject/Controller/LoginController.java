@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
@@ -59,10 +54,11 @@ public class LoginController {
 
     @Autowired
     private CarrinhoCompras carrinho;
-    
+
     @Autowired
     private EnderecoRepository enderecoRepo;
 
+    @GetMapping("/login")
     @PostMapping("/login")
     public ModelAndView loginForm() {
         return new ModelAndView("cliente/login-cadastro").addObject("login", new Login());
@@ -81,25 +77,25 @@ public class LoginController {
         }
 
         Optional<Cliente> cliente = clienteRepo.findByUser(username);
-        
+
         // GUARDA O CLIENTE LOGADO NA SESSÃO
-        if (cliente.isPresent()== true){
+        if (cliente.isPresent() == true) {
             Optional<Login> login = loginRepository.findByClienteID(cliente.get().getId());
-            
-            if(login.isPresent() == true){
+
+            if (login.isPresent() == true) {
                 cliente.get().setLogin(login.get());
             }
-            
+
             carrinho.setCliente(cliente.get());
-            
+
             Optional<Endereco> endereco = enderecoRepo.findByClienteId(cliente.get().getId());
-            
-            if (endereco.isPresent() == true){
+
+            if (endereco.isPresent() == true) {
                 carrinho.setEndereco(endereco.get());
             }
             session.setAttribute("carrinhoCompras", carrinho);
-        } 
-        
+        }
+
         return new ModelAndView("redirect:/OpenBeer/Home");
     }
 

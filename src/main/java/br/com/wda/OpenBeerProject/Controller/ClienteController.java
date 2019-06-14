@@ -2,12 +2,15 @@ package br.com.wda.OpenBeerProject.Controller;
 
 import br.com.wda.OpenBeerProject.Entity.CarrinhoCompras;
 import br.com.wda.OpenBeerProject.Entity.Cliente;
+import br.com.wda.OpenBeerProject.Entity.DadosCliente;
 import br.com.wda.OpenBeerProject.Entity.Endereco;
 import br.com.wda.OpenBeerProject.Entity.Login;
 import br.com.wda.OpenBeerProject.Entity.Pedido;
 import br.com.wda.OpenBeerProject.Entity.PedidoItens;
 import br.com.wda.OpenBeerProject.Entity.Permissao;
 import br.com.wda.OpenBeerProject.Repository.ClienteRepository;
+import br.com.wda.OpenBeerProject.Repository.EnderecoRepository;
+import br.com.wda.OpenBeerProject.Repository.LoginRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.PermissaoRepository;
@@ -43,6 +46,12 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @Autowired
+    private LoginRepository loginRepo;
+
+    @Autowired
+    private EnderecoRepository enderecoRepo;
+
+    @Autowired
     private PedidoRepository pedidoRepo;
 
     @Autowired
@@ -50,6 +59,9 @@ public class ClienteController {
 
     @Autowired
     private CarrinhoCompras carrinho;
+
+    @Autowired
+    private DadosCliente dadosCliente;
 
     @GetMapping("/Cadastro-Login")
     public ModelAndView cadatroLogin() {
@@ -59,13 +71,6 @@ public class ClienteController {
         return mv;
     }
 
-//    @GetMapping("/Login")
-//    public ModelAndView login() {
-//        ModelAndView mv = new ModelAndView("cliente/login-cadastro");
-//        mv.addObject("login", new Login());
-//
-//        return mv;
-//    }
     @GetMapping("/MeusPedidos")
     @Cacheable(value = "meus-pedidos")
     public ModelAndView meusPedidos() {
@@ -82,12 +87,24 @@ public class ClienteController {
         return mv;
     }
 
-//    @GetMapping("/EditarCadastro")
-//    public ModelAndView editarCadastro() {
-//        ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
-//
-//        return mv;
-//    }
+    @GetMapping("/EditarCadastro")
+    public ModelAndView editarCadastro() {
+
+        ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
+        Login login = carrinho.getCliente().getLogin();
+//	DadosCliente dadosCliente = new DadosCliente();
+        dadosCliente.setLogin(carrinho.getCliente().getLogin());
+        dadosCliente.getCliente().setLogin(login);
+        dadosCliente.setEndereco(carrinho.getEndereco());
+        dadosCliente.getEndereco().setIdCliente(carrinho.getCliente());
+        dadosCliente.setCliente(carrinho.getCliente());
+
+        mv.addObject("dadosCliente", dadosCliente);
+
+        return mv;
+
+    }
+
     @GetMapping("/Logout")
     public ModelAndView logout() {
         ModelAndView mv = new ModelAndView("home");
@@ -95,17 +112,26 @@ public class ClienteController {
         return mv;
     }
 
-//    @GetMapping("/Cadastrar-Novo-Endereco")
-//    public ModelAndView novoEndereco() {
-//        ModelAndView mv = new ModelAndView("cliente/cadastro-endereco");
-//
-//        return mv;
-//    }
-//
-//    @GetMapping("/Dados-Pessoais")
-//    public ModelAndView dadosPessoais() {
-//        return new ModelAndView("cliente/dados-pessoais").addObject("cliente", new Cliente());
-//    }
+    @PostMapping("/Atualizar-Dados-Cliente")
+    public ModelAndView atualizarCliente(@ModelAttribute("dadosCliente") @Valid DadosCliente dadosCliente, BindingResult result) {
+
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("cliente/editar-cadastro");
+            mv.addObject("dadosCliente", dadosCliente);
+
+            return mv;
+        }
+        dadosCliente.getCliente().setDhAlteracao(LocalDateTime.now());
+        dadosCliente.getEndereco().setDhAlteracao(LocalDateTime.now());
+        dadosCliente.getLogin().setDhAlteracao(LocalDateTime.now());
+
+        clienteRepository.save(dadosCliente.getCliente());
+        enderecoRepo.save(dadosCliente.getEndereco());
+        loginRepo.save(dadosCliente.getLogin());
+
+        return new ModelAndView("redirect:/OpenBeer/Home");
+    }
+
     @GetMapping("/lista-de-cliente")
     public ModelAndView listarCliente() {
         List<Cliente> cliente = clienteRepository.findAll();

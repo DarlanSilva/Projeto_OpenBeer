@@ -52,7 +52,7 @@ public class Cliente {
 
     @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @Column(name = "TG_SEXO")
-    private char sexo;
+    private String sexo;
 
     @NotBlank(message = "CAMPO OBRIGATÓRIO")
     @Column(name = "TELEFONE")
@@ -74,7 +74,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Integer id, String cpf, String nomeCompleto, String dtNascimento, char sexo, String telefone, Login login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
+    public Cliente(Integer id, String cpf, String nomeCompleto, String dtNascimento, String sexo, String telefone, Login login, int inativo, LocalDateTime dhInclusao, LocalDateTime dhAlteracao) {
         this.id = id;
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
@@ -119,11 +119,11 @@ public class Cliente {
         this.dtNascimento = dtNascimento;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

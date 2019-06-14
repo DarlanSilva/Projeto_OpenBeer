@@ -106,7 +106,7 @@
 
                             </div>
                         </div>
-                        <div class="wrap-sexo" >
+                        <div class="wrap-sexo" data-th-classappend="${#fields.hasErrors('sexo')}? is-invalid">
                             <input type="radio" id="masculino"
                                    name="sexo" value="M" data-th-field="*{sexo}">
                             <label for="masculino">Masculino</label>
