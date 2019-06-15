@@ -12,6 +12,8 @@ import br.com.wda.OpenBeerProject.Repository.PedidoItensRepository;
 import br.com.wda.OpenBeerProject.Repository.PedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.StatusPedidoRepository;
 import br.com.wda.OpenBeerProject.Repository.TipoCervejaRepository;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -153,8 +155,9 @@ public class BackOfficeController {
 
     @RequestMapping(value = "/Relatorio-Pedidos", method = RequestMethod.POST)
     public ModelAndView relatorioPedidosBusca(@ModelAttribute("filterRel") FilterRel filterRel) {
-        Date dtInicio = filterRel.getDtInicio();
-        Date dtFinal = filterRel.getDtFinal();
+        
+        LocalDateTime dtInicio = LocalDateTime.parse(filterRel.getDtInicio(), DateTimeFormatter.ISO_DATE);
+        LocalDateTime dtFinal = LocalDateTime.parse(filterRel.getDtFinal(), DateTimeFormatter.ISO_DATE);        
 
         System.out.println(dtInicio);
         System.out.println(dtFinal);

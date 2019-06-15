@@ -77,20 +77,19 @@ public class PagamentoController {
     @Autowired
     private CervejaRepository estoqueRepo;
 
-    private final String sellerEmail = "wda.developers@hotmail.com";
-    private final String sellerToken = "F30F162446F948AD85CBB3C73FC3EE52";
+    private final String sellerEmail = "your_email";
+    private final String sellerToken = "your_token";
     private String URL = "";
     private String code[] = new String[2];
 
     @RequestMapping(value = "/FinalizarCompra", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView finalizarCompra(HttpServletResponse response) {
-        
+
 //        if(carrinho.getCliente() == null || carrinho.getCliente().getId() == null){
 //            return new ModelAndView("redirect:/OpenBeer/Cliente/Cadastro-Login");
 //        }
 //        
-        
         ModelAndView mv = new ModelAndView("carrinho/confirmacao");
         try {
 
@@ -140,10 +139,10 @@ public class PagamentoController {
         // MÉTODO PARA SALVA E DECREMENTAR DO ESTOQUE
         salvarPedido();
         atualizarEstoque();
-        
+
         List<Pedido> pedido = pedidoRepo.findAllByClienteID(carrinho.getCliente().getId());
         List<PedidoItens> itens = pedidoItensRepo.findAllByClienteID(carrinho.getCliente().getId());
-        
+
         mv.addObject("pedido", pedido);
         mv.addObject("itens", itens);
 
@@ -278,13 +277,13 @@ public class PagamentoController {
     public CheckoutRegistrationBuilder getCheckout() {
         // CALCULANDO DESCONTO(%)
         double valorDesconto;
-        
-        if (carrinho.getValorDesconto() == null){
+
+        if (carrinho.getValorDesconto() == null) {
             valorDesconto = 0;
-        }else{
-           valorDesconto = carrinho.getValorDesconto().doubleValue();
+        } else {
+            valorDesconto = carrinho.getValorDesconto().doubleValue();
         }
-        
+
         double valorTotal = carrinho.getTotal().doubleValue();
         BigDecimal porcDesconto = BigDecimal.ZERO;
 
@@ -390,7 +389,7 @@ public class PagamentoController {
 
         //SALVANDO PEDIDO
         pedido.setCliente(carrinho.getCliente());
-        pedido.setTipoEntrega(carrinho.getTipoEntrega().get(carrinho.getIdTipoEntrega() - 1));
+        pedido.setTipoEntrega(carrinho.getTipoEntrega().get(carrinho.getIdTipoEntrega()));
         pedido.setStatus(status.get());
         pedido.setInativo(0);
         pedido.setDhInclusao(LocalDateTime.now());

@@ -20,16 +20,16 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer> {
     public List<Pedido> findAllByClienteID(Integer clienteID);
 
     @Query("Select p from Pedido p where p.dhInclusao >= :dhInclusaoIni and p.dhInclusao < :dhInclusaoFin")
-    public List<Pedido> findAllByDhInclusao(Date dhInclusaoIni, Date dhInclusaoFin);
+    public List<Pedido> findAllByDhInclusao(LocalDateTime dhInclusaoIni, LocalDateTime dhInclusaoFin);
 
     @Query("Select p from Pedido p")
     public List<Pedido> findAllByDhInclusao();
 
     @Query("Select p from Pedido p where p.dhInclusao >= :dhInclusaoIni")
-    public List<Pedido> findAllByDhInclusaoIni(Date dhInclusaoIni);
+    public List<Pedido> findAllByDhInclusaoIni(LocalDateTime dhInclusaoIni);
 
     @Query("Select p from Pedido p where p.dhInclusao <= :dhInclusaoFin")
-    public List<Pedido> findAllByDhInclusaoFin(Date dhInclusaoFin);
+    public List<Pedido> findAllByDhInclusaoFin(LocalDateTime dhInclusaoFin);
    
 
 }

@@ -22,13 +22,13 @@ public interface PedidoItensRepository extends JpaRepository<PedidoItens, Intege
     public List<PedidoItens> findAllByClienteID(Integer clienteID);
 
     @Query("Select i from PedidoItens i where i.dhInclusao >= :dhInclusaoIni and i.dhInclusao < :dhInclusaoFin")
-    public List<PedidoItens> findAllByDhInclusao(Date dhInclusaoIni, Date dhInclusaoFin);
+    public List<PedidoItens> findAllByDhInclusao(LocalDateTime dhInclusaoIni, LocalDateTime dhInclusaoFin);
 
     @Query("Select i from PedidoItens i where i.dhInclusao >= :dhInclusaoIni")
-    public List<PedidoItens> findAllByDhInclusaoIni(Date dhInclusaoIni);
+    public List<PedidoItens> findAllByDhInclusaoIni(LocalDateTime dhInclusaoIni);
 
     @Query("Select i from PedidoItens i where i.dhInclusao <= :dhInclusaoFin")
-    public List<PedidoItens> findAllByDhInclusaoFin(Date dhInclusaoFin);
+    public List<PedidoItens> findAllByDhInclusaoFin(LocalDateTime dhInclusaoFin);
 
     @Query("Select i from PedidoItens i")
     public List<PedidoItens> findAllByDhInclusao();

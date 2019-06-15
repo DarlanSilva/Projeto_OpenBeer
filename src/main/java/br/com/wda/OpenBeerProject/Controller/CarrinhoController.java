@@ -71,7 +71,7 @@ public class CarrinhoController {
         if (carrinho.getIdTipoEntrega() == null || carrinho.getIdTipoEntrega() == 0) {
 
             Optional<TipoEntrega> tipoEntrega = tipoEntregaRepo.findById(1);
-            carrinho.setIdTipoEntrega(tipoEntrega.get().getId());
+            carrinho.setIdTipoEntrega(0);
             carrinho.setPrazoEntrega(tipoEntrega.get().getPrazoEntrega());
             carrinho.setValorEntrega(tipoEntrega.get().getValorEntrega());
             carrinho.setValorDesconto(BigDecimal.ZERO);
